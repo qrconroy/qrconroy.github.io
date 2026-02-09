@@ -5,8 +5,21 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Garamond, serif;
             text-align: center; /* centers the title */
+            background-color: #D1B1CB;
+        }
+        .nav-bar {
+            margin-bottom: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .header {
+            font-size: 32px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #E5E9EC;
         }
 
         .container {
@@ -14,22 +27,25 @@
             justify-content: center;    /* centers them horizontally */
             gap: 40px;                  /* space between the two boxes */
             margin-top: 40px;
+            color: #7C616C
         }
 
         .box {
             width: 250px;
             padding: 20px;
-            border: 2px solid black;
+            border: 2px #DDCAD9;
             text-align: left; /* keeps text normal inside boxes */
         }
     </style>
 </head>
 
 <body>
-    <div data-include="components/header.html"></div>
+    <div class="nav-bar"data-include="components/header.html">
     <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
-    <h1>ITIS 3135</h1>
-    <h2>Website Evaluations</h2>
+    <header class="header">
+        <h1>ITIS 3135</h1>
+        <h2>Website Evaluations</h2>
+    </header>
 
     <div class="container">
         <div class="box">
