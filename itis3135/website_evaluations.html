@@ -9,16 +9,9 @@
             text-align: center; /* centers the title */
             background-color: #D1B1CB;
         }
-        .nav-bar {
-            margin-bottom: 20px;
-            position: absolute;
-            top: 10px;
-            left: 1px;
-        }
         .header {
             font-size: 32px;
             border-bottom: #E5E9EC solid 2px;
-            margin-top: 20px;
             padding-bottom: 25px;
             margin-bottom: 40px;
             color: #D1B1CB;
@@ -46,9 +39,9 @@
     <header class="header">
         <h1>ITIS 3135</h1>
         <h2>Website Evaluations</h2>
+        <div data-include="components/header.html"></div>
+        <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
     </header>
-    <div class="nav-bar" data-include="components/header.html"></div>
-    <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
 
     <div class="container">
         <div class="box">
