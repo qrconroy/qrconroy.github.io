@@ -1,0 +1,36 @@
+body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        background-color: #A93F55;
+        margin: 0 auto;
+        padding: 0;
+        max-width: 900px;
+        }
+
+header {
+        border-bottom: #F3F7F0 solid 2px;
+        margin-top: 0px;
+        width: 100%;
+        padding-bottom: 25px;
+        margin-bottom: 40px;
+        font-size: 32px;
+        color: #F3F7F0;
+        background-color: #19323C;
+        }
+
+h1, h2{/*this is to make sure there is no extra space above the title and subtitle*/
+        margin: 0; 
+        padding: 10px 0;
+        }
+h1 {
+        font-family: Garamond, serif;
+        text-align: center; /*centers the title*/
+        }
+
+a {
+    color: #87CEEB;
+    text-decoration: underline;
+    }
+
+a:hover {
+        color: #00FFFF;
+        }
