@@ -17,13 +17,11 @@ header {
         background-color: #19323C;
         }
 
-h1, h2{/*this is to make sure there is no extra space above the title and subtitle*/
-        margin: 0; 
-        padding: 10px 0;
-        }
 h1 {
         font-family: Garamond, serif;
         text-align: center; /*centers the title*/
+        margin: 0; /*once again makes sure no extra space is above the title*/
+        padding: 10px 0;
         }
 
 a {
