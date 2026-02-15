@@ -1,13 +1,13 @@
 body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         background-color: #A93F55;
+        color: #F3F7F0;
         margin: 0 auto;
         padding: 0;
         max-width: 900px;
         }
 
 header {
-        border-bottom: #F3F7F0 solid 2px;
         margin-top: 0px;
         width: 100%;
         padding-bottom: 25px;
