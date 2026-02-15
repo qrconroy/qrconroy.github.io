@@ -2,9 +2,6 @@ body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         background-color: #A93F55;
         color: #F3F7F0;
-        margin: 0 auto;
-        padding: 0;
-        max-width: 900px;
         }
 
 header {
@@ -15,6 +12,11 @@ header {
         font-size: 32px;
         color: #F3F7F0;
         background-color: #19323C;
+        }
+main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
         }
 
 h1 {
@@ -31,4 +33,13 @@ a {
 
 a:hover {
         color: #00FFFF;
+        }
+
+footer {
+        margin-top: 40px;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 14px;
+        color: #F3F7F0;
+        text-align: center;
         }
