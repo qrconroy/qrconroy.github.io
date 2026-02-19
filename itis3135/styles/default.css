@@ -40,18 +40,19 @@ a:hover {
         color: #00FFFF;
         }
 .primary-nav {
-        font-size: 18px;
+        font-size: 24px;
         }
 
 .secondary-nav {
-        font-size: 14px;
+        font-size: 18px;
+        margin: 10px 0 0 0;
         }
 
 footer {
         margin-top: 40px;
         width: 100%;
         padding: 10px 0;
-        font-size: 14px;
+        font-size: 18px;
         color: #F3F7F0;
         text-align: center;
         }
