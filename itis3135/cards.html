@@ -8,36 +8,51 @@
     <link href="styles/default.css" rel="stylesheet" type="text/css">
     <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
     <style>
-        #playing-cards{
+        #playing-cards {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px
+            gap: 20px;
+            padding: 20px;
         }
 
-        .card{
-            width: 150px;
-            height: 250px;
-            display: flex;
+        .card {
+            width: 180px; /* Slightly wider to fit the cat art better */
+            height: 260px;
             background-color: white;
-            border-radius: 10px;
-            justify-content: space-between;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .left{
-            align-self: flex-start;
-            }
-
-        .middle{
-            align-self: center;
+            border-radius: 12px;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
+            position: relative; /* Essential: allows corners to pin to the edges */
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .right{
-            align-self: flex-end;
-            transform: rotate(.5turn);
+        /* Position the top-left corner */
+        .left {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        /* Keep the cat in the dead center */
+        .middle img {
+            width: 120px; 
+            height: auto;
+        }
+
+        /* Position the bottom-right corner */
+        .right {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            transform: rotate(180deg); /* Flips the symbol upside down */
+        }
+
+        .card p {
+        font-size: 24px;
+        margin: 0;
+        font-family: serif; /* Looks more like a real card */
         }
     </style>
 </head>
