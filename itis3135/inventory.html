@@ -6,6 +6,58 @@
     <title>ITIS 3135 | FCC RWD Certification</title>
     <link href="styles/default.css" rel="stylesheet" type="text/css">
     <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+    <style>
+        span{
+  display: inline-block;
+}
+span[class="status"], span[class^="rate"]{
+  height: 10px;
+  width: 20px;
+  padding: 5px;
+}
+span[class^="rate"] > span{
+  border: 2px;
+  border-radius: 1px;
+  margin: 10px;
+  height: 10px;
+  width: 20px;
+  background-color: blue;
+}
+span[class~="one"] :first-child{
+  background-image: linear-gradient(to left, red, orangered);
+}
+span[class~="two"] :nth-child(-n+2){
+  background-image: linear-gradient(to left, orangered, yellow);
+}
+span[class~="three"] span{
+  background-image: linear-gradient(to left, yellow, lawngreen)
+}
+
+
+tr[class="read"] {
+  background-image: linear-gradient(to right, green, blue);
+}
+tr[class="read"] span[class="status"]{
+  border: 2px solid white;
+  background-image: linear-gradient(to right, green, blue);
+}
+
+tr[class="to-read"] {
+  background-image: linear-gradient(to right, red, blue);
+}
+tr[class="to-read"] span[class="status"]{
+  border: 2px solid white;
+  background-image: linear-gradient(to right, red, blue);
+}
+
+tr[class="in-progress"] {
+  background-image: linear-gradient(to right, yellow, blue);
+}
+tr[class="in-progress"] span[class="status"]{
+  border: 2px solid white;
+  background-image: linear-gradient(to right, yellow, blue);
+}
+    </style>
 </head>
 <body>
     <header>
