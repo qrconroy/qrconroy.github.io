@@ -12,15 +12,17 @@
             width: 100%;
             text-align: center;
             font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            table-layout: auto;
+            table-layout: fixed;
+        }
+        th, td{
+            padding: 10px 5px;
+            word-wrap: break-word
         }
         .status{
             display: inline-block;
-            padding: 2px 10px; 
-            border-radius: 5px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            border: 1px solid;
+            padding: 5px 15px; 
+            height: auto;
+            line-height: 1;
         }
         td:nth-child(4), td:nth-child(5) {
             width: auto;
@@ -30,26 +32,26 @@
             display: inline-block;
         }
         span[class="status"], span[class^="rate"]{
-            height: 10px;
-            width: 20px;
+            padding: 5px;
         }
         span[class^="rate"] > span{
             display: inline-block;
-            border: 1px;
+            border: 1px solid white;
             border-radius: 50%;
             margin: 0 3px;
             height: 15px;
             width: 15px;
             background-color: transparent;
+            vertical-align: middle;
         }
         span[class~="one"] :first-child{
-            background-image: linear-gradient(to left, red, orangered);
+            background-image: linear-gradient(to left, gold, goldenrod);
         }
         span[class~="two"] :nth-child(-n+2){
-            background-image: linear-gradient(to left, orangered, yellow);
+            background-image: linear-gradient(to left, gold, goldenrod);
         }
         span[class~="three"] span{
-            background-image: linear-gradient(to left, yellow, lawngreen)
+            background-image: linear-gradient(to left, gold, goldenrod);
         }
 
         th{
