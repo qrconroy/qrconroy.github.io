@@ -7,59 +7,67 @@
     <link href="styles/default.css" rel="stylesheet" type="text/css">
     <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
     <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td:nth-child(4), td:nth-child(5) {
+            min-width: 120px;
+            white-space: nowrap;
+        }
         span{
             display: inline-block;
         }
         span[class="status"], span[class^="rate"]{
             height: 10px;
             width: 20px;
-  padding: 5px;
-}
-span[class^="rate"] > span{
-  border: 2px;
-  border-radius: 1px;
-  margin: 10px;
-  height: 10px;
-  width: 20px;
-  background-color: blue;
-}
-span[class~="one"] :first-child{
-  background-image: linear-gradient(to left, red, orangered);
-}
-span[class~="two"] :nth-child(-n+2){
-  background-image: linear-gradient(to left, orangered, yellow);
-}
-span[class~="three"] span{
-  background-image: linear-gradient(to left, yellow, lawngreen)
-}
+            padding: 5px;
+        }
+        span[class^="rate"] > span{
+            border: 2px;
+            border-radius: 1px;
+            margin: 10px;
+            height: 10px;
+            width: 20px;
+            background-color: blue;
+        }
+        span[class~="one"] :first-child{
+            background-image: linear-gradient(to left, red, orangered);
+        }
+        span[class~="two"] :nth-child(-n+2){
+            background-image: linear-gradient(to left, orangered, yellow);
+        }
+        span[class~="three"] span{
+            background-image: linear-gradient(to left, yellow, lawngreen)
+        }
 
-th{
-    background-color: rgb(70, 70, 70);
-    color: white;
-}
-tr[class="read"] {
-  background-image: linear-gradient(to right, lime, green);
-}
-tr[class="read"] span[class="status"]{
-  border: 2px solid white;
-  background-image: linear-gradient(to right, lime, green);
-}
+        th{
+            background-color: rgb(70, 70, 70);
+            color: white;
+        }
+        tr[class="read"] {
+            background-image: linear-gradient(to right, lime, green);
+        }
+        tr[class="read"] span[class="status"]{
+            border: 2px solid white;
+            background-image: linear-gradient(to right, lime, green);
+        }
 
-tr[class="to-read"] {
-  background-image: linear-gradient(to right, red, orange);
-}
-tr[class="to-read"] span[class="status"]{
-  border: 2px solid white;
-  background-image: linear-gradient(to right, red, orange);
-}
+        tr[class="to-read"] {
+            background-image: linear-gradient(to right, red, orange);
+        }
+        tr[class="to-read"] span[class="status"]{
+            border: 2px solid white;
+            background-image: linear-gradient(to right, red, orange);
+        }
 
-tr[class="in-progress"] {
-  background-image: linear-gradient(to right, yellow, rgb(241, 241, 135));
-}
-tr[class="in-progress"] span[class="status"]{
-  border: 1px solid white;
-  background-image: linear-gradient(to right, yellow, rgb(241, 241, 135));
-}
+        tr[class="in-progress"] {
+            background-image: linear-gradient(to right, yellow, rgb(241, 241, 135));
+        }
+        tr[class="in-progress"] span[class="status"]{
+            border: 1px solid white;
+            background-image: linear-gradient(to right, yellow, rgb(241, 241, 135));
+        }
     </style>
 </head>
 <body>
