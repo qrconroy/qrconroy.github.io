@@ -3,36 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quinn Conroy | Trivia</title>
     <style>
-        body{
-            
+        .active {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+        section.active {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Trivia</h1>
+    </header>
     <main>
-        <section>
+        <section class="page" id="what">
             <h2>Home</h2>
         </section>
-        <section>
-            <h2></h2>
+        <section class="page" id="who">
+            <h2>About Me</h2>
         </section>
-        <section>
-            <h2></h2>
+        <section class="page" id="when">
+            <h2>Best Times</h2>
         </section>
-        <section>
-            <h2></h2>
+        <section class="page" id="where">
+            <h2>Best Locations</h2>
         </section>
-        <section>
-            <h2></h2>
+        <section class="page" id="how">
+            <h2>How I Do It</h2>
         </section>
-        <section>
-            <h2></h2>
+        <section class="page" id="why">
+            <h2>Why I Do It</h2>
         </section>
-        <section>
-            <h2></h2>
+        <section class="page" id="ai">
+            <h2>AI Prompts</h2>
+            <p>Here are the AI prompts I used to help make this website(Claude Sonnet 4.6):</p>
+            <ul>
+                <li>I need to create a webpage with seven different pages built in (`sections`) 
+                    where only the one I navigate to will appear. I will need to use JavaScript to 
+                    track the `id` of the page I am on and CSS to hide all the others. The HTML is 
+                    straightforward enough for me to do; create a JavaScript that will loop through 
+                    and check the ID we are on and the CSS to hide/show the pages.</li>
+            </ul>
         </section>
     </main>
+
+    <script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+
+    function showPage(targetId) {
+        sections.forEach(section => {
+        if (section.id === targetId) {
+            section.classList.add('active');
+            section.classList.remove('hidden');
+    } 
+        else {
+            section.classList.remove('active');
+            section.classList.add('hidden');
+    }
+  });
+
+  // Toggle the active class on nav links too
+    navLinks.forEach(link => {
+        const linkTarget = link.getAttribute('href').slice(1); // strip the '#'
+        link.classList.toggle('active', linkTarget === targetId);
+  });
+}
+
+// Handle nav link clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').slice(1);
+        showPage(targetId);
+        history.pushState(null, '', `#${targetId}`); // keep the URL in sync
+    });
+});
+
+// On load: show the section matching the URL hash, or default to the first section
+    const initial = location.hash.slice(1) || sections[0]?.id;
+    if (initial) showPage(initial);
+
+// Handle browser back / forward buttons
+    window.addEventListener('popstate', () => {
+        const hash = location.hash.slice(1) || sections[0]?.id;
+        if (hash) showPage(hash);
+});
+    </script>
 </body>
 </html>
