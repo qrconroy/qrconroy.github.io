@@ -54,7 +54,7 @@
         }
 
         nav a {
-            color: #7a5f8f; /* Or whatever link color you prefer */
+            color: #b8a3c8; /* Or whatever link color you prefer */
         text-decoration: none;
         }
 
@@ -168,11 +168,37 @@
                 trivia hosts it! You may have guessed it from the mention of eating dinner while playing,
                 but I play at a restaurant called "Real McCoy's" in my hometown of Wake Forest, NC.
             </p>
-
+            <p>That's my favorite place to play, but really any bar or restaurant that hosts trivia for customers
+                is a great place to play. All that matters is that they have good food and a good atmosphere!
+            </p>
+            <figure>
+                <img src="images/Trivia-night-TV.png" alt="Trivia Night at a Restaurant" style="max-width: 100%; height: auto;">
+                <figcaption>This image shows an example of a trivia night at a restaurant, with people sitting at tables and a host reading questions on stage.</figcaption>
+                <p><em>Generate an image of a restaurant hosting a trivia night in a marker drawing style.</em></p>
+            </figure>
         </section>
         <section class="page" id="how">
             <h2>How I Do It</h2>
+            <p><strong>How</strong> do I play?</p>
+            <p>Playing trivia is pretty simple, you just show up to the venue, find a seat, and wait for the host to start asking questions.
+                The host will usually read out a question(sometimes a full round of questions), will say if it is open ended or multiple choice, 
+                and you'll have to write your answer on a card and turn it in before the time runs out. You get points for getting it right, and depeding
+                on the venue, you can possibly lose points for getting a question wrong.
+            </p>
+            <p>Here! You can even try yourself:</p>
+            <form>
+                <label for="question">What is the capital of France?</label><br>
+                <input type="text" id="question" name="question"><br><br>
+                <button type="button" onclick="check()">Submit</button>
+                <div id="result"></div>
+            </form>
+            <figure>
+                <img src="images/Trivia-question.png" alt="Trivia Question" style="max-width: 100%; height: auto;">
+                <figcaption>This image shows an example of a trivia question being answered on a piece of paper, with a pen and a timer in the background.</figcaption>
+                <p><em>Generate an image of a trivia question being answered on a piece of paper, with a pen and a timer in the background, in a marker drawing style.</em></p>
+
         </section>
+
         <section class="page" id="why">
             <h2>Why I Do It</h2>
         </section>
@@ -187,6 +213,7 @@
                     and check the ID we are on and the CSS to hide/show the pages.</em> This prompt was
                     used to further my understanding of JavaScript and CSS and help me complete one of the 
                     primary objectives of this webpage.</li>
+                    <li>How would I get a form to act like a trivia question? Have them fill out a form and then return an answer based on what they put. Simple html, no API's.</li>
             </ul>
             <p>All images were generated using Microsoft Copilot.</p>
         </section>
@@ -234,6 +261,16 @@
         const hash = location.hash.slice(1) || sections[0]?.id;
         if (hash) showPage(hash);
 });
+    function check() {
+        const answer = document.getElementById("question").value.toLowerCase().trim();
+        const result = document.getElementById("result");
+
+        if (answer === "paris") {
+            result.textContent = "Correct!";
+        }   else {
+            result.textContent = "Try again!";
+        }
+    }
     </script>
 </body>
 </html>
