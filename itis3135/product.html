@@ -40,6 +40,12 @@
             justify-content: space-around;
             align-items: center;
         }
+        #nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 18px;
+        }
 
         /* On mobile, make them stack vertically */
         @media (max-width: 600px) {
@@ -55,17 +61,15 @@
 </head>
 <body>
     <header id="header">
-        <h1>FCC RWD Certification</h1>
-        <h2>Product Landing</h2>
-        <div data-include="components/header.html"></div>
-        <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
         <img id="header-img" src="images/quizzical_cat.png" alt="small cat in wizard robes and hat.">
-        <h2>Quizzical Solutions</h2>
+        <h1>Quizzical Solutions</h1>
         <nav id="nav-bar">
             <a class="nav-link" href="#video">Product Video</a>
             <a class="nav-link" href="#form">Email Notifications</a>
             <a class="nav-link" href="#plans">Plans</a>
          </nav>
+         <div data-include="components/header.html"></div>
+        <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
     </header>
     <video id="video" width="320" height="240" autoplay>
         <source src="movie.mp4" type="video/mp4">
