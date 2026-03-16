@@ -345,6 +345,17 @@
 
         var initialPage = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
         if (initialPage) showPage(initialPage);
+        function check() {
+            const answer = document.getElementById('question').value.trim().toLowerCase();
+            const result = document.getElementById('result');
+            if (answer === 'paris') {
+                result.textContent = 'Correct! Paris is the capital of France.';
+            } else if (answer === '') {
+                result.textContent = 'Please enter an answer.';
+            } else {
+                result.textContent = 'Not quite! Try again.';
+  }
+}
     </script>
     <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
     <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
