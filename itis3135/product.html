@@ -16,9 +16,13 @@
             box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
             position: relative; /* Essential: allows corners to pin to the edges */
             display: flex;
-            justify-content: center;
             align-items: center;
             color: black;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 16px;
+            box-sizing: border-box;
+            text-align: left;
         }
         
         #header {
@@ -41,7 +45,7 @@
             justify-content: space-around;
             align-items: center;
         }
-        #nav-links {
+        .nav-link {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -50,7 +54,7 @@
 
         /* On mobile, make them stack vertically */
         @media (max-width: 600px) {
-            #plans-container {
+            #plans {
             flex-direction: column;
             }
         }
