@@ -258,57 +258,42 @@
     </main>
 
     <script>
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('a[href^="#"]');
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('a[href^="#"]');
 
-    function showPage(targetId) {
-        sections.forEach(section => {
-        if (section.id === targetId) {
-            section.classList.add('active');
-            section.classList.remove('hidden');
-    } 
-        else {
-            section.classList.remove('active');
-            section.classList.add('hidden');
-    }
-  });
+        function showPage(targetId) {
+            sections.forEach(function(section) {
+            if (section.id === targetId) {
+                section.classList.add('active');
+                section.classList.remove('hidden');
+        }   else {
+                section.classList.remove('active');
+                section.classList.add('hidden');
+        }
+    });
 
-  // Toggle the active class on nav links too
-    navLinks.forEach(link => {
-        const linkTarget = link.getAttribute('href').slice(1); // strip the '#'
-        link.classList.toggle('active', linkTarget === targetId);
-  });
+        navLinks.forEach(function(link) {
+            var linkTarget = link.getAttribute('href').slice(1);
+            link.classList.toggle('active', linkTarget === targetId);
+    });
 }
 
-// Handle nav link clicks
-    navLinks.forEach(link => {
-        link.addEventListener('click', e => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').slice(1);
-        showPage(targetId);
-        history.pushState(null, '', `#${targetId}`); // keep the URL in sync
-    });
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = link.getAttribute('href').slice(1);
+            showPage(targetId);
+            history.pushState(null, '', '#' + targetId);
+        });
 });
 
-// On load: show the section matching the URL hash, or default to the first section
-    const initial = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
-    if (initial) showPage(initial);
-
-// Handle browser back / forward buttons
-    window.addEventListener('popstate', () => {
-        const hash = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
-        if (hash) showPage(hash);
+        window.addEventListener('popstate', function() {
+            var hash = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
+            if (hash) showPage(hash);
 });
-    function check() {
-        const answer = document.getElementById("question").value.toLowerCase().trim();
-        const result = document.getElementById("result");
 
-        if (answer === "paris") {
-            result.textContent = "Correct!";
-        }   else {
-            result.textContent = "Try again!";
-        }
-    }
+        var initialPage = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
+        if (initialPage) showPage(initialPage);
     </script>
     <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
     <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
