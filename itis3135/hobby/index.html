@@ -27,35 +27,43 @@
             font-family: "Iosevka Charon", monospace;
             font-weight: 400;
             font-style: normal;
-            background-color: #B3DEC1;
-            color:#0B0033;
+            background-color: #B3DEC1; /* Light green for the whole page */
+            color: #0B0033;
         }
-            
-        header, main {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header{
+        header {
             width: 100%;
-            margin: 0;
-            padding: 20px;
+            background-color: #0B0033; /* Dark background */
+            color: #27FB6B; /* Neon green text */
+            padding: 40px 20px;
             box-sizing: border-box;
-            font-size: 32px;
-            background-color: #0B0033;
-            color: #27FB6B;
             text-align: center;
         }
-        main{
-            width: 100%;
-            max-width: 100%;    
-            margin: 0;          
-            padding: 20px;      
-            box-sizing: border-box;
+
+        header h1 {
+            margin: 0;
+            font-size: 48px; /* Making the Trivia title pop */
         }
-        nav{
-            margin-top: 10px;
+
+        nav {
+            margin-top: 20px;
             font-size: 18px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px; /* Keeps links from touching each other */
+        }
+
+        nav a {
+            color: #7a5f8f; /* Or whatever link color you prefer */
+        text-decoration: none;
+        }
+
+        main {
+            width: 100%;
+            max-width: 900px; /* Limits the text width for readability */
+            margin: 0 auto;   /* Centers the text block on the green background */
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
