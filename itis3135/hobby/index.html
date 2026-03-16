@@ -285,7 +285,7 @@
 });
 
 // On load: show the section matching the URL hash, or default to the first section
-    const initial = location.hash.slice(1) || sections[0]?.id;
+    const initial = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
     if (initial) showPage(initial);
 
 // Handle browser back / forward buttons
