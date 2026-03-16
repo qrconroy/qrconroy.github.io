@@ -255,7 +255,7 @@
                 on the venue, you can possibly lose points for getting a question wrong.
             </p>
             <p>Here! You can even try yourself:</p>
-            <form>
+            <form onsubmit="check(); return false;">
                 <label for="question">What is the capital of France?</label><br>
                 <input type="text" id="question" name="question"><br><br>
                 <button type="button" onclick="check()">Submit</button>
