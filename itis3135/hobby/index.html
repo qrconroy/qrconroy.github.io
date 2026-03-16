@@ -296,7 +296,7 @@
 
 // Handle browser back / forward buttons
     window.addEventListener('popstate', () => {
-        const hash = location.hash.slice(1) || sections[0]?.id;
+        const hash = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
         if (hash) showPage(hash);
 });
     function check() {
