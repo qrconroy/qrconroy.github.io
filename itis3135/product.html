@@ -30,9 +30,12 @@
         }
 
         body {
-            padding-top: 80px; 
+            padding-top: 80px;
+            text-align: center;  /* centers inline content like text */
+            max-width: 900px;    /* prevents it from stretching too wide */
+            margin: 0 auto; 
         }
-        #plans-container {
+        #plans {
             display: flex;
             flex-direction: row;
             justify-content: space-around;
