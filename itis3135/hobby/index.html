@@ -52,6 +52,7 @@
             flex-wrap: wrap;
             gap: 15px; /* Keeps links from touching each other */
         }
+
         nav a{
             color: #b8a3c8;
             text-decoration: none;
@@ -295,7 +296,7 @@
 
 // Handle browser back / forward buttons
     window.addEventListener('popstate', () => {
-        const hash = location.hash.slice(1) || (sections[0] ? sections[0].id : null);
+        const hash = location.hash.slice(1) || sections[0]?.id;
         if (hash) showPage(hash);
 });
     function check() {
