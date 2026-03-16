@@ -65,6 +65,18 @@
             padding: 40px 20px;
             box-sizing: border-box;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Removes double borders */
+            table-layout: fixed;      /* Forces all columns to be exactly the same width */
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #0B0033; /* Matches your text color */
+            word-wrap: break-word;     /* Prevents text from breaking the layout */
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,10 +154,21 @@
                         <td>None</td>
                     </tr>
                 </table>
+                <figure>
+                    <img src="images/Man-dining-and-writing.png" alt="Trivia with dinner!" style="max-width: 100%; height: auto;">
+                    <figcaption>This image demonstrates the joys of playing trivia while enjoying a meal!</figcaption>
+                    <p><em>Generate an image of a man eating his dinner in a bar/restaurant while writing on a trivia sheet</em></p>
+                </figure>
         </section>
 
         <section class="page" id="where">
             <h2>Best Locations</h2>
+            <p><strong>Where</strong> do I play?</p>
+            <p>The reason why I play at 7:00 PM on thursdays? Because that is when my favorite place to play
+                trivia hosts it! You may have guessed it from the mention of eating dinner while playing,
+                but I play at a restaurant called "Real McCoy's" in my hometown of Wake Forest, NC.
+            </p>
+
         </section>
         <section class="page" id="how">
             <h2>How I Do It</h2>
@@ -165,6 +188,7 @@
                     used to further my understanding of JavaScript and CSS and help me complete one of the 
                     primary objectives of this webpage.</li>
             </ul>
+            <p>All images were generated using Microsoft Copilot.</p>
         </section>
     </main>
 
