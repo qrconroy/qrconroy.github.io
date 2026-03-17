@@ -5,121 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITIS 3135 | FCC RWD Certification</title>
     <link href="styles/default.css" rel="stylesheet" type="text/css">
-    
+    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
+
     <style>
-        /* 1. Reset & General Layout */
+        /* 1. Page Layout & Alignment */
         body {
             text-align: center;
-            max-width: 1000px; /* Increased slightly for 3 cards */
+            max-width: 1000px;
             margin: 0 auto;
-            padding-top: 100px; /* Space for the fixed header */
-            font-family: sans-serif;
+            /* Added padding so content doesn't hide behind the fixed header */
+            padding-top: 120px; 
         }
 
-        /* 2. Fixed Header Fixes */
+        /* 2. Centered Heading & Nav Alignment */
         #header {
-            position: fixed; /* Requirement for FCC */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #1a2a3a; /* Match your site theme */
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
+            background-color: #1a2a3a; /* Dark blue to match your wizard theme */
             z-index: 1000;
-            box-sizing: border-box;
+            display: flex;
+            flex-direction: column; /* Stacks the main nav and page nav */
+            align-items: center;
+            padding: 10px 0;
         }
 
         #header-img {
-            max-width: 60px;
+            max-width: 50px;
+            margin-bottom: 5px;
         }
 
+        h1 {
+            margin: 5px 0;
+            color: #fff;
+        }
+
+        /* Local Page Navigation (Product-specific links) */
         #nav-bar {
             display: flex;
-            gap: 20px;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px;
         }
 
         .nav-link {
-            color: white;
+            color: #e0e0e0;
             text-decoration: none;
-            font-size: 16px;
+            font-weight: bold;
         }
 
-        /* 3. Media & Form */
-        #video {
-            margin: 20px auto;
-            max-width: 100%;
+        .nav-link:hover {
+            color: #ffcc00; /* Subtle hover effect */
         }
 
-        #form {
-            margin: 40px 0;
-            padding: 20px;
-        }
-
-        /* 4. Plans & Cards */
+        /* 3. Cards & Plans Section */
         #plans {
             display: flex;
             flex-direction: row;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap; /* Allows wrapping on small screens */
-            padding: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
         }
 
         .card {
-            width: 250px; /* Wider to prevent text overflow */
-            min-height: 260px;
+            width: 260px;
+            min-height: 280px;
             background-color: white;
             border-radius: 12px;
-            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             padding: 20px;
             box-sizing: border-box;
             text-align: left;
-            color: black;
+            color: #333;
         }
 
         .card h3 {
             text-align: center;
-            margin-top: 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 2px solid #5a4fcf; /* Purple accent */
             padding-bottom: 10px;
         }
 
-        /* Mobile View */
+        /* 4. Form Styling */
+        form {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px auto;
+            max-width: 500px;
+        }
+
+        /* Responsive behavior */
         @media (max-width: 600px) {
-            #header {
-                flex-direction: column;
-                position: relative; /* Release fixed on tiny screens if needed */
-            }
-            body {
-                padding-top: 0;
-            }
-            #plans {
-                flex-direction: column;
-                align-items: center;
-            }
+            #plans { flex-direction: column; align-items: center; }
+            body { padding-top: 180px; } /* More space for stacked mobile header */
         }
     </style>
 </head>
 <body>
+    <div data-include="components/header.html"></div>
+
     <header id="header">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <img id="header-img" src="images/quizzical_cat.png" alt="small cat in wizard robes and hat.">
-            <h1>Quizzical Solutions</h1>
-        </div>
+        <img id="header-img" src="images/quizzical_cat.png" alt="small cat in wizard robes and hat.">
+        <h1>Quizzical Solutions</h1>
+        
         <nav id="nav-bar">
-            <a class="nav-link" href="#video">Video</a>
+            <a class="nav-link" href="#video">Product Video</a>
             <a class="nav-link" href="#form">Notifications</a>
-            <a class="nav-link" href="#plans">Plans</a>
+            <a class="nav-link" href="#plans">Pricing Plans</a>
         </nav>
     </header>
 
     <main>
-        <video id="video" width="560" height="315" controls>
+        <video id="video" width="600" controls>
             <source src="images/Nyan_cat.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -127,10 +128,10 @@
         <form id="form" action="https://www.freecodecamp.org/email-submit">
             <h2>Stay Updated</h2>
             <input id="email" type="email" placeholder="Enter your email address" name="email" required>
-            <input id="submit" type="submit" value="Get Started" class="btn">
+            <input id="submit" type="submit" value="Submit">
         </form>
 
-        <section id="plans">
+        <div id="plans">
             <div class="card">
                 <h3>Free Plan</h3>
                 <ul>
@@ -139,11 +140,11 @@
                 </ul>
             </div>
             <div class="card">
-                <h3>Member Plan</h3>
+                <h3>Member's Plan</h3>
                 <ul>
                     <li>All Free Plan perks</li>
                     <li>Access to ALL resources</li>
-                    <li>Priority use</li>
+                    <li>Resource use priority</li>
                 </ul>
             </div>
             <div class="card">
@@ -151,13 +152,18 @@
                 <ul>
                     <li>All Member benefits</li>
                     <li>24/7 support</li>
-                    <li>Highest Priority</li>
+                    <li>Extra Priority</li>
                 </ul>
             </div>
-        </section>
+        </div>
     </main>
 
     <div data-include="components/footer.html"></div>
-    <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
+
+    <script src="scripts/HTMLInclude.min.js"></script>
+    <script>
+        // Initialize HTML includes if needed by your script
+        // HTMLInclude(); 
+    </script>
 </body>
 </html>
