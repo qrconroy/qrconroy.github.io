@@ -5,118 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITIS 3135 | FCC RWD Certification</title>
     <link href="styles/default.css" rel="stylesheet" type="text/css">
-    <script src="https://lint.page/kit/4d0fe3.js" crossorigin="anonymous"></script>
-
+    
     <style>
-        .card {
-            width: 180px; /* Slightly wider to fit the cat art better */
-            height: 260px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
-            position: relative; /* Essential: allows corners to pin to the edges */
-            display: flex;
-            align-items: center;
-            color: black;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 16px;
-            box-sizing: border-box;
-            text-align: left;
+        /* 1. Reset & General Layout */
+        body {
+            text-align: center;
+            max-width: 1000px; /* Increased slightly for 3 cards */
+            margin: 0 auto;
+            padding-top: 100px; /* Space for the fixed header */
+            font-family: sans-serif;
         }
-        
+
+        /* 2. Fixed Header Fixes */
         #header {
+            position: fixed; /* Requirement for FCC */
             top: 0;
             left: 0;
-            width: 100%; /* Keeps it above other elements */
-            z-index: 999;
+            width: 100%;
+            background-color: #1a2a3a; /* Match your site theme */
+            color: white;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            padding: 10px 20px;
+            z-index: 1000;
+            box-sizing: border-box;
         }
 
-        body {
-            text-align: center;  /* centers inline content like text */
-            max-width: 900px;    /* prevents it from stretching too wide */
-            margin: 0 auto; 
+        #header-img {
+            max-width: 60px;
         }
+
+        #nav-bar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* 3. Media & Form */
+        #video {
+            margin: 20px auto;
+            max-width: 100%;
+        }
+
+        #form {
+            margin: 40px 0;
+            padding: 20px;
+        }
+
+        /* 4. Plans & Cards */
         #plans {
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .nav-link {
-            display: flex;
             justify-content: center;
             gap: 20px;
-            font-size: 18px;
+            flex-wrap: wrap; /* Allows wrapping on small screens */
+            padding: 20px;
         }
 
-        /* On mobile, make them stack vertically */
-        @media (max-width: 600px) {
-            #plans {
+        .card {
+            width: 250px; /* Wider to prevent text overflow */
+            min-height: 260px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
+            display: flex;
             flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: left;
+            color: black;
+        }
+
+        .card h3 {
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        /* Mobile View */
+        @media (max-width: 600px) {
+            #header {
+                flex-direction: column;
+                position: relative; /* Release fixed on tiny screens if needed */
             }
-        }
-        img{
-            max-width: 80px;
-        }
-        #plans-container{
-            margin-top: 30px;
-        }
-        form {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            body {
+                padding-top: 0;
+            }
+            #plans {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
     <header id="header">
-        <img id="header-img" src="images/quizzical_cat.png" alt="small cat in wizard robes and hat.">
-        <h1>Quizzical Solutions</h1>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img id="header-img" src="images/quizzical_cat.png" alt="small cat in wizard robes and hat.">
+            <h1>Quizzical Solutions</h1>
+        </div>
         <nav id="nav-bar">
-            <a class="nav-link" href="#video">Product Video</a>
-            <a class="nav-link" href="#form">Email Notifications</a>
+            <a class="nav-link" href="#video">Video</a>
+            <a class="nav-link" href="#form">Notifications</a>
             <a class="nav-link" href="#plans">Plans</a>
-         </nav>
-         <div data-include="components/header.html"></div>
-        <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
+        </nav>
     </header>
-    <video id="video" width="320" height="240" autoplay>
-        <source src="images/Nyan_cat.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
 
-  <form id="form" action="https://www.freecodecamp.org/email-submit">
-    <input id="email" type="email" placeholder="Enter your email address" name="email" required>
-    <input id="submit" type="submit" value="Submit">
-  </form>
+    <main>
+        <video id="video" width="560" height="315" controls>
+            <source src="images/Nyan_cat.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 
-  <div id="plans" class="plans-container">
-    <div class="card">
-      <h3>Free Plan</h3>
-        <ul>
-          <li>Limited use</li>
-          <li>Access to Free Resources</li>
-          </ul>
-    </div>
-    <div class="card">
-      <h3>Member's Plan</h3>
-        <ul>
-          <li>All the perks of Free Plan</li>
-          <li>Access to ALL resources</li>
-          <li>Some resource use priority</li>
-          </ul>
-    </div>
-    <div class="card">
-      <h3>Premium Plan</h3>
-      <ul>
-        <li>All the benefits of Member's Plan</li>
-        <li>24/7 support</li>
-        <li>Extra Priority</li>
-      </ul>
-    </div>
-  </div>
+        <form id="form" action="https://www.freecodecamp.org/email-submit">
+            <h2>Stay Updated</h2>
+            <input id="email" type="email" placeholder="Enter your email address" name="email" required>
+            <input id="submit" type="submit" value="Get Started" class="btn">
+        </form>
+
+        <section id="plans">
+            <div class="card">
+                <h3>Free Plan</h3>
+                <ul>
+                    <li>Limited use</li>
+                    <li>Access to Free Resources</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Member Plan</h3>
+                <ul>
+                    <li>All Free Plan perks</li>
+                    <li>Access to ALL resources</li>
+                    <li>Priority use</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Premium Plan</h3>
+                <ul>
+                    <li>All Member benefits</li>
+                    <li>24/7 support</li>
+                    <li>Highest Priority</li>
+                </ul>
+            </div>
+        </section>
+    </main>
 
     <div data-include="components/footer.html"></div>
     <script src="scripts/HTMLInclude-master/HTMLInclude.min.js"></script>
