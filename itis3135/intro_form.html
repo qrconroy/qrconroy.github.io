@@ -6,7 +6,55 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form>
+        <div id="Name">
+            <label for="f-name">First Name:</label>
+            <input type="text" id="f-name" name="f-name" required><br><br>
+
+            <label for="p-name">Preferred name/Nickname(optional):</label>
+            <input type="text" id="p-name" name="p-name"><br><br>
+
+            <label for="m-name">Middle Name(optional):</label>
+            <input type="text" id="m-name" name="m-name"><br><br>
+
+            <label for="l-name">Last Name:</label>
+            <input type="text" id="l-name" name="l-name" required><br><br>
+        </div>
+
+        <div id="acknowledgement">
+            <label for="acknowledgement">Acknowledgement Statement:</label>
+            <input type="checkbox" id="acknowledgement" name="acknowledgement" required><br><br>
+
+            <label for="ack-date">Acknowledgement Date:</label>
+            <input type="date" id="ack-date" name="ack-date" required><br><br>
+        </div>
+
+        <div id="Personalization">
+            <label for="mascot-adj">Mascot Adjective:</label>
+            <input type="text" id="mascot-adj" name="mascot-adj" required placeholder="eg. Quizzical"><br><br>
+
+            <label for="mascot-noun">Mascot Noun:</label>
+            <input type="text" id="mascot-noun" name="mascot-noun" required placeholder="eg. Cat"><br><br>
+
+            <label for="divider">Divider Symbol:</label>
+            <input type="text" id="divider" name="divider" required placeholder="eg. |, ~"><br><br>
+
+            <label for="picture">Portrait:</label>
+            <input type="file" id="picture" name="picture" accept="image/*" required><br><br>
+
+            <label for="picture-caption">Picture Caption:</label>
+            <input type="text" id="picture-caption" name="picture-caption" required placeholder="Describe your picture..."><br><br>
+
+            <label for="personal-statement">Personal Statement:</label><br>
+            <textarea id="personal-statement" name="personal-statement" required placeholder="eg. 'I am a junior CS student...'"></textarea><br><br>
+        </div>
+
+        <div id="courses">
+
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
 
