@@ -46,11 +46,47 @@
             <input type="text" id="picture-caption" name="picture-caption" required placeholder="Describe your picture..."><br><br>
 
             <label for="personal-statement">Personal Statement:</label><br>
-            <textarea id="personal-statement" name="personal-statement" required placeholder="eg. 'I am a junior CS student...'"></textarea><br><br>
+            <input id="personal-statement" name="personal-statement" required placeholder="eg. 'I am a junior CS student...'"></textarea><br><br>
+        </div>
+
+        <div id="background">
+            <label for="pers-background">Personal Background:</label><br>
+            <textarea id="pers-background" name="pers-background" required placeholder="eg. 'I am from...'"></textarea><br><br>
+
+            <label for="academic-background">Academic Background:</label><br>
+            <textarea id="academic-background" name="academic-background" required placeholder="eg. 'I graduated with...'"></textarea><br><br>
+
+            <label for="professional-background">Professional Background:</label><br>
+            <textarea id="professional-background" name="professional-background" required placeholder="eg. 'I have experience working at...'"></textarea><br><br>
+
+            <label for="subject-background">Subject Background:</label><br>
+            <textarea id="subject-background" name="subject-background" required placeholder="eg. 'I have worked with...'"></textarea><br><br>
+        </div>
+
+        <div id="Computer">
+            <label for="primary-computer">Primary Computer:</label>
+            <input type="text" id="primary-computer" name="primary-computer" required placeholder="eg. 'Macbook Pro 16'"><br><br>
+
+            <label for="secondary-computer">Secondary Computer:</label>
+            <input type="text" id="secondary-computer" name="secondary-computer" placeholder="eg. 'Lenovo ThinkPad P16 2nd Gen'"><br><br>
         </div>
 
         <div id="courses">
+            <!---- Course and sub-bullets, with fields for each of: department, number, name, reason. 
+            also need a button to add more courses ---->
+        </div>
 
+        <div id="quote">
+            <label for="quote">Favorite Quote:</label><br>
+            <input id="quote" name="quote" required placeholder="eg. 'The only way to do great work is to love what you do.'"><br><br>
+
+            <label for="quote-author">Quote Author:</label>
+            <input type="text" id="quote-author" name="quote-author" required placeholder="eg. 'Steve Jobs'"><br><br>
+        </div>
+
+        <div id="misc">
+            <label for="funny-thing" >Something Funny:</label><br>
+            <input id="funny-thing" name="funny-thing" placeholder="eg. 'I once tried to...'"><br><br>
         </div>
 
         <input type="submit" value="Submit">
