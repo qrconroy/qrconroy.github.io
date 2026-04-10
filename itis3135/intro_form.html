@@ -3,98 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Introduction Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <form>
-        <div id="Name">
-            <label for="f-name">First Name:</label>
-            <input type="text" id="f-name" name="f-name" required><br><br>
 
-            <label for="p-name">Preferred name/Nickname(optional):</label>
-            <input type="text" id="p-name" name="p-name"><br><br>
+    <header>
+        <h1 class="page-title">Introduction <span class="title-accent">Profile</span></h1>
+        <p class="page-subtitle">Fill out the form below to generate your personal introduction card.</p>
+    </header>
 
-            <label for="m-name">Middle Name(optional):</label>
-            <input type="text" id="m-name" name="m-name"><br><br>
+    <main>
+        <form id="intro-form" novalidate>
 
-            <label for="l-name">Last Name:</label>
-            <input type="text" id="l-name" name="l-name" required><br><br>
-        </div>
+            <!-- NAME -->
+            <section class="form-box" id="section-name">
+                <h2 class="section-title">Name</h2>
+                <div class="section-body">
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="f-name">First Name </label>
+                            <input type="text" id="f-name" name="f-name" placeholder="Jane">
+                        </div>
+                        <div class="field">
+                            <label for="l-name">Last Name </label>
+                            <input type="text" id="l-name" name="l-name" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="p-name">Preferred Name / Nickname <span class="opt">(optional)</span></label>
+                            <input type="text" id="p-name" name="p-name" placeholder="Jay">
+                        </div>
+                        <div class="field">
+                            <label for="m-name">Middle Name <span class="opt">(optional)</span></label>
+                            <input type="text" id="m-name" name="m-name" placeholder="Marie">
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div id="acknowledgement">
-            <label for="acknowledgement">Acknowledgement Statement:</label>
-            <input type="checkbox" id="acknowledgement" name="acknowledgement" required><br><br>
+            <!-- ACKNOWLEDGEMENT -->
+            <section class="form-box" id="section-acknowledgement">
+                <h2 class="section-title">Acknowledgement</h2>
+                <div class="section-body">
+                    <div class="field checkbox-field">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="acknowledgement" name="acknowledgement">
+                            <span class="checkbox-custom"></span>
+                            I acknowledge that all information provided is accurate and truthful. 
+                        </label>
+                    </div>
+                    <div class="field" style="max-width:320px; margin-top:1rem;">
+                        <label for="ack-date">Acknowledgement Date </label>
+                        <input type="date" id="ack-date" name="ack-date">
+                    </div>
+                </div>
+            </section>
 
-            <label for="ack-date">Acknowledgement Date:</label>
-            <input type="date" id="ack-date" name="ack-date" required><br><br>
-        </div>
+            <!-- PERSONALIZATION -->
+            <section class="form-box" id="section-personalization">
+                <h2 class="section-title">Personalization</h2>
+                <div class="section-body">
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="mascot-adj">Mascot Adjective </label>
+                            <input type="text" id="mascot-adj" name="mascot-adj" placeholder="e.g. Quizzical">
+                        </div>
+                        <div class="field">
+                            <label for="mascot-noun">Mascot Noun </label>
+                            <input type="text" id="mascot-noun" name="mascot-noun" placeholder="e.g. Cat">
+                        </div>
+                        <div class="field">
+                            <label for="divider">Divider Symbol </label>
+                            <input type="text" id="divider" name="divider" placeholder="e.g. | or ~">
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="picture">Portrait </label>
+                            <input type="file" id="picture" name="picture" accept="image/*">
+                        </div>
+                        <div class="field">
+                            <label for="picture-caption">Picture Caption </label>
+                            <input type="text" id="picture-caption" name="picture-caption" placeholder="Describe your picture…">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="personal-statement">Personal Statement </label>
+                        <input type="text" id="personal-statement" name="personal-statement" placeholder="e.g. I am a junior CS student who loves building things…">
+                    </div>
+                </div>
+            </section>
 
-        <div id="Personalization">
-            <label for="mascot-adj">Mascot Adjective:</label>
-            <input type="text" id="mascot-adj" name="mascot-adj" required placeholder="eg. Quizzical"><br><br>
+            <!-- BACKGROUND -->
+            <section class="form-box" id="section-background">
+                <h2 class="section-title">Background</h2>
+                <div class="section-body">
+                    <div class="field">
+                        <label for="pers-background">Personal Background </label>
+                        <input type="text" id="pers-background" name="pers-background" placeholder="e.g. I am from…">
+                    </div>
+                    <div class="field">
+                        <label for="academic-background">Academic Background </label>
+                        <input type="text" id="academic-background" name="academic-background" placeholder="e.g. I graduated with…">
+                    </div>
+                    <div class="field">
+                        <label for="professional-background">Professional Background </label>
+                        <input type="text" id="professional-background" name="professional-background" placeholder="e.g. I have experience working at…">
+                    </div>
+                    <div class="field">
+                        <label for="subject-background">Subject Background </label>
+                        <input type="text" id="subject-background" name="subject-background" placeholder="e.g. I have worked with…">
+                    </div>
+                </div>
+            </section>
 
-            <label for="mascot-noun">Mascot Noun:</label>
-            <input type="text" id="mascot-noun" name="mascot-noun" required placeholder="eg. Cat"><br><br>
+            <!-- COMPUTER -->
+            <section class="form-box" id="section-computer">
+                <h2 class="section-title">Computer</h2>
+                <div class="section-body">
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="primary-computer">Primary Computer </label>
+                            <input type="text" id="primary-computer" name="primary-computer" placeholder="e.g. MacBook Pro 16">
+                        </div>
+                        <div class="field">
+                            <label for="secondary-computer">Secondary Computer <span class="opt">(optional)</span></label>
+                            <input type="text" id="secondary-computer" name="secondary-computer" placeholder="e.g. Lenovo ThinkPad P16">
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <label for="divider">Divider Symbol:</label>
-            <input type="text" id="divider" name="divider" required placeholder="eg. |, ~"><br><br>
+            <!-- COURSES -->
+            <section class="form-box" id="section-courses">
+                <h2 class="section-title">Courses</h2>
+                <div class="section-body">
+                    <div id="courses-list"></div>
+                    <button type="button" id="add-course-btn" class="btn btn-secondary">+ Add Course</button>
+                </div>
+            </section>
 
-            <label for="picture">Portrait:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" required><br><br>
+            <!-- QUOTE -->
+            <section class="form-box" id="section-quote">
+                <h2 class="section-title">Quote</h2>
+                <div class="section-body">
+                    <div class="field">
+                        <label for="quote">Favorite Quote </label>
+                        <input type="text" id="quote" name="quote" placeholder="e.g. The only way to do great work is to love what you do.">
+                    </div>
+                    <div class="field" style="max-width:400px;">
+                        <label for="quote-author">Quote Author </label>
+                        <input type="text" id="quote-author" name="quote-author" placeholder="e.g. Steve Jobs">
+                    </div>
+                </div>
+            </section>
 
-            <label for="picture-caption">Picture Caption:</label>
-            <input type="text" id="picture-caption" name="picture-caption" required placeholder="Describe your picture..."><br><br>
+            <!-- MISC -->
+            <section class="form-box" id="section-misc">
+                <h2 class="section-title">Miscellaneous</h2>
+                <div class="section-body">
+                    <div class="field">
+                        <label for="funny-thing">Something Funny <span class="opt">(optional)</span></label>
+                        <input type="text" id="funny-thing" name="funny-thing" placeholder="e.g. I once tried to…">
+                    </div>
+                </div>
+            </section>
 
-            <label for="personal-statement">Personal Statement:</label><br>
-            <input id="personal-statement" name="personal-statement" required placeholder="eg. 'I am a junior CS student...'"></textarea><br><br>
-        </div>
+            <!-- BUTTONS -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset"  class="btn btn-secondary">Reset</button>
+                <button type="button" id="clear-btn" class="btn btn-ghost">Clear</button>
+            </div>
 
-        <div id="background">
-            <label for="pers-background">Personal Background:</label><br>
-            <textarea id="pers-background" name="pers-background" required placeholder="eg. 'I am from...'"></textarea><br><br>
+        </form>
 
-            <label for="academic-background">Academic Background:</label><br>
-            <textarea id="academic-background" name="academic-background" required placeholder="eg. 'I graduated with...'"></textarea><br><br>
+        <div id="profile-card" class="hidden"></div>
+    </main>
 
-            <label for="professional-background">Professional Background:</label><br>
-            <textarea id="professional-background" name="professional-background" required placeholder="eg. 'I have experience working at...'"></textarea><br><br>
-
-            <label for="subject-background">Subject Background:</label><br>
-            <textarea id="subject-background" name="subject-background" required placeholder="eg. 'I have worked with...'"></textarea><br><br>
-        </div>
-
-        <div id="Computer">
-            <label for="primary-computer">Primary Computer:</label>
-            <input type="text" id="primary-computer" name="primary-computer" required placeholder="eg. 'Macbook Pro 16'"><br><br>
-
-            <label for="secondary-computer">Secondary Computer:</label>
-            <input type="text" id="secondary-computer" name="secondary-computer" placeholder="eg. 'Lenovo ThinkPad P16 2nd Gen'"><br><br>
-        </div>
-
-        <div id="courses">
-            <!---- Course and sub-bullets, with fields for each of: department, number, name, reason. 
-            also need a button to add more courses ---->
-        </div>
-
-        <div id="quote">
-            <label for="quote">Favorite Quote:</label><br>
-            <input id="quote" name="quote" required placeholder="eg. 'The only way to do great work is to love what you do.'"><br><br>
-
-            <label for="quote-author">Quote Author:</label>
-            <input type="text" id="quote-author" name="quote-author" required placeholder="eg. 'Steve Jobs'"><br><br>
-        </div>
-
-        <div id="misc">
-            <label for="funny-thing" >Something Funny:</label><br>
-            <input id="funny-thing" name="funny-thing" placeholder="eg. 'I once tried to...'"><br><br>
-        </div>
-
-        <input type="submit" value="Submit">
-
-        <script src="scripts/introduction.js"></script>
-    </form>
+    <script src="Scripts/introduction.js"></script>
 </body>
 </html>
-
-
-
