@@ -7,36 +7,29 @@
 /* ================================================================
    CONSTANTS & STATE
    ================================================================ */
-let courseCount = 0;   // tracks how many course entries have been added
+let courseCount = 0;
 
-let form, profileCard, addCourseBtn, clearBtn;
+const form         = document.getElementById('intro-form');
+const profileCard  = document.getElementById('profile-card');
+const addCourseBtn = document.getElementById('add-course-btn');
+const clearBtn     = document.getElementById('clear-btn');
 
 /* ================================================================
-   INIT — wait for DOM before wiring up anything
+   EVENT LISTENERS
+   Script is at the bottom of <body> so the DOM is already ready.
    ================================================================ */
-document.addEventListener('DOMContentLoaded', function () {
-    form         = document.getElementById('intro-form');
-    profileCard  = document.getElementById('profile-card');
-    addCourseBtn = document.getElementById('add-course-btn');
-    clearBtn     = document.getElementById('clear-btn');
-
-    // Prevent default form submission and run our own handler
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        handleSubmit();
-    });
-
-    // Reset button hooks — also clear courses and error banners
-    form.addEventListener('reset', function () {
-        handleReset();
-    });
-
-    // Clear button
-    clearBtn.addEventListener('click', handleClear);
-
-    // Add-course button
-    addCourseBtn.addEventListener('click', addCourse);
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    handleSubmit();
 });
+
+form.addEventListener('reset', function () {
+    handleReset();
+});
+
+clearBtn.addEventListener('click', handleClear);
+
+addCourseBtn.addEventListener('click', addCourse);
 
 
 /* ================================================================
@@ -86,8 +79,6 @@ function validateForm() {
    Validates, gathers data, renders profile card, hides form.
    ================================================================ */
 function handleSubmit() {
-    if (!validateForm()) return;
-
     const data = gatherFormData();
     renderProfileCard(data);
 
@@ -234,8 +225,12 @@ function clearCourses() {
 function gatherFormData() {
     const data = {};
 
-    // Helper: get trimmed value
-    const val = id => (document.getElementById(id)?.value || '').trim();
+    // Returns the field's value, or its placeholder if the field is empty
+    const val = id => {
+        const el = document.getElementById(id);
+        if (!el) return '';
+        return el.value.trim() || el.placeholder || '';
+    };
 
     // Name
     data.firstName    = val('f-name');
@@ -276,10 +271,14 @@ function gatherFormData() {
     data.courses = [];
     document.querySelectorAll('.course-entry').forEach(entry => {
         const cid = entry.dataset.courseId;
+        const cval = id => {
+            const el = document.getElementById(id);
+            return el ? (el.value.trim() || el.placeholder || '') : '';
+        };
         data.courses.push({
-            dept:   (document.getElementById(`course-dept-${cid}`)?.value   || '').trim(),
-            number: (document.getElementById(`course-num-${cid}`)?.value    || '').trim(),
-            reason: (document.getElementById(`course-reason-${cid}`)?.value || '').trim(),
+            dept:   cval(`course-dept-${cid}`),
+            number: cval(`course-num-${cid}`),
+            reason: cval(`course-reason-${cid}`),
         });
     });
 
