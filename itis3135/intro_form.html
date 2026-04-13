@@ -14,8 +14,8 @@
 
     <div id="form-area">
         <form>
-            <div id="name">
-                <h3>Name:</h3>
+            <fieldset>
+                <legend>Name</legend>
                 <label for="f-name">First Name*:</label>
                 <input type="text" id="f-name" name="f-name" required value="Quinn"><br><br>
         
@@ -36,10 +36,10 @@
 
                 <label for="mascot">Mascot Animal*:</label>
                 <input type="text" id="mascot" name="mascot" required value="Cat"><br><br>
-            </div>
+            </fieldset>
 
-            <div id="acknowledgement">
-                <h3>Acknowledgement:</h3>
+            <fieldset>
+                <legend>Acknowledgement</legend>
                 <!-- Here, I want to make it so that when the form is submitted, it displays the actual acknowledgement statement
                  with their name as variables inputted into the statement -->
                 <p>By submitting this form, I acknowledge that I have read and understood the course syllabus for ITIS 3135.</p>
@@ -48,18 +48,69 @@
 
                 <label for="acknowledge-date">Date of Acknowledgement*:</label>
                 <input type="date" id="acknowledge-date" name="acknowledge-date" required><br><br>
-            </div>
+            </fieldset>
 
-            <div id="personal-info">
-                <h3>Personal Information:</h3>
+            <fieldset>
+                <legend>Personal Information</legend>
                 <label for="photo">Personal Photo:</label>
-                <input type="url" id="photo-url" name="photo-url" placeholder="Enter the URL of your photo"><br><br>
+                <input type="url" id="photo-url" name="photo-url" placeholder="Enter the URL of your photo">
                 <p>OR upload a file:</p>
                 <input type="file" id="photo" name="photo" accept="image/*"><br><br>
 
                 <label for="photo-caption">Photo Caption:</label>
                 <input type="text" id="photo-caption" name="photo-caption"><br><br>
-            </div>
+
+                <label for="personal-statement">Personal Statement:</label>
+                <textarea id="personal-statement" name="personal-statement" required>I am a Junior studying Computer Science with a 
+                    concentration in Web/Mobile Development & Software Engineering. I’m looking forward to get into my first concentration 
+                    class and get a better look at what my future looks like.</textarea><br><br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Background</legend>
+                <label for="personal-background">Personal Background:</label><br>
+                <textarea id="personal-background" name="personal-background" required>I am 19 from Wake Forest, North Carolina.</textarea><br><br>
+
+                <label for="professional-background">Professional Background:</label><br>
+                <textarea id="professional-background" name="professional-background" required>I have worked as a youth soccer referee 
+                    in the Raleigh area for a little over 5 years.</textarea><br><br>
+
+                <label for="academic-background">Academic Background:</label><br>
+                <textarea id="academic-background" name="academic-background" required>A Computer Science/Data Science double major 
+                    in my second year here at Charlotte.</textarea><br><br>
+
+                <label for="subject-background">Background in Subject:</label><br>
+                <textarea id="subject-background" name="subject-background" required>I’ve taken a very elementary class on HTML before this 
+                    and tinkered with it a little on my own, but not much otherwise.</textarea><br><br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Workstations</legend>
+                <label for="primary-workstation">Primary Work Computer:</label><br>
+                <input type="text" id="primary-workstation" name="primary-workstation" required value="Dell Inspiron 14 Laptop running Windows"><br><br>
+
+                <label for="backup-workstation">Backup Work Computer:</label><br>
+                <input type="text" id="backup-workstation" name="backup-workstation" required value="Windows/Mac computers in any of the CCI workspaces"><br><br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Courses</legend>
+                <label for="course-1">Course 1:</label><br>
+                <input type="text" id="course-1" name="course-1" required value="ITIS 3135 - Front-End Web App Development"><br><br>
+
+                <label for="course-2">Course 2:</label><br>
+                <input type="text" id="course-2" name="course-2" required value="ITIS 3310 - Software Architecture & Design"><br><br>
+
+                <label for="course-3">Course 3:</label><br>
+                <input type="text" id="course-3" name="course-3" required value="ITSC 3146 - Introduction to Operating Systems & Networking"><br><br>
+
+                <label for="course-4">Course 4:</label><br>
+                <input type="text" id="course-4" name="course-4" required value="ITSC 3155 - Software Engineering"><br><br>
+
+                <label for="course-5">Course 5:</label><br>
+                <input type="text" id="course-5" name="course-5" required value="STAT 2122 - Introduction to Probability & Statistics"><br><br>
+
+            </fieldset>
 
             <input type="submit" value="Submit">
         </form>
