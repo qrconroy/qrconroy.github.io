@@ -1,427 +1,352 @@
 /**
  * introduction.js
- * Handles all form logic for the Introduction Profile page.
- * Located at: Scripts/introduction.js
+ * Matches functionality of https://divonbriesen.github.io/introductions/
  */
 
 /* ================================================================
-   CONSTANTS & STATE
+   STATE
    ================================================================ */
 let courseCount = 0;
+let imageDataURL = null;  // stores uploaded image as base64
 
-const form         = document.getElementById('intro-form');
-const profileCard  = document.getElementById('profile-card');
-const addCourseBtn = document.getElementById('add-course-btn');
-const clearBtn     = document.getElementById('clear-btn');
+/* ================================================================
+   ELEMENT REFERENCES
+   (script is at bottom of body — DOM is ready)
+   ================================================================ */
+const form            = document.getElementById('intro-form');
+const previewPanel    = document.getElementById('preview-panel');
+const addCourseBtn    = document.getElementById('add-course-btn');
+const clearBtn        = document.getElementById('clear-btn');
+const clearBtn2       = document.getElementById('clear-btn-2');
+const loadSampleBtn   = document.getElementById('load-sample-btn');
+const loadSampleBtn2  = document.getElementById('load-sample-btn-2');
+const resetBtn        = document.getElementById('reset-btn');
+const clearImageBtn   = document.getElementById('clear-image-btn');
+const pictureInput    = document.getElementById('picture');
+const imagePreview    = document.getElementById('image-preview');
+const imagePreviewWrap = document.getElementById('image-preview-wrap');
+const imageUrlInput   = document.getElementById('image-url');
 
 /* ================================================================
    EVENT LISTENERS
-   Script is at the bottom of <body> so the DOM is already ready.
    ================================================================ */
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    handleSubmit();
+    handleGenerate();
 });
 
-form.addEventListener('reset', function () {
-    handleReset();
-});
-
+addCourseBtn.addEventListener('click', addCourseRow);
 clearBtn.addEventListener('click', handleClear);
+clearBtn2.addEventListener('click', handleClear);
+loadSampleBtn.addEventListener('click', loadSample);
+loadSampleBtn2.addEventListener('click', loadSample);
+resetBtn.addEventListener('click', handleReset);
+clearImageBtn.addEventListener('click', handleClearImage);
 
-addCourseBtn.addEventListener('click', addCourse);
+// File upload → show preview
+pictureInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        imageDataURL = e.target.result;
+        imagePreview.src = imageDataURL;
+        imagePreviewWrap.style.display = 'block';
+        imageUrlInput.value = '';  // clear URL field since we have a file
+    };
+    reader.readAsDataURL(file);
+});
 
-
-/* ================================================================
-   VALIDATION
-   Validates all required fields; marks invalid ones and returns
-   false when the form should NOT submit.
-   ================================================================ */
-function validateForm() {
-    let valid = true;
-
-    // Remove previous invalid state & error banner
-    document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
-    const oldBanner = document.querySelector('.error-banner');
-    if (oldBanner) oldBanner.remove();
-
-    // Check every required field
-    const requiredFields = form.querySelectorAll('[required]');
-    requiredFields.forEach(field => {
-        if (field.type === 'checkbox') {
-            if (!field.checked) {
-                field.closest('.checkbox-label')
-                    .querySelector('.checkbox-custom')
-                    .style.borderColor = '#c0392b';
-                valid = false;
-            }
-        } else if (!field.value.trim()) {
-            field.classList.add('invalid');
-            valid = false;
-        }
-    });
-
-    if (!valid) {
-        // Show a banner at the top of the form
-        const banner = document.createElement('div');
-        banner.className = 'error-banner';
-        banner.textContent = 'Please fill in all required fields (marked with *) before submitting.';
-        form.insertBefore(banner, form.firstChild);
-        form.scrollIntoView({ behavior: 'smooth' });
+// Image URL → clear file input
+imageUrlInput.addEventListener('input', function () {
+    if (this.value.trim()) {
+        pictureInput.value = '';
+        imageDataURL = null;
+        imagePreviewWrap.style.display = 'none';
     }
-
-    return valid;
-}
-
+});
 
 /* ================================================================
-   SUBMIT HANDLER
-   Validates, gathers data, renders profile card, hides form.
+   ADD COURSE ROW
    ================================================================ */
-function handleSubmit() {
-    const data = gatherFormData();
-    renderProfileCard(data);
-
-    // Hide the form
-    form.classList.add('hidden');
-    profileCard.classList.remove('hidden');
-    profileCard.scrollIntoView({ behavior: 'smooth' });
-}
-
-
-/* ================================================================
-   RESET HANDLER
-   Clears courses, error banners, and invalid styles.
-   Called by both type="reset" button and the profile "start over" link.
-   ================================================================ */
-function handleReset() {
-    // The native reset event resets native inputs automatically.
-    // We handle extras:
-    clearCourses();
-
-    document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
-    document.querySelectorAll('.checkbox-custom').forEach(el => el.style.borderColor = '');
-    const banner = document.querySelector('.error-banner');
-    if (banner) banner.remove();
-
-    // Show form, hide profile card
-    form.classList.remove('hidden');
-    profileCard.classList.add('hidden');
-    profileCard.innerHTML = '';
-
-    form.scrollIntoView({ behavior: 'smooth' });
-}
-
-
-/* ================================================================
-   CLEAR HANDLER
-   Clears every single field (including optional ones), courses,
-   file inputs, checkboxes, and error state.
-   ================================================================ */
-function handleClear() {
-    // Clear text / date / textarea inputs
-    form.querySelectorAll('input[type="text"], input[type="date"], textarea')
-        .forEach(el => { el.value = ''; el.classList.remove('invalid'); });
-
-    // Clear file inputs
-    form.querySelectorAll('input[type="file"]')
-        .forEach(el => { el.value = ''; });
-
-    // Uncheck checkboxes
-    form.querySelectorAll('input[type="checkbox"]')
-        .forEach(el => { el.checked = false; });
-
-    // Reset checkbox custom style
-    document.querySelectorAll('.checkbox-custom').forEach(el => el.style.borderColor = '');
-
-    // Remove course entries
-    clearCourses();
-
-    // Remove any error banner
-    const banner = document.querySelector('.error-banner');
-    if (banner) banner.remove();
-}
-
-
-/* ================================================================
-   COURSE MANAGEMENT
-   ================================================================ */
-
-/**
- * addCourse()
- * Creates a new course entry row with Department, Course #, and Reason fields.
- */
-function addCourse() {
+function addCourseRow() {
     courseCount++;
-    const id = courseCount;
+    const tbody = document.getElementById('courses-list');
+    const tr = document.createElement('tr');
+    tr.dataset.courseId = courseCount;
 
-    const entry = document.createElement('div');
-    entry.className = 'course-entry';
-    entry.dataset.courseId = id;
-
-    entry.innerHTML = `
-        <div class="course-label">Course ${id}</div>
-        <div class="field-row">
-            <div class="field">
-                <label for="course-dept-${id}">Department</label>
-                <input type="text" id="course-dept-${id}" name="course-dept-${id}"
-                       placeholder="e.g. CS">
-            </div>
-            <div class="field">
-                <label for="course-num-${id}">Course #</label>
-                <input type="text" id="course-num-${id}" name="course-num-${id}"
-                       placeholder="e.g. 101">
-            </div>
-            <div class="field">
-                <label for="course-reason-${id}">Reason for Taking</label>
-                <input type="text" id="course-reason-${id}" name="course-reason-${id}"
-                       placeholder="e.g. Required for major">
-            </div>
-        </div>
+    tr.innerHTML = `
+        <td><input type="text" placeholder="CS" name="course-dept-${courseCount}"></td>
+        <td><input type="text" placeholder="101" name="course-num-${courseCount}"></td>
+        <td><input type="text" placeholder="Intro to Programming" name="course-name-${courseCount}"></td>
+        <td><input type="text" placeholder="Required for major" name="course-reason-${courseCount}"></td>
+        <td><button type="button" class="delete-course-btn">✕ Remove</button></td>
     `;
 
-    // Delete button
-    const deleteBtn = createDeleteButton(entry);
-    entry.appendChild(deleteBtn);
-
-    document.getElementById('courses-list').appendChild(entry);
-}
-
-/**
- * createDeleteButton(entryEl)
- * Creates and returns a delete button that removes its parent course entry.
- * @param {HTMLElement} entryEl – the course entry element to delete
- * @returns {HTMLButtonElement}
- */
-function createDeleteButton(entryEl) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'delete-course-btn';
-    btn.textContent = '✕ Remove';
-    btn.setAttribute('aria-label', 'Remove this course');
-
-    btn.addEventListener('click', function () {
-        entryEl.remove();
+    tr.querySelector('.delete-course-btn').addEventListener('click', function () {
+        tr.remove();
     });
 
-    return btn;
+    tbody.appendChild(tr);
 }
-
-/**
- * clearCourses()
- * Removes all course entries and resets the counter.
- */
-function clearCourses() {
-    const list = document.getElementById('courses-list');
-    if (list) list.innerHTML = '';
-    courseCount = 0;
-}
-
 
 /* ================================================================
-   GATHER FORM DATA
-   Collects values from every field into a plain object.
+   GATHER DATA
+   Falls back to placeholder if field is empty.
    ================================================================ */
-function gatherFormData() {
-    const data = {};
-
-    // Returns the field's value, or its placeholder if the field is empty
+function gatherData() {
     const val = id => {
         const el = document.getElementById(id);
         if (!el) return '';
         return el.value.trim() || el.placeholder || '';
     };
 
-    // Name
-    data.firstName    = val('f-name');
-    data.lastName     = val('l-name');
-    data.prefName     = val('p-name');
-    data.middleName   = val('m-name');
+    const textareaVal = id => {
+        const el = document.getElementById(id);
+        if (!el) return '';
+        return el.value.trim() || el.placeholder || '';
+    };
 
-    // Acknowledgement
-    data.ackChecked   = document.getElementById('acknowledgement').checked;
-    data.ackDate      = val('ack-date');
+    // Checkboxes — gather all checked values by name
+    const checked = name =>
+        [...document.querySelectorAll(`input[name="${name}"]:checked`)]
+            .map(el => el.value);
 
-    // Personalization
-    data.mascotAdj    = val('mascot-adj');
-    data.mascotNoun   = val('mascot-noun');
-    data.divider      = val('divider');
-    data.pictureCaption = val('picture-caption');
-    data.personalStatement = val('personal-statement');
-
-    // Portrait — create an object URL if a file was selected
-    const fileInput = document.getElementById('picture');
-    if (fileInput.files && fileInput.files[0]) {
-        data.pictureURL = URL.createObjectURL(fileInput.files[0]);
-    } else {
-        data.pictureURL = null;
-    }
-
-    // Background
-    data.persBackground     = val('pers-background');
-    data.academicBackground = val('academic-background');
-    data.professionalBackground = val('professional-background');
-    data.subjectBackground  = val('subject-background');
-
-    // Computer
-    data.primaryComputer   = val('primary-computer');
-    data.secondaryComputer = val('secondary-computer');
+    // Resolve image: uploaded file takes priority over URL
+    let imageSource = imageDataURL || imageUrlInput.value.trim() || null;
 
     // Courses
-    data.courses = [];
-    document.querySelectorAll('.course-entry').forEach(entry => {
-        const cid = entry.dataset.courseId;
-        const cval = id => {
-            const el = document.getElementById(id);
-            return el ? (el.value.trim() || el.placeholder || '') : '';
-        };
-        data.courses.push({
-            dept:   cval(`course-dept-${cid}`),
-            number: cval(`course-num-${cid}`),
-            reason: cval(`course-reason-${cid}`),
+    const courses = [];
+    document.querySelectorAll('#courses-list tr').forEach(tr => {
+        const inputs = tr.querySelectorAll('input');
+        courses.push({
+            dept:   inputs[0]?.value.trim() || inputs[0]?.placeholder || '',
+            number: inputs[1]?.value.trim() || inputs[1]?.placeholder || '',
+            name:   inputs[2]?.value.trim() || inputs[2]?.placeholder || '',
+            reason: inputs[3]?.value.trim() || inputs[3]?.placeholder || '',
         });
     });
 
-    // Quote
-    data.quote       = val('quote');
-    data.quoteAuthor = val('quote-author');
-
-    // Misc
-    data.funnyThing = val('funny-thing');
-
-    return data;
+    return {
+        name: {
+            first:    val('f-name'),
+            middle:   val('m-name'),
+            last:     val('l-name'),
+            nickname: val('p-name'),
+        },
+        divider:          val('divider'),
+        mascotDescriptor: val('mascot-adj'),
+        mascot:           val('mascot-noun'),
+        displayHeading:   val('display-heading'),
+        email:            val('email'),
+        initialsDate:     val('initials-date'),
+        image:            imageSource,
+        imageCaption:     val('picture-caption'),
+        personalStatement: textareaVal('personal-statement'),
+        quote:            val('quote'),
+        quoteAuthor:      val('quote-author'),
+        backgrounds: {
+            personal:     textareaVal('pers-background'),
+            professional: textareaVal('professional-background'),
+            academic:     textareaVal('academic-background'),
+            funny:        textareaVal('funny-thing'),
+            additional:   textareaVal('additional'),
+        },
+        platform:      checked('platform'),
+        os:            checked('os'),
+        workLocation:  val('work-location'),
+        backupPlan:    textareaVal('backup-plan'),
+        courses,
+    };
 }
 
+/* ================================================================
+   GENERATE — build JSON + HTML preview
+   ================================================================ */
+function handleGenerate() {
+    const data = gatherData();
+
+    // Show JSON
+    document.getElementById('json-output').textContent = JSON.stringify(data, null, 2);
+
+    // Build rendered HTML output
+    document.getElementById('html-output').innerHTML = buildProfileHTML(data);
+
+    // Hide form, show preview
+    form.classList.add('hidden');
+    previewPanel.classList.remove('hidden');
+    previewPanel.scrollIntoView({ behavior: 'smooth' });
+}
 
 /* ================================================================
-   RENDER PROFILE CARD
-   Builds the HTML for the profile display and injects it.
+   BUILD PROFILE HTML
    ================================================================ */
-function renderProfileCard(data) {
-    const displayName = data.prefName
-        ? `${data.prefName} ${data.lastName}`
-        : `${data.firstName} ${data.lastName}`;
+function buildProfileHTML(d) {
+    const divider = d.divider || '|';
+    const displayName = d.name.nickname
+        ? `${d.name.nickname} ${d.name.last}`
+        : `${d.name.first} ${d.name.last}`;
+    const fullName = [d.name.first, d.name.middle, d.name.last].filter(Boolean).join(' ');
 
-    const fullName = [data.firstName, data.middleName, data.lastName]
-        .filter(Boolean).join(' ');
-
-    const mascot = `${data.mascotAdj} ${data.mascotNoun}`;
-    const divider = data.divider || '|';
-
-    // Portrait image or placeholder
-    const photoHTML = data.pictureURL
-        ? `<img class="profile-photo" src="${data.pictureURL}" alt="${data.pictureCaption}">`
-        : `<div class="profile-photo-placeholder">No photo</div>`;
-
-    // Courses
-    let coursesHTML = '<p class="profile-text" style="color:var(--ink-light);">No courses added.</p>';
-    if (data.courses.length > 0) {
-        coursesHTML = data.courses.map(c => `
-            <div class="course-card">
-                <div class="course-card-code">${c.dept} ${c.number}</div>
-                ${c.reason ? `<div class="course-card-reason">${c.reason}</div>` : ''}
-            </div>
-        `).join('');
-    }
-
-    // Computers
-    const computers = [data.primaryComputer, data.secondaryComputer].filter(Boolean);
-    const computersHTML = computers.map(c => `<span class="profile-tag">${c}</span>`).join('');
-
-    // Funny thing
-    const funnyHTML = data.funnyThing
-        ? `<div class="profile-section">
-               <h3 class="profile-section-title">Something Funny</h3>
-               <p class="profile-text">${data.funnyThing}</p>
-           </div>`
+    const photoHTML = d.image
+        ? `<img class="profile-photo" src="${d.image}" alt="${d.imageCaption || ''}">`
         : '';
 
-    profileCard.innerHTML = `
-        <div class="profile-wrapper">
+    const coursesRowsHTML = d.courses.length
+        ? d.courses.map(c => `
+            <tr>
+                <td>${c.dept}</td>
+                <td>${c.number}</td>
+                <td>${c.name}</td>
+                <td>${c.reason}</td>
+            </tr>`).join('')
+        : '<tr><td colspan="4" style="color:var(--ink-light);">No courses added.</td></tr>';
 
-            <!-- BANNER -->
-            <div class="profile-banner">
-                ${photoHTML}
-                <div class="profile-header-text">
-                    <div class="profile-name">${displayName}</div>
-                    ${data.prefName ? `<div class="profile-mascot" style="font-size:12px; color:var(--ink-light); margin-top:.1rem;">Legal: ${fullName}</div>` : ''}
-                    <div class="profile-mascot">${mascot} ${divider} ${displayName}</div>
-                    <div class="profile-date">Acknowledged: ${data.ackDate}</div>
-                </div>
-            </div>
+    const platformStr = d.platform.length ? d.platform.join(', ') : '—';
+    const osStr = d.os.length ? d.os.join(', ') : '—';
 
-            <!-- BODY -->
-            <div class="profile-body">
-
-                <!-- PERSONAL STATEMENT -->
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Personal Statement</h3>
-                    <p class="profile-text">${data.personalStatement}</p>
-                    ${data.pictureCaption ? `<p class="profile-text" style="font-size:11px; color:var(--ink-light); margin-top:.4rem;"><em>${data.pictureCaption}</em></p>` : ''}
-                </div>
-
-                <!-- BACKGROUND -->
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Personal Background</h3>
-                    <p class="profile-text">${data.persBackground}</p>
-                </div>
-
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Academic Background</h3>
-                    <p class="profile-text">${data.academicBackground}</p>
-                </div>
-
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Professional Background</h3>
-                    <p class="profile-text">${data.professionalBackground}</p>
-                </div>
-
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Subject Background</h3>
-                    <p class="profile-text">${data.subjectBackground}</p>
-                </div>
-
-                <!-- COMPUTER -->
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Computer(s)</h3>
-                    <div>${computersHTML}</div>
-                </div>
-
-                <!-- COURSES -->
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Courses</h3>
-                    ${coursesHTML}
-                </div>
-
-                <!-- QUOTE -->
-                <div class="profile-section">
-                    <h3 class="profile-section-title">Favorite Quote</h3>
-                    <blockquote class="profile-quote">
-                        ${data.quote}
-                        <cite>— ${data.quoteAuthor}</cite>
-                    </blockquote>
-                </div>
-
-                <!-- MISC -->
-                ${funnyHTML}
-
-            </div>
+    return `
+        ${photoHTML}
+        <div class="profile-name-line">${displayName}</div>
+        <div class="profile-sub">
+            ${d.mascotDescriptor} ${d.mascot} ${divider} ${displayName}
+            ${d.displayHeading ? ' &nbsp;|&nbsp; ' + d.displayHeading : ''}
         </div>
+        <div class="profile-sub">${d.initialsDate}${d.email ? ' &nbsp;|&nbsp; ' + d.email : ''}</div>
 
-        <!-- RESET LINK -->
-        <div class="profile-reset-link">
-            <a id="profile-reset-link" role="button" tabindex="0">↩ Start over</a>
-        </div>
+        <h3>Personal Statement</h3>
+        <p>${d.personalStatement}</p>
+        ${d.imageCaption ? `<p><em>${d.imageCaption}</em></p>` : ''}
+
+        <h3>Favorite Quote</h3>
+        <blockquote>${d.quote}<br><cite>— ${d.quoteAuthor}</cite></blockquote>
+
+        <h3>Personal Background</h3>
+        <p>${d.backgrounds.personal}</p>
+
+        <h3>Professional Background</h3>
+        <p>${d.backgrounds.professional}</p>
+
+        <h3>Academic Background</h3>
+        <p>${d.backgrounds.academic}</p>
+
+        <h3>Something to Remember Me</h3>
+        <p>${d.backgrounds.funny}</p>
+
+        ${d.backgrounds.additional ? `<h3>Also</h3><p>${d.backgrounds.additional}</p>` : ''}
+
+        <h3>Setup</h3>
+        <p><strong>Platform:</strong> ${platformStr} &nbsp;|&nbsp; <strong>OS:</strong> ${osStr}</p>
+        <p><strong>Work Location:</strong> ${d.workLocation}</p>
+        <p><strong>Backup Plan:</strong> ${d.backupPlan}</p>
+
+        <h3>Courses</h3>
+        <table>
+            <thead>
+                <tr><th>Dept</th><th>#</th><th>Course Name</th><th>Reason</th></tr>
+            </thead>
+            <tbody>${coursesRowsHTML}</tbody>
+        </table>
     `;
+}
 
-    // Wire up the "Start over" link
-    document.getElementById('profile-reset-link').addEventListener('click', function () {
-        // Trigger native reset to clear all inputs
-        form.dispatchEvent(new Event('reset'));
+/* ================================================================
+   LOAD SAMPLE
+   ================================================================ */
+function loadSample() {
+    setField('f-name',               'Jane');
+    setField('m-name',               'A');
+    setField('l-name',               'Doe');
+    setField('p-name',               'Jay');
+    setField('divider',              '|');
+    setField('mascot-adj',           'Quizzical');
+    setField('mascot-noun',          'Cat');
+    setField('display-heading',      'CS Student | Developer');
+    setField('email',                'jane@example.com');
+    setField('initials-date',        'JD - 04/10/2026');
+    setField('image-url',            '');
+    setField('picture-caption',      'Smiling at the camera in front of a whiteboard');
+    setTextarea('personal-statement','I\'m a developer and educator who loves teaching people how to reason with code and algorithms. I enjoy hands-on projects, open-source collaboration, and coffee while debugging.');
+    setField('quote',                'Simplicity is the soul of efficiency.');
+    setField('quote-author',         'Austin Freeman');
+    setTextarea('pers-background',   'Grew up near the Andes; enjoys trekking, photography, and local cuisine.');
+    setTextarea('professional-background', '5 years as a software engineer, 3 years as a curriculum developer for introductory CS courses.');
+    setTextarea('academic-background', 'BSc in Computer Science; ongoing study in human-centered computing.');
+    setTextarea('funny-thing',       'Once taught a class of llamas to debug a loop');
+    setTextarea('additional',        'Prefers quinoa snacks and composes multilingual commit messages (12 languages)');
+    setField('work-location',        'Home office');
+    setTextarea('backup-plan',       'Use campus lab machine; phone hotspot and basic editor; keep code in cloud repo.');
+
+    // Platform & OS checkboxes
+    setCheckboxes('platform', ['Laptop']);
+    setCheckboxes('os', ['macOS']);
+
+    // Clear existing courses and add sample rows
+    document.getElementById('courses-list').innerHTML = '';
+    courseCount = 0;
+    addCourseRow();
+    fillLastCourseRow('CS', '101', 'Intro to Programming', 'Required for major');
+    addCourseRow();
+    fillLastCourseRow('MATH', '201', 'Calculus II', 'Core requirement');
+}
+
+function setField(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+}
+
+function setTextarea(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+}
+
+function setCheckboxes(name, values) {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(cb => {
+        cb.checked = values.includes(cb.value);
     });
-    document.getElementById('profile-reset-link').addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            form.dispatchEvent(new Event('reset'));
-        }
-    });
+}
+
+function fillLastCourseRow(dept, num, name, reason) {
+    const rows = document.querySelectorAll('#courses-list tr');
+    const last = rows[rows.length - 1];
+    if (!last) return;
+    const inputs = last.querySelectorAll('input');
+    if (inputs[0]) inputs[0].value = dept;
+    if (inputs[1]) inputs[1].value = num;
+    if (inputs[2]) inputs[2].value = name;
+    if (inputs[3]) inputs[3].value = reason;
+}
+
+/* ================================================================
+   CLEAR
+   ================================================================ */
+function handleClear() {
+    form.querySelectorAll('input[type="text"], input[type="date"]')
+        .forEach(el => { el.value = ''; });
+    form.querySelectorAll('textarea')
+        .forEach(el => { el.value = ''; });
+    form.querySelectorAll('input[type="checkbox"]')
+        .forEach(el => { el.checked = false; });
+    form.querySelectorAll('input[type="file"]')
+        .forEach(el => { el.value = ''; });
+    handleClearImage();
+    document.getElementById('courses-list').innerHTML = '';
+    courseCount = 0;
+}
+
+function handleClearImage() {
+    imageDataURL = null;
+    pictureInput.value = '';
+    imageUrlInput.value = '';
+    imagePreview.src = '';
+    imagePreviewWrap.style.display = 'none';
+}
+
+/* ================================================================
+   RESET (from preview back to form)
+   ================================================================ */
+function handleReset() {
+    previewPanel.classList.add('hidden');
+    form.classList.remove('hidden');
+    form.scrollIntoView({ behavior: 'smooth' });
 }
