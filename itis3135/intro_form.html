@@ -3,11 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction Form</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Course Introduction Generator</title>
     <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .hidden { display: none; }
+
+        /* Hide native checkbox, show custom span */
+        .checkbox-label input[type="checkbox"] { display: none; }
+        .checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            cursor: pointer;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 14px;
+        }
+        .checkbox-custom {
+            display: inline-block;
+            width: 16px; height: 16px;
+            border: 2px solid #999;
+            border-radius: 2px;
+            position: relative;
+            flex-shrink: 0;
+            background: #fff;
+        }
+        .checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+            background: var(--accent, #b84c2e);
+            border-color: var(--accent, #b84c2e);
+        }
+        .checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '';
+            position: absolute;
+            left: 3px; top: 0px;
+            width: 5px; height: 9px;
+            border: 2px solid #fff;
+            border-top: none; border-left: none;
+            transform: rotate(45deg);
+        }
+        
+    </style>
 </head>
 <body>
 
@@ -17,173 +53,225 @@
     </header>
 
     <main>
+
+        <!-- ===== FORM ===== -->
         <form id="intro-form" novalidate>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Generate Webpage</button>
+                <button type="button" id="load-sample-btn" class="btn btn-secondary">Load Sample</button>
+                <button type="button" id="clear-btn" class="btn btn-ghost">Clear</button>
+            </div>
 
             <!-- NAME -->
             <section class="form-box" id="section-name">
                 <h2 class="section-title">Name</h2>
                 <div class="section-body">
+                    <p class="section-label">Name:</p>
                     <div class="field-row">
                         <div class="field">
-                            <label for="f-name">First Name </label>
+                            <label for="f-name">First:</label>
                             <input type="text" id="f-name" name="f-name" placeholder="Jane">
                         </div>
                         <div class="field">
-                            <label for="l-name">Last Name </label>
-                            <input type="text" id="l-name" name="l-name" placeholder="Doe">
-                        </div>
-                    </div>
-                    <div class="field-row">
-                        <div class="field">
-                            <label for="p-name">Preferred Name / Nickname <span class="opt">(optional)</span></label>
-                            <input type="text" id="p-name" name="p-name" placeholder="Jay">
-                        </div>
-                        <div class="field">
-                            <label for="m-name">Middle Name <span class="opt">(optional)</span></label>
+                            <label for="m-name">Middle:</label>
                             <input type="text" id="m-name" name="m-name" placeholder="Marie">
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ACKNOWLEDGEMENT -->
-            <section class="form-box" id="section-acknowledgement">
-                <h2 class="section-title">Acknowledgement</h2>
-                <div class="section-body">
-                    <div class="field checkbox-field">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="acknowledgement" name="acknowledgement">
-                            <span class="checkbox-custom"></span>
-                            I acknowledge that all information provided is accurate and truthful. 
-                        </label>
-                    </div>
-                    <div class="field" style="max-width:320px; margin-top:1rem;">
-                        <label for="ack-date">Acknowledgement Date </label>
-                        <input type="date" id="ack-date" name="ack-date">
-                    </div>
-                </div>
-            </section>
-
-            <!-- PERSONALIZATION -->
-            <section class="form-box" id="section-personalization">
-                <h2 class="section-title">Personalization</h2>
-                <div class="section-body">
-                    <div class="field-row">
                         <div class="field">
-                            <label for="mascot-adj">Mascot Adjective </label>
-                            <input type="text" id="mascot-adj" name="mascot-adj" placeholder="e.g. Quizzical">
+                            <label for="l-name">Last:</label>
+                            <input type="text" id="l-name" name="l-name" placeholder="Doe">
                         </div>
                         <div class="field">
-                            <label for="mascot-noun">Mascot Noun </label>
-                            <input type="text" id="mascot-noun" name="mascot-noun" placeholder="e.g. Cat">
-                        </div>
-                        <div class="field">
-                            <label for="divider">Divider Symbol </label>
-                            <input type="text" id="divider" name="divider" placeholder="e.g. | or ~">
+                            <label for="p-name">Nickname:</label>
+                            <input type="text" id="p-name" name="p-name" placeholder="Jay">
                         </div>
                     </div>
                     <div class="field-row">
                         <div class="field">
-                            <label for="picture">Portrait </label>
+                            <label for="divider">Divider:</label>
+                            <input type="text" id="divider" name="divider" placeholder="|">
+                        </div>
+                        <div class="field">
+                            <label for="mascot-adj">Mascot Descriptor:</label>
+                            <input type="text" id="mascot-adj" name="mascot-adj" placeholder="Quizzical">
+                        </div>
+                        <div class="field">
+                            <label for="mascot-noun">Mascot:</label>
+                            <input type="text" id="mascot-noun" name="mascot-noun" placeholder="Cat">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PERSONAL INFORMATION -->
+            <section class="form-box" id="section-personal">
+                <h2 class="section-title">Personal Information</h2>
+                <div class="section-body">
+                    <div class="field">
+                        <label for="display-heading">Display Heading:</label>
+                        <input type="text" id="display-heading" name="display-heading" placeholder="e.g. CS Student | Developer">
+                    </div>
+                    <div class="field">
+                        <label for="email">Email address:</label>
+                        <input type="text" id="email" name="email" placeholder="jane@example.com">
+                        <span class="field-hint">We will not share this address; used only for contact.</span>
+                    </div>
+                    <div class="field">
+                        <label for="initials-date">Initials &amp; Date <em>(ie JA - 09/26/2025)</em>:</label>
+                        <input type="text" id="initials-date" name="initials-date" placeholder="JD - 04/10/2026">
+                    </div>
+                    <div class="field">
+                        <label for="image-url">Image URL:</label>
+                        <input type="text" id="image-url" name="image-url" placeholder="https://example.com/photo.jpg">
+                    </div>
+                    <div class="field">
+                        <span style="font-size:13px; color:#666;">or</span>
+                        <div style="display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; margin-top:.3rem;">
                             <input type="file" id="picture" name="picture" accept="image/*">
-                        </div>
-                        <div class="field">
-                            <label for="picture-caption">Picture Caption </label>
-                            <input type="text" id="picture-caption" name="picture-caption" placeholder="Describe your picture…">
+                            <button type="button" id="clear-image-btn" class="btn btn-ghost">Clear Image</button>
                         </div>
                     </div>
+                    <div id="image-preview-wrap" class="hidden">
+                        <img id="image-preview" src="" alt="Uploaded preview" style="max-width:160px; margin-top:.5rem; border-radius:4px; border:1px solid #ccc;">
+                    </div>
                     <div class="field">
-                        <label for="personal-statement">Personal Statement </label>
-                        <input type="text" id="personal-statement" name="personal-statement" placeholder="e.g. I am a junior CS student who loves building things…">
+                        <label for="picture-caption">Image Caption:</label>
+                        <input type="text" id="picture-caption" name="picture-caption" placeholder="Describe your picture…">
                     </div>
                 </div>
             </section>
 
-            <!-- BACKGROUND -->
-            <section class="form-box" id="section-background">
-                <h2 class="section-title">Background</h2>
+            <!-- PERSONAL STATEMENT -->
+            <section class="form-box" id="section-statement">
+                <h2 class="section-title">Personal Statement</h2>
                 <div class="section-body">
+                    <p class="section-label">Write a few sentences about yourself:</p>
                     <div class="field">
-                        <label for="pers-background">Personal Background </label>
-                        <input type="text" id="pers-background" name="pers-background" placeholder="e.g. I am from…">
-                    </div>
-                    <div class="field">
-                        <label for="academic-background">Academic Background </label>
-                        <input type="text" id="academic-background" name="academic-background" placeholder="e.g. I graduated with…">
-                    </div>
-                    <div class="field">
-                        <label for="professional-background">Professional Background </label>
-                        <input type="text" id="professional-background" name="professional-background" placeholder="e.g. I have experience working at…">
-                    </div>
-                    <div class="field">
-                        <label for="subject-background">Subject Background </label>
-                        <input type="text" id="subject-background" name="subject-background" placeholder="e.g. I have worked with…">
+                        <textarea id="personal-statement" name="personal-statement" rows="4" placeholder="I'm a developer and educator who loves teaching people how to reason with code and algorithms. I enjoy hands-on projects, open-source collaboration, and coffee while debugging."></textarea>
                     </div>
                 </div>
             </section>
 
-            <!-- COMPUTER -->
-            <section class="form-box" id="section-computer">
-                <h2 class="section-title">Computer</h2>
-                <div class="section-body">
-                    <div class="field-row">
-                        <div class="field">
-                            <label for="primary-computer">Primary Computer </label>
-                            <input type="text" id="primary-computer" name="primary-computer" placeholder="e.g. MacBook Pro 16">
-                        </div>
-                        <div class="field">
-                            <label for="secondary-computer">Secondary Computer <span class="opt">(optional)</span></label>
-                            <input type="text" id="secondary-computer" name="secondary-computer" placeholder="e.g. Lenovo ThinkPad P16">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- COURSES -->
-            <section class="form-box" id="section-courses">
-                <h2 class="section-title">Courses</h2>
-                <div class="section-body">
-                    <div id="courses-list"></div>
-                    <button type="button" id="add-course-btn" class="btn btn-secondary">+ Add Course</button>
-                </div>
-            </section>
-
-            <!-- QUOTE -->
+            <!-- FAVORITE QUOTE -->
             <section class="form-box" id="section-quote">
-                <h2 class="section-title">Quote</h2>
+                <h2 class="section-title">Favorite Quote</h2>
                 <div class="section-body">
                     <div class="field">
-                        <label for="quote">Favorite Quote </label>
-                        <input type="text" id="quote" name="quote" placeholder="e.g. The only way to do great work is to love what you do.">
+                        <label for="quote">Favorite Quote:</label>
+                        <input type="text" id="quote" name="quote" placeholder="Simplicity is the soul of efficiency.">
                     </div>
-                    <div class="field" style="max-width:400px;">
-                        <label for="quote-author">Quote Author </label>
-                        <input type="text" id="quote-author" name="quote-author" placeholder="e.g. Steve Jobs">
+                    <div class="field">
+                        <label for="quote-author">Author:</label>
+                        <input type="text" id="quote-author" name="quote-author" placeholder="Austin Freeman">
                     </div>
                 </div>
             </section>
 
-            <!-- MISC -->
-            <section class="form-box" id="section-misc">
-                <h2 class="section-title">Miscellaneous</h2>
+            <!-- BACKGROUNDS -->
+            <section class="form-box" id="section-background">
+                <h2 class="section-title">Backgrounds</h2>
                 <div class="section-body">
                     <div class="field">
-                        <label for="funny-thing">Something Funny <span class="opt">(optional)</span></label>
-                        <input type="text" id="funny-thing" name="funny-thing" placeholder="e.g. I once tried to…">
+                        <label for="pers-background">Personal:</label>
+                        <textarea id="pers-background" name="pers-background" rows="2" placeholder="Grew up near the Andes; enjoys trekking, photography, and local cuisine."></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="professional-background">Professional:</label>
+                        <textarea id="professional-background" name="professional-background" rows="2" placeholder="5 years as a software engineer, 3 years as a curriculum developer for introductory CS courses."></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="academic-background">Academic:</label>
+                        <textarea id="academic-background" name="academic-background" rows="2" placeholder="BSc in Computer Science; ongoing study in human-centered computing."></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="funny-thing">Interesting/Funny Thing to Remember Me:</label>
+                        <textarea id="funny-thing" name="funny-thing" rows="2" placeholder="Once taught a class of llamas to debug a loop"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="additional">Would Also Like to Add:</label>
+                        <textarea id="additional" name="additional" rows="2" placeholder="Prefers quinoa snacks and composes multilingual commit messages (12 languages)"></textarea>
                     </div>
                 </div>
             </section>
 
-            <!-- BUTTONS -->
+            <!-- COURSE & ADDITIONAL -->
+            <section class="form-box" id="section-course-additional">
+                <h2 class="section-title">Course &amp; Additional</h2>
+                <div class="section-body">
+
+                    <div class="field">
+                        <label>Platform:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="platform" value="Laptop"><span class="checkbox-custom"></span> Laptop</label>
+                            <label class="checkbox-label"><input type="checkbox" name="platform" value="Desktop"><span class="checkbox-custom"></span> Desktop</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Operating System:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="os" value="Windows"><span class="checkbox-custom"></span> Windows</label>
+                            <label class="checkbox-label"><input type="checkbox" name="os" value="Linux"><span class="checkbox-custom"></span> Linux</label>
+                            <label class="checkbox-label"><input type="checkbox" name="os" value="macOS"><span class="checkbox-custom"></span> macOS</label>
+                            <label class="checkbox-label"><input type="checkbox" name="os" value="ChromeOS"><span class="checkbox-custom"></span> ChromeOS</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="work-location">Work Location:</label>
+                        <input type="text" id="work-location" name="work-location" placeholder="e.g. Home office, campus library">
+                    </div>
+
+                    <div class="field">
+                        <label for="backup-plan">Backup Plan <em>(where/how/what you'll use if something goes wrong)</em>:</label>
+                        <textarea id="backup-plan" name="backup-plan" rows="2" placeholder="Use campus lab machine; phone hotspot and basic editor; keep code in cloud repo."></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label>Courses <em>(add or remove rows)</em>:</label>
+                        <table id="courses-table">
+                            <thead>
+                                <tr>
+                                    <th>Department</th>
+                                    <th>#</th>
+                                    <th>Course Name</th>
+                                    <th>Reason for taking</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-list"></tbody>
+                        </table>
+                        <button type="button" id="add-course-btn" class="btn btn-secondary" style="margin-top:.6rem;">+ Add Row</button>
+                    </div>
+
+                </div>
+            </section>
+
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset"  class="btn btn-secondary">Reset</button>
-                <button type="button" id="clear-btn" class="btn btn-ghost">Clear</button>
+                <button type="submit" class="btn btn-primary">Generate Webpage</button>
+                <button type="button" id="load-sample-btn-2" class="btn btn-secondary">Load Sample</button>
+                <button type="button" id="clear-btn-2" class="btn btn-ghost">Clear</button>
             </div>
 
         </form>
 
-        <div id="profile-card" class="hidden"></div>
+        <!-- ===== PREVIEW — shown below form after generate ===== -->
+        <div id="preview-panel" class="hidden">
+
+            <section class="form-box">
+                <h2 class="section-title">JSON Data</h2>
+                <div class="section-body">
+                    <pre id="json-output"></pre>
+                </div>
+            </section>
+
+            <section class="form-box">
+                <h2 class="section-title">HTML (main content)</h2>
+                <div class="section-body" id="html-output"></div>
+            </section>
+
+        </div>
+
     </main>
 
     <script src="Scripts/introduction.js"></script>
