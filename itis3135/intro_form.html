@@ -10,24 +10,33 @@
     <p>Fill out the form below to introduce yourself!</p>
     <p><em>Do not leave any leading or trailing spaces. Be sure to complete all required fields.</em></p>
     <p style="font-size: 10px;">* = Required Field</p>
-    <form>
-        <label for="f-name">First Name*:</label>
-        <input type="text" id="f-name" name="f-name" required value="Quinn"><br><br>
+
+    <div id="form-area">
+        <form>
+            <div id="name">
+                <label for="f-name">First Name*:</label>
+                <input type="text" id="f-name" name="f-name" required value="Quinn"><br><br>
         
-        <label for="m-name">Middle Name:</label>
-        <input type="text" id="m-name" name="m-name"><br><br>
+                <label for="m-name">Middle Name:</label>
+                <input type="text" id="m-name" name="m-name"><br><br>
 
-        <label for="l-name">Last Name*:</label>
-        <input type="text" id="l-name" name="l-name" required value="Conroy"><br><br>
+                <label for="l-name">Last Name*:</label>
+                <input type="text" id="l-name" name="l-name" required value="Conroy"><br><br>
 
-        <label for="n-name">Nickname:</label>
-        <input type="text" id="n-name" name="n-name"><br><br>
+                <label for="n-name">Nickname:</label>
+                <input type="text" id="n-name" name="n-name"><br><br>
 
-        <label for="divider">Divider Symbol*:</label>
-        <input type="text" id="divider" name="divider" required value=" | "><br><br>
+                <label for="divider">Divider Symbol*:</label>
+                <input type="text" id="divider" name="divider" required value=" | "><br><br>
 
+                <label for="mascot-desc">Mascot Description*:</label><br>
+                <input type="text" id="mascot-desc" name="mascot-desc" required value="Quizzical"><br><br>
 
-        <input type="submit" value="Submit">
-    </form>
+                <label for="mascot">Mascot*:</label>
+                <input type="text" id="mascot" name="mascot" required value="Cat"><br><br>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
