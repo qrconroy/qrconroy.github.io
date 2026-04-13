@@ -34,9 +34,33 @@
                 <label for="mascot-desc">Mascot Description*:</label><br>
                 <input type="text" id="mascot-desc" name="mascot-desc" required value="Quizzical"><br><br>
 
-                <label for="mascot">Mascot*:</label>
+                <label for="mascot">Mascot Animal*:</label>
                 <input type="text" id="mascot" name="mascot" required value="Cat"><br><br>
             </div>
+
+            <div id="acknowledgement">
+                <h3>Acknowledgement:</h3>
+                <!-- Here, I want to make it so that when the form is submitted, it displays the actual acknowledgement statement
+                 with their name as variables inputted into the statement -->
+                <p>By submitting this form, I acknowledge that I have read and understood the course syllabus for ITIS 3135.</p>
+                <input type="checkbox" id="acknowledge" name="acknowledge" required>
+                <label for="acknowledge">I acknowledge the above statement</label><br><br>
+
+                <label for="acknowledge-date">Date of Acknowledgement*:</label>
+                <input type="date" id="acknowledge-date" name="acknowledge-date" required><br><br>
+            </div>
+
+            <div id="personal-info">
+                <h3>Personal Information:</h3>
+                <label for="photo">Personal Photo:</label>
+                <input type="url" id="photo-url" name="photo-url" placeholder="Enter the URL of your photo"><br><br>
+                <p>OR upload a file:</p>
+                <input type="file" id="photo" name="photo" accept="image/*"><br><br>
+
+                <label for="photo-caption">Photo Caption:</label>
+                <input type="text" id="photo-caption" name="photo-caption"><br><br>
+            </div>
+
             <input type="submit" value="Submit">
         </form>
     </div>
