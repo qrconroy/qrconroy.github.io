@@ -59,3 +59,4 @@ defaults.forEach(([dept, num, name, reason]) => {
     tbody.appendChild(createCourseRow(dept, num, name, reason));
 });
 renumberRows();
+

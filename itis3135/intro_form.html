@@ -95,11 +95,26 @@
             <br><br>
             <fieldset>
                 <legend>Courses</legend>
-                
+                <label for="courses-table">Courses (add or remove rows):</label>
+
+                <table id="courses-table">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>#</th>
+                            <th>Course Name</th>
+                            <th>Reason for taking</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="courses-list"></tbody>
+                </table>
             </fieldset>
             <br><br>
             <input type="submit" value="Submit">
         </form>
     </div>
+
+    <script src="Scripts/introduction.js"></script>
 </body>
 </html>
