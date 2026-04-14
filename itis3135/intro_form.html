@@ -95,20 +95,23 @@
             <br><br>
             <fieldset>
                 <legend>Courses</legend>
-                <label for="courses-table">Courses (add or remove rows):</label>
+                <label for="course-table">Courses (add or remove rows):</label>
 
-                <table id="courses-table">
+                <table id="course-table">
                     <thead>
                         <tr>
-                            <th>Department</th>
                             <th>#</th>
+                            <th>Department</th>
+                            <th>Number</th>
                             <th>Course Name</th>
                             <th>Reason for taking</th>
-                            <th></th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="courses-list"></tbody>
+                    <tbody id="course-body">
+                    </tbody>
                 </table>
+                <button type="button" id="add-row">Add Course</button>
             </fieldset>
             <br><br>
             <input type="submit" value="Submit">
