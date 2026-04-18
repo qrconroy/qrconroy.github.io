@@ -92,4 +92,37 @@ window.onload = function() {
             document.getElementById("form-area").style.display = "none";
         };
     }
+
+
+
+    // Helper to create rows (as established before)
+    function createRow(dept = "", num = "", name = "", reason = "") {
+        const row = tableBody.insertRow();
+        const rowCount = tableBody.rows.length;
+        row.innerHTML = `
+            <td>${rowCount}</td>
+            <td><input type="text" name="dept[]" value="${dept}" required></td>
+            <td><input type="number" name="num[]" value="${num}" required></td>
+            <td><input type="text" name="name[]" value="${name}" required></td>
+            <td><input type="text" name="reason[]" value="${reason}" required></td>
+            <td><button type="button" onclick="this.closest('tr').remove(); updateRowNumbers();">Delete</button></td>
+        `;
+    }
+
+    window.updateRowNumbers = function() {
+        const rows = tableBody.querySelectorAll("tr");
+        rows.forEach((row, index) => { row.cells[0].innerText = index + 1; });
+    };
+
+    // Pre-fill 4 courses
+    const initialCourses = [
+        { dept: "ITIS", num: "3135", name: "Front-End Web App Development", reason: "Required. Also something I'm very interested in." },
+        { dept: "ITIS", num: "3310", name: "Software Architecture & Design", reason: "Required" },
+        { dept: "ITSC", num: "3146", name: "Introduction to Operating Systems & Networking", reason: "Required; 2181 got me interested in learning more about operating systems and how my software actually interacts with the hardware of the computer." },
+        { dept: "ITSC", num: "3155", name: "Software Engineering", reason: "Required; good to learn more about what my job will probably look like once I graduate." },
+        { dept: "STAT", num: "2122", name: "Introduction to Probability & Statistics", reason: "Required." }
+    ];
+    initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
+
+    addButton.onclick = () => createRow();
 };
