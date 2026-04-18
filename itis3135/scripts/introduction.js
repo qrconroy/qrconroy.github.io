@@ -1,5 +1,5 @@
 window.onload = function() {
-    // 1. Link Buttons
+    // 1. DOM Elements
     const addButton = document.getElementById("add-row");
     const jsonBtn = document.getElementById("download-json");
     const htmlBtn = document.getElementById("generate-html");
@@ -7,10 +7,10 @@ window.onload = function() {
     const tableBody = document.getElementById("course-body");
     const outputArea = document.getElementById("output-area");
 
-    // 2. Helper: Get value safely
+    // 2. Helper Function
     const val = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
 
-    // 3. Data Gathering Function (Updated to include Quote)
+    // 3. Central Data Gatherer (Captures everything, including the Quote)
     function getIntroductionData() {
         const courses = [];
         tableBody.querySelectorAll("tr").forEach(row => {
@@ -25,15 +25,21 @@ window.onload = function() {
             }
         });
 
+        // Build Title Strings safely
+        const fName = val("f-name");
+        const mName = val("m-name");
+        const lName = val("l-name");
+        const fullName = `${fName} ${mName} ${lName}`.replace(/\s+/g, ' ').trim();
+        const nickname = val("n-name");
+        const divider = val("divider");
+        const mascotDesc = val("mascot-desc");
+        const mascotAnimal = val("mascot");
+        
+        const displayTitle = `${fullName}${nickname ? ` "${nickname}"` : ''} ${divider} ${mascotDesc} ${mascotAnimal}`;
+
         return {
-            firstName: val("f-name"),
-            middleName: val("m-name"),
-            lastName: val("l-name"),
-            fullName: `${val("f-name")} ${val("m-name")} ${val("l-name")}`.replace(/\s+/g, ' ').trim(),
-            nickname: val("n-name"),
-            divider: val("divider"),
-            mascotDesc: val("mascot-desc"),
-            mascotAnimal: val("mascot"),
+            fullName,
+            displayTitle,
             statement: val("personal-statement"),
             quote: val("favorite-quote"),
             author: val("quote-author"),
@@ -54,39 +60,78 @@ window.onload = function() {
         };
     }
 
-    // 4. JSON Button Logic
-    if (jsonBtn) {
-        jsonBtn.onclick = function() {
+    // 4. SUBMIT BUTTON (Full Visual Preview)
+    if (form) {
+        form.onsubmit = function(e) {
+            e.preventDefault();
             const data = getIntroductionData();
-            const jsonString = JSON.stringify(data, null, 4);
+            
+            // Format course list for HTML
+            const courseList = data.courses.map(c => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
+
             outputArea.innerHTML = `
-                <hr><h3>JSON Data Output</h3>
-                <textarea style="width:100%; height:300px; font-family:monospace; padding:10px;" readonly>${jsonString}</textarea>
-                <br><button type="button" onclick="location.reload()">Return to Form</button>
+                <hr>
+                <h2>${data.displayTitle}</h2>
+                
+                <figure>
+                    <img src="${data.photoUrl}" alt="${data.photoCaption}" style="max-width:300px; border-radius: 8px;">
+                    <figcaption>${data.photoCaption}</figcaption>
+                </figure>
+
+                <p>${data.statement}</p>
+
+                <h3>Background & Workstations</h3>
+                <ul>
+                    <li><strong>Personal Background:</strong> ${data.background.personal}</li>
+                    <li><strong>Professional Background:</strong> ${data.background.professional}</li>
+                    <li><strong>Academic Background:</strong> ${data.background.academic}</li>
+                    <li><strong>Background in Subject:</strong> ${data.background.subject}</li>
+                    <li><strong>Primary Computer:</strong> ${data.workstations.primary}</li>
+                    <li><strong>Backup Computer:</strong> ${data.workstations.backup}</li>
+                </ul>
+
+                <h3>Courses</h3>
+                <ul>
+                    ${courseList}
+                </ul>
+
+                <p><em>"${data.quote}" — ${data.author}</em></p>
+                <p><small>Certified on ${data.ackDate}</small></p>
+
+                <button type="button" onclick="location.reload()">Reset Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
         };
     }
 
-    // 5. HTML Button Logic (Updated with Quote section)
+    // 5. JSON BUTTON
+    if (jsonBtn) {
+        jsonBtn.onclick = function() {
+            const data = getIntroductionData();
+            outputArea.innerHTML = `
+                <hr><h3>JSON Data Output</h3>
+                <textarea style="width:100%; height:300px; font-family:monospace; padding:10px;" readonly>${JSON.stringify(data, null, 4)}</textarea>
+                <br><br><button type="button" onclick="location.reload()">Return to Form</button>
+            `;
+            document.getElementById("form-area").style.display = "none";
+        };
+    }
+
+    // 6. HTML BUTTON (Generates clean, full-page code)
     if (htmlBtn) {
         htmlBtn.onclick = function() {
             const data = getIntroductionData();
-            const displayTitle = `${data.fullName}${data.nickname ? ` "${data.nickname}"` : ''} ${data.divider} ${data.mascotDesc} ${data.mascotAnimal}`;
-
-            const courseItems = data.courses.map(c => 
-                `        <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`
-            ).join('\n');
+            const courseItems = data.courses.map(c => `            <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join('\n');
             
             const rawHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>${data.fullName} | ${data.mascotAnimal}</title>
+    <title>${data.fullName} | Introduction</title>
 </head>
 <body>
     <header>
-        <h1>${displayTitle}</h1>
+        <h1>${data.displayTitle}</h1>
     </header>
     <main>
         <figure>
@@ -100,27 +145,15 @@ window.onload = function() {
         </section>
 
         <section>
-            <h3>Favorite Quote</h3>
-            <blockquote>
-                "${data.quote}"
-                <cite>— ${data.author}</cite>
-            </blockquote>
-        </section>
-
-        <section>
-            <h3>Background</h3>
+            <h3>Background & Workstations</h3>
             <ul>
                 <li><strong>Personal:</strong> ${data.background.personal}</li>
                 <li><strong>Professional:</strong> ${data.background.professional}</li>
                 <li><strong>Academic:</strong> ${data.background.academic}</li>
                 <li><strong>Subject:</strong> ${data.background.subject}</li>
+                <li><strong>Primary PC:</strong> ${data.workstations.primary}</li>
+                <li><strong>Backup PC:</strong> ${data.workstations.backup}</li>
             </ul>
-        </section>
-
-        <section>
-            <h3>Workstations</h3>
-            <p><strong>Primary:</strong> ${data.workstations.primary}</p>
-            <p><strong>Backup:</strong> ${data.workstations.backup}</p>
         </section>
 
         <section>
@@ -130,8 +163,13 @@ ${courseItems}
             </ul>
         </section>
 
+        <section>
+            <h3>Favorite Quote</h3>
+            <blockquote>"${data.quote}"<cite> — ${data.author}</cite></blockquote>
+        </section>
+
         <footer>
-            <p><em>I certified this information on ${data.ackDate}</em></p>
+            <p><em>Certified on ${data.ackDate}</em></p>
         </footer>
     </main>
 </body>
@@ -140,36 +178,17 @@ ${courseItems}
             outputArea.innerHTML = `
                 <hr><h3>HTML Source Output</h3>
                 <textarea style="width:100%; height:400px; font-family:monospace; padding:10px;" readonly>${rawHtml.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</textarea>
-                <br><button type="button" onclick="location.reload()">Return to Form</button>
+                <br><br><button type="button" onclick="location.reload()">Return to Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
         };
     }
 
-    // 6. Form Submit Logic (Visual Preview Updated)
-    if (form) {
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            const data = getIntroductionData();
-            outputArea.innerHTML = `
-                <hr>
-                <h2>Preview</h2>
-                <p><strong>Name:</strong> ${data.fullName}</p>
-                <p><strong>Mascot:</strong> ${data.mascotDesc} ${data.mascotAnimal}</p>
-                <p><strong>Quote:</strong> "${data.quote}" - ${data.author}</p>
-                <p><strong>Statement:</strong> ${data.statement}</p>
-                <button type="button" onclick="location.reload()">Back</button>
-            `;
-            document.getElementById("form-area").style.display = "none";
-        };
-    }
-
-    // 7. Table Management Functions
+    // 7. TABLE LOGIC
     function createRow(dept = "", num = "", name = "", reason = "") {
         const row = tableBody.insertRow();
-        const rowCount = tableBody.rows.length;
         row.innerHTML = `
-            <td>${rowCount}</td>
+            <td>${tableBody.rows.length + 1}</td>
             <td><input type="text" name="dept[]" value="${dept}" required></td>
             <td><input type="number" name="num[]" value="${num}" required></td>
             <td><input type="text" name="name[]" value="${name}" required></td>
@@ -183,7 +202,6 @@ ${courseItems}
         rows.forEach((row, index) => { row.cells[0].innerText = index + 1; });
     };
 
-    // Pre-fill initial courses
     const initialCourses = [
         { dept: "ITIS", num: "3135", name: "Front-End Web App Development", reason: "Required. Also something I'm very interested in." },
         { dept: "ITIS", num: "3310", name: "Software Architecture & Design", reason: "Required" },
@@ -191,7 +209,12 @@ ${courseItems}
         { dept: "ITSC", num: "3155", name: "Software Engineering", reason: "Required; career prep." },
         { dept: "STAT", num: "2122", name: "Introduction to Probability & Statistics", reason: "Required." }
     ];
+    
+    // Clear out any stray HTML that might exist in the table body, then build the initial rows
+    tableBody.innerHTML = ""; 
     initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
 
-    addButton.onclick = () => createRow();
+    if (addButton) {
+        addButton.onclick = () => createRow();
+    }
 };
