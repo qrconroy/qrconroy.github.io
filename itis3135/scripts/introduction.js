@@ -60,26 +60,55 @@ window.onload = function() {
         };
     }
 
-    // 4. SUBMIT BUTTON (Full Visual Preview)
+    // 4. TABLE LOGIC (Moved up so the Reset button can use it)
+    function createRow(dept = "", num = "", name = "", reason = "") {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+            <td>${tableBody.rows.length + 1}</td>
+            <td><input type="text" name="dept[]" value="${dept}" required></td>
+            <td><input type="number" name="num[]" value="${num}" required></td>
+            <td><input type="text" name="name[]" value="${name}" required></td>
+            <td><input type="text" name="reason[]" value="${reason}" required></td>
+            <td><button type="button" onclick="this.closest('tr').remove(); updateRowNumbers();">Delete</button></td>
+        `;
+    }
+
+    window.updateRowNumbers = function() {
+        const rows = tableBody.querySelectorAll("tr");
+        rows.forEach((row, index) => { row.cells[0].innerText = index + 1; });
+    };
+
+    const initialCourses = [
+        { dept: "ITIS", num: "3135", name: "Front-End Web App Development", reason: "Required. Also something I'm very interested in." },
+        { dept: "ITIS", num: "3310", name: "Software Architecture & Design", reason: "Required" },
+        { dept: "ITSC", num: "3146", name: "Introduction to Operating Systems & Networking", reason: "Required; 2181 got me interested in learning more about operating systems." },
+        { dept: "ITSC", num: "3155", name: "Software Engineering", reason: "Required; career prep." },
+        { dept: "STAT", num: "2122", name: "Introduction to Probability & Statistics", reason: "Required." }
+    ];
+    
+    // Clear out any stray HTML that might exist in the table body, then build the initial rows
+    tableBody.innerHTML = ""; 
+    initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
+
+    if (addButton) {
+        addButton.onclick = () => createRow();
+    }
+
+    // 5. SUBMIT & RESET BUTTONS
     if (form) {
         form.onsubmit = function(e) {
             e.preventDefault();
             const data = getIntroductionData();
-            
-            // Format course list for HTML
             const courseList = data.courses.map(c => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
 
             outputArea.innerHTML = `
                 <hr>
                 <h2>${data.displayTitle}</h2>
-                
                 <figure>
                     <img src="${data.photoUrl}" alt="${data.photoCaption}" style="max-width:300px; border-radius: 8px;">
                     <figcaption>${data.photoCaption}</figcaption>
                 </figure>
-
                 <p>${data.statement}</p>
-
                 <h3>Background & Workstations</h3>
                 <ul>
                     <li><strong>Personal Background:</strong> ${data.background.personal}</li>
@@ -89,22 +118,23 @@ window.onload = function() {
                     <li><strong>Primary Computer:</strong> ${data.workstations.primary}</li>
                     <li><strong>Backup Computer:</strong> ${data.workstations.backup}</li>
                 </ul>
-
                 <h3>Courses</h3>
-                <ul>
-                    ${courseList}
-                </ul>
-
+                <ul>${courseList}</ul>
                 <p><em>"${data.quote}" — ${data.author}</em></p>
                 <p><small>Certified on ${data.ackDate}</small></p>
-
                 <button type="button" onclick="location.reload()">Reset Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
         };
+
+        // NEW: Form Reset Logic (rebuilds the table to default)
+        form.onreset = function() {
+            tableBody.innerHTML = ""; 
+            initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
+        };
     }
 
-    // 5. JSON BUTTON
+    // 6. JSON BUTTON
     if (jsonBtn) {
         jsonBtn.onclick = function() {
             const data = getIntroductionData();
@@ -117,7 +147,7 @@ window.onload = function() {
         };
     }
 
-    // 6. HTML BUTTON (Generates clean, full-page code)
+    // 7. HTML BUTTON 
     if (htmlBtn) {
         htmlBtn.onclick = function() {
             const data = getIntroductionData();
@@ -182,39 +212,5 @@ ${courseItems}
             `;
             document.getElementById("form-area").style.display = "none";
         };
-    }
-
-    // 7. TABLE LOGIC
-    function createRow(dept = "", num = "", name = "", reason = "") {
-        const row = tableBody.insertRow();
-        row.innerHTML = `
-            <td>${tableBody.rows.length + 1}</td>
-            <td><input type="text" name="dept[]" value="${dept}" required></td>
-            <td><input type="number" name="num[]" value="${num}" required></td>
-            <td><input type="text" name="name[]" value="${name}" required></td>
-            <td><input type="text" name="reason[]" value="${reason}" required></td>
-            <td><button type="button" onclick="this.closest('tr').remove(); updateRowNumbers();">Delete</button></td>
-        `;
-    }
-
-    window.updateRowNumbers = function() {
-        const rows = tableBody.querySelectorAll("tr");
-        rows.forEach((row, index) => { row.cells[0].innerText = index + 1; });
-    };
-
-    const initialCourses = [
-        { dept: "ITIS", num: "3135", name: "Front-End Web App Development", reason: "Required. Also something I'm very interested in." },
-        { dept: "ITIS", num: "3310", name: "Software Architecture & Design", reason: "Required" },
-        { dept: "ITSC", num: "3146", name: "Introduction to Operating Systems & Networking", reason: "Required; 2181 got me interested in learning more about operating systems." },
-        { dept: "ITSC", num: "3155", name: "Software Engineering", reason: "Required; career prep." },
-        { dept: "STAT", num: "2122", name: "Introduction to Probability & Statistics", reason: "Required." }
-    ];
-    
-    // Clear out any stray HTML that might exist in the table body, then build the initial rows
-    tableBody.innerHTML = ""; 
-    initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
-
-    if (addButton) {
-        addButton.onclick = () => createRow();
     }
 };
