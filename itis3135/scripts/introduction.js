@@ -34,11 +34,13 @@ window.onload = function() {
     addButton.onclick = () => createRow();
 
     // --- NEW: Handle Submission and Generate Output ---
+    // --- Handle Submission and Generate Output ---
     const form = document.querySelector("form");
+    
     form.onsubmit = function(e) {
         e.preventDefault();
         
-        // Grab values from form
+        // 1. Collect Personal Data
         const firstName = document.getElementById("f-name").value;
         const middleName = document.getElementById("m-name").value;
         const lastName = document.getElementById("l-name").value;
@@ -47,30 +49,34 @@ window.onload = function() {
         const mascotDesc = document.getElementById("mascot-desc").value;
         const mascotAnimal = document.getElementById("mascot").value;
         const personalStatement = document.getElementById("personal-statement").value;
+        const ackDate = document.getElementById("acknowledge-date").value;
+        
+        // Photo logic: Check the URL field first
         const photoUrl = document.getElementById("photo-url").value;
         const photoCaption = document.getElementById("photo-caption").value;
-        const ackDate = document.getElementById("acknowledge-date").value;
 
-        // Create the header string (e.g., Quinn | Quizzical Cat)
+        // 2. Format the Header
         const fullName = `${firstName} ${middleName ? middleName + ' ' : ''}${lastName}`;
-        const displayTitle = `${fullName} ${nickname ? `"${nickname}"` : ''} ${divider} ${mascotDesc} ${mascotAnimal}`;
+        const displayTitle = `${fullName}${nickname ? ` "${nickname}"` : ''} ${divider} ${mascotDesc} ${mascotAnimal}`;
 
-        // Build Course List HTML
+        // 3. Build Course List HTML safely
         let courseHtml = "<ul>";
         const rows = tableBody.querySelectorAll("tr");
         rows.forEach(row => {
             const inputs = row.querySelectorAll("input");
-            courseHtml += `<li><strong>${inputs[0].value} ${inputs[1].value} - ${inputs[2].value}:</strong> ${inputs[3].value}</li>`;
+            // Ensure we have the expected number of inputs before accessing
+            if (inputs.length >= 4) {
+                courseHtml += `<li><strong>${inputs[0].value} ${inputs[1].value} - ${inputs[2].value}:</strong> ${inputs[3].value}</li>`;
+            }
         });
         courseHtml += "</ul>";
 
-        // Generate the Output Area content
+        // 4. Generate Output
         const outputArea = document.getElementById("output-area");
         outputArea.innerHTML = `
             <hr>
-            <h3>Generated Introduction</h3>
             <h2>${displayTitle}</h2>
-            ${photoUrl ? `<figure><img src="${photoUrl}" alt="${photoCaption}"><figcaption>${photoCaption}</figcaption></figure>` : ''}
+            ${photoUrl ? `<figure><img src="${photoUrl}" alt="${photoCaption}" style="max-width:100%; height:auto;"><figcaption>${photoCaption}</figcaption></figure>` : ''}
             
             <p><strong>Personal Statement:</strong> ${personalStatement}</p>
             
@@ -82,16 +88,22 @@ window.onload = function() {
                 <li><strong>Subject:</strong> ${document.getElementById("subject-background").value}</li>
             </ul>
 
-            <p><strong>Computers:</strong> ${document.getElementById("primary-workstation").value} (Backup: ${document.getElementById("backup-workstation").value})</p>
+            <p><strong>Workstations:</strong></p>
+            <ul>
+                <li><strong>Primary:</strong> ${document.getElementById("primary-workstation").value}</li>
+                <li><strong>Backup:</strong> ${document.getElementById("backup-workstation").value}</li>
+            </ul>
             
             <p><strong>Courses I'm Taking:</strong></p>
             ${courseHtml}
 
             <p><em>I certified this information on ${ackDate}.</em></p>
-            <button type="button" onclick="location.reload()">Reset Form</button>
+            <button type="button" onclick="location.reload()">Fill out form again</button>
         `;
 
-        // Hide the form and show the result (optional, common in the sample page)
+        // 5. Toggle Visibility
         document.getElementById("form-area").style.display = "none";
+        // Scroll to top to see the result
+        window.scrollTo(0, 0);
     };
 };
