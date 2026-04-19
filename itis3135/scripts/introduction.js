@@ -97,6 +97,8 @@ window.onload = function() {
     // 5. SUBMIT & RESET BUTTONS
     if (form) {
         form.onsubmit = function(e) {
+            document.getElementById("form-area").style.display = "none";
+            if (instructions) instructions.style.display = "none";
             e.preventDefault();
             const data = getIntroductionData();
             const courseList = data.courses.map(c => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
@@ -139,6 +141,8 @@ window.onload = function() {
     // 6. JSON BUTTON
     if (jsonBtn) {
         jsonBtn.onclick = function() {
+            document.getElementById("form-area").style.display = "none";
+            if (instructions) instructions.style.display = "none";
             const data = getIntroductionData();
             outputArea.innerHTML = `
                 <hr><h3>JSON Data Output</h3>
@@ -154,7 +158,8 @@ window.onload = function() {
         htmlBtn.onclick = function() {
             const data = getIntroductionData();
             const courseItems = data.courses.map(c => `            <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join('\n');
-            
+            document.getElementById("form-area").style.display = "none";
+            if (instructions) instructions.style.display = "none";
             const rawHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
