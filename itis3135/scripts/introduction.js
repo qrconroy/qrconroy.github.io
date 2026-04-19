@@ -1,6 +1,7 @@
 window.onload = function() {
     // 1. DOM Elements
     const addButton = document.getElementById("add-row");
+    const instructions = document.getElementById("form-instructions");
     const jsonBtn = document.getElementById("download-json");
     const htmlBtn = document.getElementById("generate-html");
     const form = document.querySelector("form");
@@ -97,8 +98,7 @@ window.onload = function() {
     // 5. SUBMIT & RESET BUTTONS
     if (form) {
         form.onsubmit = function(e) {
-            document.getElementById("form-area").style.display = "none";
-            if (instructions) instructions.style.display = "none";
+            
             e.preventDefault();
             const data = getIntroductionData();
             const courseList = data.courses.map(c => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
@@ -125,10 +125,10 @@ window.onload = function() {
                 <h3>Courses</h3>
                 <ul>${courseList}</ul>
                 <p><em>"${data.quote}" — ${data.author}</em></p>
-                <p><small>Certified on ${data.ackDate}</small></p>
                 <button type="button" onclick="location.reload()">Reset Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
+            if (instructions) instructions.style.display = "none";
         };
 
         // NEW: Form Reset Logic (rebuilds the table to default)
@@ -141,8 +141,6 @@ window.onload = function() {
     // 6. JSON BUTTON
     if (jsonBtn) {
         jsonBtn.onclick = function() {
-            document.getElementById("form-area").style.display = "none";
-            if (instructions) instructions.style.display = "none";
             const data = getIntroductionData();
             outputArea.innerHTML = `
                 <hr><h3>JSON Data Output</h3>
@@ -150,6 +148,7 @@ window.onload = function() {
                 <br><br><button type="button" onclick="location.reload()">Return to Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
+            if (instructions) instructions.style.display = "none";
         };
     }
 
@@ -158,8 +157,6 @@ window.onload = function() {
         htmlBtn.onclick = function() {
             const data = getIntroductionData();
             const courseItems = data.courses.map(c => `            <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join('\n');
-            document.getElementById("form-area").style.display = "none";
-            if (instructions) instructions.style.display = "none";
             const rawHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,6 +211,7 @@ ${courseItems}
                 <br><br><button type="button" onclick="location.reload()">Return to Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
+            if (instructions) instructions.style.display = "none";
         };
     }
 };
