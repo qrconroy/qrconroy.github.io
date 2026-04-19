@@ -103,7 +103,9 @@ window.onload = function() {
 
             outputArea.innerHTML = `
                 <hr>
+                <header>
                 <h2>${data.displayTitle}</h2>
+                </header>
                 <figure>
                     <img src="${data.photoUrl}" alt="${data.photoCaption}" style="max-width:300px; border-radius: 8px;">
                     <figcaption>${data.photoCaption}</figcaption>
@@ -197,10 +199,6 @@ ${courseItems}
             <h3>Favorite Quote</h3>
             <blockquote>"${data.quote}"<cite> — ${data.author}</cite></blockquote>
         </section>
-
-        <footer>
-            <p><em>Certified on ${data.ackDate}</em></p>
-        </footer>
     </main>
 </body>
 </html>`;
