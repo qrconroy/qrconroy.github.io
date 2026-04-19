@@ -49,7 +49,7 @@
                  with their name as variables inputted into the statement -->
                 <p>By submitting this form, I acknowledge that I have read and understood the course syllabus for ITIS 3135.</p>
                 <input type="checkbox" id="acknowledge" name="acknowledge" required>
-                <label for="acknowledge">I acknowledge the above statement</label><br><br>
+                <label for="acknowledge">I acknowledge the above statement*</label><br><br>
 
                 <label for="acknowledge-date">Date of Acknowledgement*:</label>
                 <input type="date" id="acknowledge-date" name="acknowledge-date" required><br><br>
@@ -57,15 +57,15 @@
             <br><br>
             <fieldset>
                 <legend>Personal Information</legend>
-                <label for="photo">Personal Photo:</label>
+                <label for="photo">Personal Photo*:</label>
                 <input type="url" id="photo-url" name="photo-url" placeholder="Enter the URL of your photo" value="https://qrconroy.github.io/itis3135/images/quinn.jpg">
                 <p>OR upload a file:</p>
                 <input type="file" id="photo" name="photo" accept="image/*"><br><br>
 
-                <label for="photo-caption">Photo Caption:</label>
+                <label for="photo-caption">Photo Caption*:</label>
                 <input type="text" id="photo-caption" name="photo-caption" value="The happiest I've looked in a photo."><br><br>
 
-                <label for="personal-statement">Personal Statement:</label>
+                <label for="personal-statement">Personal Statement*:</label>
                 <textarea id="personal-statement" name="personal-statement" required>I am a Junior studying Computer Science with a 
                     concentration in Web/Mobile Development & Software Engineering. I’m looking forward to get into my first concentration 
                     class and get a better look at what my future looks like.</textarea><br><br>
@@ -73,33 +73,33 @@
             <br><br>
             <fieldset>
                 <legend>Background</legend>
-                <label for="personal-background">Personal Background:</label><br>
+                <label for="personal-background">Personal Background*:</label><br>
                 <textarea id="personal-background" name="personal-background" required>I am 19 from Wake Forest, North Carolina.</textarea><br><br>
 
-                <label for="professional-background">Professional Background:</label><br>
+                <label for="professional-background">Professional Background*:</label><br>
                 <textarea id="professional-background" name="professional-background" required>I have worked as a youth soccer referee 
                     in the Raleigh area for a little over 5 years.</textarea><br><br>
 
-                <label for="academic-background">Academic Background:</label><br>
+                <label for="academic-background">Academic Background*:</label><br>
                 <textarea id="academic-background" name="academic-background" required>A Computer Science/Data Science double major 
                     in my second year here at Charlotte.</textarea><br><br>
 
-                <label for="subject-background">Background in Subject:</label><br>
+                <label for="subject-background">Background in Subject*:</label><br>
                 <textarea id="subject-background" name="subject-background" required>I’ve taken a very elementary class on HTML before this 
                     and tinkered with it a little on my own, but not much otherwise.</textarea><br><br>
             </fieldset>
             <br><br>
             <fieldset>
                 <legend>Workstations</legend>
-                <label for="primary-workstation">Primary Work Computer:</label><br>
+                <label for="primary-workstation">Primary Work Computer*:</label><br>
                 <input type="text" id="primary-workstation" name="primary-workstation" required value="Dell Inspiron 14 Laptop running Windows"><br><br>
 
-                <label for="backup-workstation">Backup Work Computer:</label><br>
+                <label for="backup-workstation">Backup Work Computer*:</label><br>
                 <input type="text" id="backup-workstation" name="backup-workstation" required value="Windows/Mac computers in any of the CCI workspaces"><br><br>
             </fieldset>
             <br><br>
             <fieldset>
-                <legend>Courses</legend>
+                <legend>Courses*</legend>
                 <label for="course-table">Courses (add or remove rows):</label>
 
                 <table id="course-table">
@@ -128,6 +128,35 @@
                 <input type="text" id="quote-author" name="quote-author" required value="Charles R. Swindoll"><br>
             </fieldset>
             <br><br>
+
+            <fieldset>
+                <legend>Fun Facts</legend>
+                <label for="fun-facts">Funny thing:</label>
+                <input type="text" id="fun-facts" name="fun-facts" placeholder="My wallet is like an onion. Every time I open it, it makes me cry."><br>
+
+                <label for="share-something">Anything else to share?</label>
+                <input type="text" id="share-something" name="share-something" placeholder="I have a pet hamster named Mr. Fluffernutter."><br>
+            </fieldset>
+            <br><br>
+
+            <fieldset>
+                <legend>Personal Links</legend>
+                <label for="github-profile">GitHub Profile:</label>
+                <input type="url" id="github-profile" name="github-profile" placeholder="https://github.com/qrconroy"><br>
+
+                <label for="personal-page">Personal Website or Portfolio:</label>
+                <input type="url" id="personal-page" name="personal-page" placeholder="https://qrconroy.github.io"><br>
+
+                <label for="linkedin-profile">LinkedIn Profile:</label>
+                <input type="url" id="linkedin-profile" name="linkedin-profile" placeholder="https://www.linkedin.com/in/quinnrconroy/"><br>
+
+                <label for="freeCodeCamp">freeCodeCamp Profile:</label>
+                <input type="url" id="freeCodeCamp" name="freeCodeCamp" placeholder="https://www.freecodecamp.org/qconroy"><br>
+
+                <label for="other-link">Other Link:</label>
+                <input type="url" id="other-link" name="other-link" placeholder="https://www.google.com"><br>
+            </fieldset>
+
             <div class="button-group">
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset">
