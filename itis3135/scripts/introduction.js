@@ -14,7 +14,7 @@ window.onload = function() {
     // 3. Central Data Gatherer
     function getIntroductionData() {
         const courses = [];
-        tableBody.querySelectorAll("tr").forEach(row => {
+        tableBody.querySelectorAll("tr").forEach((row) => {
             const inputs = row.querySelectorAll("input");
             if (inputs.length >= 4) {
                 courses.push({
@@ -98,7 +98,7 @@ window.onload = function() {
     ];
     
     tableBody.innerHTML = ""; 
-    initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
+    initialCourses.forEach((c) => createRow(c.dept, c.num, c.name, c.reason));
 
     if (addButton) {
         addButton.onclick = () => createRow();
@@ -112,7 +112,7 @@ window.onload = function() {
         form.onsubmit = function(e) {
             e.preventDefault();
             const data = getIntroductionData();
-            const courseList = data.courses.map(c => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
+            const courseList = data.courses.map((c) => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
             
             // UPDATED: Collects links into an array, drops empty ones, and joins with " | "
             const linksArray = [
@@ -171,7 +171,7 @@ window.onload = function() {
 
         form.onreset = function() {
             tableBody.innerHTML = ""; 
-            initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
+            initialCourses.forEach((c) => createRow(c.dept, c.num, c.name, c.reason));
         };
     }
 
@@ -193,7 +193,7 @@ window.onload = function() {
     if (htmlBtn) {
         htmlBtn.onclick = function() {
             const data = getIntroductionData();
-            const courseItems = data.courses.map(c => `            <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join('\n');
+            const courseItems = data.courses.map((c) => `            <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join('\n');
             
             // UPDATED: Collects links into an array for the HTML generator
             const linksArray = [
