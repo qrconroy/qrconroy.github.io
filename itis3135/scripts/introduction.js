@@ -11,7 +11,7 @@ window.onload = function() {
     // 2. Helper Function
     const val = (id) => document.getElementById(id) ? document.getElementById(id).value : "";
 
-    // 3. Central Data Gatherer (Captures everything, including the Quote)
+    // 3. Central Data Gatherer
     function getIntroductionData() {
         const courses = [];
         tableBody.querySelectorAll("tr").forEach(row => {
@@ -26,7 +26,6 @@ window.onload = function() {
             }
         });
 
-        // Build Title Strings safely
         const fName = val("f-name");
         const mName = val("m-name");
         const lName = val("l-name");
@@ -56,12 +55,23 @@ window.onload = function() {
                 primary: val("primary-workstation"),
                 backup: val("backup-workstation")
             },
+            funFacts: {
+                funnyThing: val("fun-facts"),
+                anythingElse: val("share-something")
+            },
+            links: {
+                github: val("github-profile"),
+                portfolio: val("personal-page"),
+                linkedin: val("linkedin-profile"),
+                freecodecamp: val("freeCodeCamp"),
+                other: val("other-link")
+            },
             ackDate: val("acknowledge-date"),
             courses: courses
         };
     }
 
-    // 4. TABLE LOGIC (Moved up so the Reset button can use it)
+    // 4. TABLE LOGIC
     function createRow(dept = "", num = "", name = "", reason = "") {
         const row = tableBody.insertRow();
         row.innerHTML = `
@@ -87,7 +97,6 @@ window.onload = function() {
         { dept: "STAT", num: "2122", name: "Introduction to Probability & Statistics", reason: "Required." }
     ];
     
-    // Clear out any stray HTML that might exist in the table body, then build the initial rows
     tableBody.innerHTML = ""; 
     initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
 
@@ -95,24 +104,37 @@ window.onload = function() {
         addButton.onclick = () => createRow();
     }
 
+    // UPDATED: Now creates raw <a> tags instead of <li> list items
+    const buildLink = (url, text) => url ? `<a href="${url}" target="_blank">${text}</a>` : '';
+
     // 5. SUBMIT & RESET BUTTONS
     if (form) {
         form.onsubmit = function(e) {
-            
             e.preventDefault();
             const data = getIntroductionData();
             const courseList = data.courses.map(c => `<li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join("");
+            
+            // UPDATED: Collects links into an array, drops empty ones, and joins with " | "
+            const linksArray = [
+                buildLink(data.links.github, "GitHub Profile"),
+                buildLink(data.links.portfolio, "Personal Website"),
+                buildLink(data.links.linkedin, "LinkedIn Profile"),
+                buildLink(data.links.freecodecamp, "freeCodeCamp Profile"),
+                buildLink(data.links.other, "Other Link")
+            ].filter(Boolean);
+            const footerLinks = linksArray.join(' | ');
 
             outputArea.innerHTML = `
                 <hr>
                 <header>
-                <h2>${data.displayTitle}</h2>
+                    <h2>${data.displayTitle}</h2>
                 </header>
                 <figure>
                     <img src="${data.photoUrl}" alt="${data.photoCaption}" style="max-width:300px; border-radius: 8px;">
                     <figcaption>${data.photoCaption}</figcaption>
                 </figure>
                 <p>${data.statement}</p>
+                
                 <h3>Background & Workstations</h3>
                 <ul>
                     <li><strong>Personal Background:</strong> ${data.background.personal}</li>
@@ -122,16 +144,31 @@ window.onload = function() {
                     <li><strong>Primary Computer:</strong> ${data.workstations.primary}</li>
                     <li><strong>Backup Computer:</strong> ${data.workstations.backup}</li>
                 </ul>
+
+                <h3>Fun Facts</h3>
+                <ul>
+                    <li><strong>Funny thing:</strong> ${data.funFacts.funnyThing}</li>
+                    <li><strong>Anything else to share?</strong> ${data.funFacts.anythingElse}</li>
+                </ul>
+
                 <h3>Courses</h3>
                 <ul>${courseList}</ul>
+
                 <p><em>"${data.quote}" — ${data.author}</em></p>
+                
+                <hr>
+                <footer style="text-align: center; margin-bottom: 20px;">
+                    <nav>
+                        ${footerLinks}
+                    </nav>
+                </footer>
+
                 <button type="button" onclick="location.reload()">Reset Form</button>
             `;
             document.getElementById("form-area").style.display = "none";
             if (instructions) instructions.style.display = "none";
         };
 
-        // NEW: Form Reset Logic (rebuilds the table to default)
         form.onreset = function() {
             tableBody.innerHTML = ""; 
             initialCourses.forEach(c => createRow(c.dept, c.num, c.name, c.reason));
@@ -157,6 +194,17 @@ window.onload = function() {
         htmlBtn.onclick = function() {
             const data = getIntroductionData();
             const courseItems = data.courses.map(c => `            <li><strong>${c.dept} ${c.number} - ${c.name}:</strong> ${c.reason}</li>`).join('\n');
+            
+            // UPDATED: Collects links into an array for the HTML generator
+            const linksArray = [
+                buildLink(data.links.github, "GitHub Profile"),
+                buildLink(data.links.portfolio, "Personal Website"),
+                buildLink(data.links.linkedin, "LinkedIn Profile"),
+                buildLink(data.links.freecodecamp, "freeCodeCamp Profile"),
+                buildLink(data.links.other, "Other Link")
+            ].filter(Boolean);
+            const footerLinks = linksArray.join('\n            | ');
+
             const rawHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,6 +239,14 @@ window.onload = function() {
         </section>
 
         <section>
+            <h3>Fun Facts</h3>
+            <ul>
+                <li><strong>Funny thing:</strong> ${data.funFacts.funnyThing}</li>
+                <li><strong>Anything else to share?</strong> ${data.funFacts.anythingElse}</li>
+            </ul>
+        </section>
+
+        <section>
             <h3>Courses I'm Taking</h3>
             <ul>
 ${courseItems}
@@ -202,6 +258,13 @@ ${courseItems}
             <blockquote>"${data.quote}"<cite> — ${data.author}</cite></blockquote>
         </section>
     </main>
+    
+    <hr>
+    <footer style="text-align: center;">
+        <nav>
+            ${footerLinks}
+        </nav>
+    </footer>
 </body>
 </html>`;
             
