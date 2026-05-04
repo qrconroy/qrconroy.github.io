@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn Python — CodeKids</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    --py-color: #3776AB;
+    --py-yellow: #FFD43B;
+    --py-light: #EEF5FB;
+
+    .page-hero .tag { background: #EEF5FB; color: #3776AB; }
+    .page-hero h1 em { font-style: normal; color: #3776AB; }
+    .lesson-num { background: #EEF5FB; color: #3776AB; }
+    .progress-bar { background: linear-gradient(90deg, #3776AB, #FFD43B); }
+
+    .py-console {
+      background: #0d0d1a;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-top: 1rem;
+      border: 2px solid #2a2a40;
+    }
+
+    .console-header {
+      background: #1a1a2e;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: #6c7086;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .py-editor {
+      width: 100%;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      border: none;
+      outline: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      padding: 1rem;
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .run-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: #111122;
+      border-top: 1px solid #2a2a40;
+    }
+
+    .run-row span { font-size: 0.78rem; color: #6c7086; font-family: 'Fira Code', monospace; }
+
+    .run-btn-py {
+      background: #3776AB;
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .run-btn-py:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(55,118,171,0.4);
+    }
+
+    .clear-btn {
+      background: transparent;
+      color: #6c7086;
+      border: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+    }
+
+    .clear-btn:hover { color: #f38ba8; }
+
+    .console-output-area {
+      background: #0d0d1a;
+      border-top: 1px solid #2a2a40;
+      padding: 0.75rem 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      min-height: 50px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .console-line { padding: 0.1rem 0; }
+    .console-line.output { color: #a6e3a1; }
+    .console-line.error { color: #f38ba8; }
+    .console-line.muted { color: #6c7086; font-size: 0.8rem; }
+
+    .mini-challenge {
+      background: #EEF5FB;
+      border: 2px dashed #3776AB;
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .mini-challenge h3 { font-size: 0.95rem; font-weight: 800; color: #3776AB; margin-bottom: 0.5rem; }
+
+    .py-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #EEF5FB;
+      color: #3776AB;
+      border: 2px solid #BDD8EF;
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* override quiz block to python blue */
+    .quiz-block { background: #EEF5FB; border-color: #BDD8EF; }
+    .quiz-block h3 { color: #3776AB; }
+    .quiz-option { border-color: #BDD8EF; }
+    .quiz-option:hover { border-color: #3776AB; background: #D6EAF8; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Code<span>Kids</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hyper_text_markup_learn.html">HTML</a></li>
+      <li><a href="python_learn.html" class="active">Python</a></li>
+      <li><a href="cpp.html">C++</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="tag">🐍 Course 2</div>
+    <h1>Learning <em>Python</em></h1>
+    <p>Python is the most beginner-friendly programming language in the world — and it's also used by NASA, Netflix, and AI researchers. Let's dive in!</p>
+    <div class="progress-wrap" style="margin-top:1.5rem; max-width:400px;">
+      <div class="progress-bar" id="mainProgress" style="width:0%"></div>
+    </div>
+    <p class="progress-label" id="progressLabel">0 of 5 lessons complete</p>
+  </div>
+
+  <div class="lesson-container">
+
+    <!-- LESSON 1 -->
+    <div class="lesson-card" id="lesson1">
+      <div class="lesson-card-header">
+        <div class="lesson-num">1</div>
+        <h2>Why Python?</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>Python is one of the most popular programming languages on Earth — and for good reason. It reads almost like plain English, which makes it perfect for beginners.</p>
+
+        <div class="info-box fun">
+          <span class="icon">🐍</span>
+          <p>Python is used for <strong>AI and machine learning</strong> (think ChatGPT!), <strong>data science</strong>, <strong>web servers</strong>, <strong>automation</strong>, and even controlling robots. It's a Swiss Army knife of programming languages.</p>
+        </div>
+
+        <p>Here's the classic first program — "Hello, World!" — in a few different languages. Notice how much simpler Python is:</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">comparison</span>
+          </div>
+          <pre><span class="cm"># Python (simple!)</span>
+<span class="fn">print</span>(<span class="str">"Hello, World!"</span>)
+
+<span class="cm"># Java (much more complex!)</span>
+<span class="cm"># public class Main {</span>
+<span class="cm">#   public static void main(String[] args) {</span>
+<span class="cm">#     System.out.println("Hello, World!");</span>
+<span class="cm">#   }</span>
+<span class="cm"># }</span></pre>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+          <span class="py-badge">🤖 Used in AI</span>
+          <span class="py-badge">📊 Data science</span>
+          <span class="py-badge">🌐 Web backends</span>
+          <span class="py-badge">🔬 Used by NASA</span>
+        </div>
+
+        <div class="quiz-block" data-lesson="1">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">Which of these is a real use of Python?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">Designing logos</button>
+            <button class="quiz-option" data-correct="true">Building AI and machine learning models</button>
+            <button class="quiz-option" data-correct="false">Editing videos</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 2 -->
+    <div class="lesson-card" id="lesson2">
+      <div class="lesson-card-header">
+        <div class="lesson-num">2</div>
+        <h2>Variables & print()</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>In Python, you create a <strong>variable</strong> just by giving it a name and a value — no need to say what type it is. Python figures that out automatically!</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">variables.py</span>
+          </div>
+          <pre><span class="cm"># Create variables</span>
+name = <span class="str">"Alex"</span>
+age = <span class="num">12</span>
+height = <span class="num">5.4</span>
+is_student = <span class="kw">True</span>
+
+<span class="cm"># Print them out</span>
+<span class="fn">print</span>(<span class="str">"Hello, my name is"</span>, name)
+<span class="fn">print</span>(<span class="str">"I am"</span>, age, <span class="str">"years old"</span>)
+
+<span class="cm"># f-strings: an easier way to combine text</span>
+<span class="fn">print</span>(<span class="str">f"Hi, I'm </span>{name}<span class="str"> and I'm </span>{age}<span class="str">!"</span>)</pre>
+        </div>
+
+        <div class="info-box tip">
+          <span class="icon">💡</span>
+          <p><strong>f-strings</strong> are Python's superpower for combining text and variables. Put an <code>f</code> before the quotes, then wrap any variable in <code>{ }</code>. Way easier than adding strings together!</p>
+        </div>
+
+        <div class="quiz-block" data-lesson="2">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">How do you print something in Python?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">console.log("hi")</button>
+            <button class="quiz-option" data-correct="false">cout &lt;&lt; "hi"</button>
+            <button class="quiz-option" data-correct="true">print("hi")</button>
+            <button class="quiz-option" data-correct="false">say("hi")</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 3 -->
+    <div class="lesson-card" id="lesson3">
+      <div class="lesson-card-header">
+        <div class="lesson-num">3</div>
+        <h2>If Statements & Indentation</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>Python uses <strong>if statements</strong> to make decisions. One big difference from other languages: Python uses <strong>indentation</strong> (spaces) instead of curly braces <code>{ }</code> to group code.</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">decisions.py</span>
+          </div>
+          <pre>temp = <span class="num">75</span>
+
+<span class="kw">if</span> temp > <span class="num">80</span>:
+    <span class="fn">print</span>(<span class="str">"It's really hot! 🥵"</span>)
+<span class="kw">elif</span> temp > <span class="num">60</span>:
+    <span class="fn">print</span>(<span class="str">"Nice and warm! 🌤"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Grab a jacket! 🧥"</span>)</pre>
+        </div>
+
+        <div class="info-box note">
+          <span class="icon">📝</span>
+          <p>Python uses <strong>elif</strong> (short for "else if") to check multiple conditions. Notice each code block is indented with <strong>4 spaces</strong> — this is how Python knows what belongs inside the if statement.</p>
+        </div>
+
+        <div class="info-box tip">
+          <span class="icon">💡</span>
+          <p>Don't forget the <strong>colon :</strong> at the end of <code>if</code>, <code>elif</code>, and <code>else</code> lines. Forgetting it is the #1 beginner mistake!</p>
+        </div>
+
+        <div class="quiz-block" data-lesson="3">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">In Python, what comes at the end of an <code>if</code> line?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">A semicolon ;</button>
+            <button class="quiz-option" data-correct="true">A colon :</button>
+            <button class="quiz-option" data-correct="false">An opening brace {</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 4 -->
+    <div class="lesson-card" id="lesson4">
+      <div class="lesson-card-header">
+        <div class="lesson-num">4</div>
+        <h2>Loops & Lists</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>Python has incredibly clean loop syntax. A <strong>list</strong> stores multiple items, and a <strong>for loop</strong> lets you do something to each item, one at a time.</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">loops.py</span>
+          </div>
+          <pre><span class="cm"># A list of fruits</span>
+fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"mango"</span>]
+
+<span class="cm"># Loop through every item</span>
+<span class="kw">for</span> fruit <span class="kw">in</span> fruits:
+    <span class="fn">print</span>(<span class="str">f"I love </span>{fruit}<span class="str">!"</span>)
+
+<span class="cm"># Count with range()</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    <span class="fn">print</span>(<span class="str">f"Step </span>{i}<span class="str"> of 5"</span>)</pre>
+        </div>
+
+        <div class="info-box fun">
+          <span class="icon">✨</span>
+          <p><code>range(1, 6)</code> generates the numbers 1, 2, 3, 4, 5 (it stops <em>before</em> 6). This is one of Python's most useful built-in tools!</p>
+        </div>
+
+        <div class="quiz-block" data-lesson="4">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">What does <code>range(1, 4)</code> produce?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">1, 2, 3, 4</button>
+            <button class="quiz-option" data-correct="true">1, 2, 3</button>
+            <button class="quiz-option" data-correct="false">0, 1, 2, 3, 4</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 5: SANDBOX -->
+    <div class="lesson-card" id="lesson5">
+      <div class="lesson-card-header">
+        <div class="lesson-num">5</div>
+        <h2>🐍 Python Playground</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>Write Python code below and click <strong>Run</strong> to see the output! This sandbox supports <code>print()</code>, variables, if/elif/else, for loops, lists, and f-strings.</p>
+
+        <div class="py-console">
+          <div class="console-header">
+            <span>🐍 Python Sandbox</span>
+          </div>
+          <textarea class="py-editor" id="pyEditor" spellcheck="false"># Try your own Python!
+name = "Coder"
+score = 95
+
+print(f"Hey {name}!")
+print(f"Your score is {score}")
+
+if score >= 90:
+    print("Amazing work! 🌟")
+elif score >= 70:
+    print("Pretty good! Keep going.")
+else:
+    print("Keep practicing!")
+
+languages = ["Python", "HTML", "C++"]
+for lang in languages:
+    print(f"I'm learning {lang}!")
+</textarea>
+          <div class="run-row">
+            <div>
+              <button class="clear-btn" onclick="clearPyOutput()">clear output</button>
+            </div>
+            <button class="run-btn-py" onclick="runPython()">▶ Run Code</button>
+          </div>
+          <div class="console-output-area" id="pyOutput">
+            <div class="console-line muted">// Output appears here after you click Run ▶</div>
+          </div>
+        </div>
+
+        <div class="mini-challenge">
+          <h3>🎯 Challenge: Can you...?</h3>
+          <p style="font-size:0.9rem;color:var(--muted);margin-top:0.3rem;">Try these in the playground above:</p>
+          <ul style="margin-top:0.5rem;padding-left:1.25rem;font-size:0.9rem;line-height:2;">
+            <li>Create a list of your 3 favorite foods and print each one</li>
+            <li>Use an f-string to print your name and age together</li>
+            <li>Write an if/elif/else that checks if a number is positive, negative, or zero</li>
+          </ul>
+        </div>
+
+        <div class="quiz-block" data-lesson="5">
+          <h3>🧠 Final Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">Which of these correctly creates a list in Python?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">items = (1, 2, 3)</button>
+            <button class="quiz-option" data-correct="true">items = [1, 2, 3]</button>
+            <button class="quiz-option" data-correct="false">items = {1, 2, 3}</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLETION CARD -->
+    <div class="lesson-card" id="completionCard" style="display:none; border:3px solid var(--green); text-align:center;">
+      <div class="lesson-card-body" style="padding:2.5rem 1.75rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🐍</div>
+        <h2 style="font-size:1.5rem;margin-bottom:0.5rem;">Python Basics — Complete!</h2>
+        <p style="color:var(--muted);margin-bottom:1.5rem;">You've learned variables, if statements, loops, and lists. That's a seriously solid Python foundation!</p>
+        <a href="cpp.html" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--text);color:white;text-decoration:none;font-weight:800;padding:0.75rem 1.75rem;border-radius:999px;">Next: Learn C++ 🔧</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Made with ❤️ by CodeKids &nbsp;|&nbsp; <a href="index.html">← Back to Home</a></p>
+  </footer>
+
+  <script>
+    // ===== QUIZ LOGIC =====
+    let completedLessons = new Set();
+
+    document.querySelectorAll('.quiz-block').forEach(block => {
+      const lesson = block.dataset.lesson;
+      const options = block.querySelectorAll('.quiz-option');
+      const feedback = block.querySelector('.quiz-feedback');
+
+      options.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (block.dataset.answered) return;
+          block.dataset.answered = true;
+          const correct = btn.dataset.correct === 'true';
+          options.forEach(o => o.disabled = true);
+          if (correct) {
+            btn.classList.add('correct');
+            feedback.textContent = '✅ Correct! Great job!';
+            feedback.className = 'quiz-feedback show correct';
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = '❌ Not quite — check the lesson above!';
+            feedback.className = 'quiz-feedback show wrong';
+            options.forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
+          }
+          completedLessons.add(lesson);
+          updateProgress();
+        });
+      });
+    });
+
+    function updateProgress() {
+      const total = 5, done = completedLessons.size;
+      document.getElementById('mainProgress').style.width = (done / total * 100) + '%';
+      document.getElementById('progressLabel').textContent = `${done} of ${total} lessons complete`;
+      if (done === total) {
+        document.getElementById('completionCard').style.display = 'block';
+        document.getElementById('completionCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // ===== PYTHON SANDBOX =====
+    // Interprets a small subset of Python: print(), variables, if/elif/else, for..in lists/range, f-strings
+
+    function runPython() {
+      const code = document.getElementById('pyEditor').value;
+      const outputEl = document.getElementById('pyOutput');
+      const lines = code.split('\n');
+      const outputLines = [];
+
+      try {
+        const vars = {};
+        let i = 0;
+
+        function evalValue(raw) {
+          raw = raw.trim();
+          // f-string
+          if (/^f['"]/.test(raw)) {
+            let inner = raw.slice(2, -1);
+            return inner.replace(/\{(\w+)\}/g, (_, k) => vars[k] !== undefined ? vars[k] : k);
+          }
+          // regular string
+          if (/^['"].*['"]$/.test(raw)) return raw.slice(1, -1);
+          // bool
+          if (raw === 'True') return true;
+          if (raw === 'False') return false;
+          // list
+          if (raw.startsWith('[') && raw.endsWith(']')) {
+            const inner = raw.slice(1, -1);
+            return inner.split(',').map(s => evalValue(s.trim()));
+          }
+          // number
+          if (!isNaN(raw)) return Number(raw);
+          // variable reference
+          if (vars[raw] !== undefined) return vars[raw];
+          return raw;
+        }
+
+        function evalExpr(expr) {
+          expr = expr.trim();
+          // range(a, b) or range(b)
+          const rangeMatch = expr.match(/^range\((\d+)(?:,\s*(\d+))?\)$/);
+          if (rangeMatch) {
+            const start = rangeMatch[2] !== undefined ? parseInt(rangeMatch[1]) : 0;
+            const end = rangeMatch[2] !== undefined ? parseInt(rangeMatch[2]) : parseInt(rangeMatch[1]);
+            return Array.from({ length: end - start }, (_, i) => start + i);
+          }
+          return evalValue(expr);
+        }
+
+        function evalCondition(cond) {
+          cond = cond.trim();
+          const ops = [('>='), ('<='), ('>'), ('<'), ('=='), ('!=')];
+          for (const op of ops) {
+            const idx = cond.indexOf(op);
+            if (idx > -1) {
+              const left = evalValue(cond.slice(0, idx).trim());
+              const right = evalValue(cond.slice(idx + op.length).trim());
+              switch(op) {
+                case '>=': return left >= right;
+                case '<=': return left <= right;
+                case '>': return left > right;
+                case '<': return left < right;
+                case '==': return left == right;
+                case '!=': return left != right;
+              }
+            }
+          }
+          return !!evalValue(cond);
+        }
+
+        function getIndent(line) {
+          return line.match(/^(\s*)/)[1].length;
+        }
+
+        function collectBlock(startIdx, baseIndent) {
+          const block = [];
+          let j = startIdx;
+          while (j < lines.length) {
+            const line = lines[j];
+            if (line.trim() === '' || line.trim().startsWith('#')) { j++; continue; }
+            if (getIndent(line) <= baseIndent) break;
+            block.push(lines[j]);
+            j++;
+          }
+          return { block, nextIdx: j };
+        }
+
+        function execLines(codeLines) {
+          let i = 0;
+          while (i < codeLines.length) {
+            const rawLine = codeLines[i];
+            const line = rawLine.trim();
+
+            if (line === '' || line.startsWith('#')) { i++; continue; }
+
+            // print()
+            const printMatch = line.match(/^print\((.*)\)$/);
+            if (printMatch) {
+              const arg = printMatch[1].trim();
+              // multiple args separated by commas (outside quotes)
+              const parts = splitArgs(arg);
+              const result = parts.map(p => String(evalValue(p.trim()))).join(' ');
+              outputLines.push({ type: 'output', text: result });
+              i++; continue;
+            }
+
+            // variable assignment (simple: name = value)
+            const assignMatch = line.match(/^(\w+)\s*=\s*(.+)$/);
+            if (assignMatch && !line.startsWith('if') && !line.startsWith('for') && !line.startsWith('elif') && !line.startsWith('else')) {
+              vars[assignMatch[1]] = evalExpr(assignMatch[2]);
+              i++; continue;
+            }
+
+            // if / elif / else chain
+            if (line.startsWith('if ') && line.endsWith(':')) {
+              const baseIndent = getIndent(rawLine);
+              const cond = line.slice(3, -1).trim();
+              const { block: ifBlock, nextIdx } = collectBlock(i + 1, baseIndent);
+              let executed = false;
+
+              if (evalCondition(cond)) {
+                execLines(ifBlock);
+                executed = true;
+              }
+
+              let j = nextIdx;
+              while (j < codeLines.length) {
+                const nextRaw = codeLines[j];
+                const next = nextRaw.trim();
+                if (next.startsWith('elif ') && next.endsWith(':')) {
+                  const elifCond = next.slice(5, -1).trim();
+                  const { block: elifBlock, nextIdx: ni } = collectBlock(j + 1, baseIndent);
+                  if (!executed && evalCondition(elifCond)) {
+                    execLines(elifBlock);
+                    executed = true;
+                  }
+                  j = ni;
+                } else if (next === 'else:') {
+                  const { block: elseBlock, nextIdx: ni } = collectBlock(j + 1, baseIndent);
+                  if (!executed) execLines(elseBlock);
+                  j = ni;
+                  break;
+                } else break;
+              }
+              i = j; continue;
+            }
+
+            // for loop
+            const forMatch = line.match(/^for (\w+) in (.+):$/);
+            if (forMatch) {
+              const baseIndent = getIndent(rawLine);
+              const varName = forMatch[1];
+              const iterable = evalExpr(forMatch[2]);
+              const { block: loopBlock, nextIdx } = collectBlock(i + 1, baseIndent);
+              if (Array.isArray(iterable)) {
+                for (const item of iterable) {
+                  vars[varName] = item;
+                  execLines(loopBlock);
+                }
+              }
+              i = nextIdx; continue;
+            }
+
+            i++;
+          }
+        }
+
+        function splitArgs(str) {
+          const parts = [];
+          let depth = 0, current = '', inStr = false, strChar = '';
+          for (let i = 0; i < str.length; i++) {
+            const c = str[i];
+            if (!inStr && (c === '"' || c === "'")) { inStr = true; strChar = c; current += c; }
+            else if (inStr && c === strChar) { inStr = false; current += c; }
+            else if (!inStr && c === '(') { depth++; current += c; }
+            else if (!inStr && c === ')') { depth--; current += c; }
+            else if (!inStr && c === ',' && depth === 0) { parts.push(current); current = ''; }
+            else { current += c; }
+          }
+          if (current) parts.push(current);
+          return parts;
+        }
+
+        execLines(lines);
+
+        if (outputLines.length === 0) {
+          outputLines.push({ type: 'muted', text: '(no output — try using print()!)' });
+        }
+      } catch(e) {
+        outputLines.push({ type: 'error', text: '🚫 Error: ' + e.message });
+      }
+
+      outputEl.innerHTML = outputLines.map(l =>
+        `<div class="console-line ${l.type}">${escHTML(String(l.text))}</div>`
+      ).join('');
+    }
+
+    function clearPyOutput() {
+      document.getElementById('pyOutput').innerHTML =
+        '<div class="console-line muted">// Output cleared</div>';
+    }
+
+    function escHTML(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  </script>
+
+</body>
+</html>
