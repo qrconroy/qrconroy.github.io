@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn JavaScript — CodeKids</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root { --accent: var(--js-dark); --accent-light: var(--js-light); }
+
+    .page-hero .tag { background: var(--js-light); color: var(--js-dark); }
+    .page-hero h1 em { font-style: normal; color: var(--js-dark); }
+    .lesson-num { background: var(--js-light); color: var(--js-dark); }
+    .progress-bar { background: linear-gradient(90deg, var(--js-dark), #F59E0B); }
+
+    .js-console {
+      background: #0d0d1a;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-top: 1rem;
+      border: 2px solid #2a2a40;
+    }
+
+    .console-header {
+      background: #1a1a2e;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: #6c7086;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .console-input-row {
+      display: flex;
+      align-items: stretch;
+      border-top: 2px solid #2a2a40;
+    }
+
+    .console-prompt {
+      background: #111122;
+      color: #a6e3a1;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+    }
+
+    .console-prompt span { color: #6c7086; }
+
+    .console-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #cdd6f4;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      flex: 1;
+      min-height: 100px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .console-output-area {
+      background: #0d0d1a;
+      border-top: 1px solid #2a2a40;
+      padding: 0.75rem 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      min-height: 50px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .console-line { padding: 0.1rem 0; }
+    .console-line.output { color: #a6e3a1; }
+    .console-line.error { color: #f38ba8; }
+    .console-line.input-echo { color: #6c7086; }
+
+    .run-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: #111122;
+      border-top: 1px solid #2a2a40;
+    }
+
+    .run-row span { font-size: 0.78rem; color: #6c7086; font-family: 'Fira Code', monospace; }
+
+    .run-btn-js {
+      background: #F0DB4F;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .run-btn-js:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(240,219,79,0.4);
+    }
+
+    .clear-btn {
+      background: transparent;
+      color: #6c7086;
+      border: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+    }
+
+    .clear-btn:hover { color: #f38ba8; }
+
+    .mini-challenge {
+      background: #FFFBE6;
+      border: 2px dashed var(--js-dark);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .mini-challenge h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--js-dark);
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Code<span>Kids</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="hyper_text_markup_learn.html">HTML</a></li>
+      <li><a href="js_learn.html" class="active">JavaScript</a></li>
+      <li><a href="cpp.html">C++</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="tag">⚡ Course 2</div>
+    <h1>Learning <em>JavaScript</em></h1>
+    <p>JavaScript is the magic that makes websites <em>do things</em> — buttons click, pages update, games run. Let's learn how it works!</p>
+    <div class="progress-wrap" style="margin-top:1.5rem; max-width:400px;">
+      <div class="progress-bar" id="mainProgress" style="width:0%"></div>
+    </div>
+    <p class="progress-label" id="progressLabel">0 of 5 lessons complete</p>
+  </div>
+
+  <div class="lesson-container">
+
+    <!-- LESSON 1 -->
+    <div class="lesson-card" id="lesson1">
+      <div class="lesson-card-header">
+        <div class="lesson-num">1</div>
+        <h2>What is JavaScript?</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>If HTML is the skeleton and CSS is the clothes, <strong>JavaScript is the brain</strong>. It lets websites respond to you — clicking buttons, filling forms, playing videos.</p>
+
+        <div class="info-box fun">
+          <span class="icon">🎮</span>
+          <p>Almost every game you play in a browser? JavaScript. The search suggestions on Google? JavaScript. Animated menus? JavaScript. It's literally everywhere!</p>
+        </div>
+
+        <p>JavaScript is a <strong>programming language</strong> — it lets you give instructions to a computer. The browser reads those instructions and does what you say!</p>
+
+        <div class="quiz-block" data-lesson="1">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">What does JavaScript mainly add to a webpage?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">Colors and fonts</button>
+            <button class="quiz-option" data-correct="false">The text and images</button>
+            <button class="quiz-option" data-correct="true">Interactivity and behavior</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 2 -->
+    <div class="lesson-card" id="lesson2">
+      <div class="lesson-card-header">
+        <div class="lesson-num">2</div>
+        <h2>Variables: Storing Information</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>A <strong>variable</strong> is like a labeled box where you store information. You name the box, put something in it, and use it later.</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">variables.js</span>
+          </div>
+          <pre><span class="cm">// Create a variable called "name"</span>
+<span class="kw">let</span> name = <span class="str">"Alex"</span>;
+
+<span class="cm">// Create a variable called "age"</span>
+<span class="kw">let</span> age = <span class="num">12</span>;
+
+<span class="cm">// Print them out!</span>
+console.<span class="fn">log</span>(<span class="str">"Hello, my name is "</span> + name);
+console.<span class="fn">log</span>(<span class="str">"I am "</span> + age + <span class="str">" years old"</span>);</pre>
+        </div>
+
+        <div class="info-box tip">
+          <span class="icon">💡</span>
+          <p><strong>let</strong> means "I'm creating a variable." The <code>=</code> means "the value is." And <code>console.log()</code> prints something so you can see it!</p>
+        </div>
+
+        <div class="quiz-block" data-lesson="2">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">What keyword do you use to create a variable in JavaScript?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">var_create</button>
+            <button class="quiz-option" data-correct="true">let</button>
+            <button class="quiz-option" data-correct="false">make</button>
+            <button class="quiz-option" data-correct="false">store</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 3 -->
+    <div class="lesson-card" id="lesson3">
+      <div class="lesson-card-header">
+        <div class="lesson-num">3</div>
+        <h2>If Statements: Making Decisions</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>Computers make decisions using <strong>if statements</strong>. "IF this is true, do this. Otherwise, do something else."</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">decisions.js</span>
+          </div>
+          <pre><span class="kw">let</span> temperature = <span class="num">75</span>;
+
+<span class="kw">if</span> (temperature > <span class="num">70</span>) {
+  console.<span class="fn">log</span>(<span class="str">"It's warm outside! 🌞"</span>);
+} <span class="kw">else</span> {
+  console.<span class="fn">log</span>(<span class="str">"Bring a jacket! 🧥"</span>);
+}</pre>
+        </div>
+
+        <div class="info-box note">
+          <span class="icon">📝</span>
+          <p>The <code>&gt;</code> symbol means "greater than." So <code>temperature &gt; 70</code> asks: "Is the temperature bigger than 70?" If yes → run the first block. If no → run the else block.</p>
+        </div>
+
+        <div class="quiz-block" data-lesson="3">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">If <code>age = 8</code>, what prints? <br><code>if (age &gt; 10) { console.log("Old") } else { console.log("Young") }</code></p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">Old</button>
+            <button class="quiz-option" data-correct="true">Young</button>
+            <button class="quiz-option" data-correct="false">Nothing</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 4 -->
+    <div class="lesson-card" id="lesson4">
+      <div class="lesson-card-header">
+        <div class="lesson-num">4</div>
+        <h2>Functions: Reusable Actions</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>A <strong>function</strong> is a named set of instructions you can run anytime by calling its name. Like a recipe — write it once, use it forever!</p>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28C840"></div>
+            <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">functions.js</span>
+          </div>
+          <pre><span class="cm">// Define the function</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  console.<span class="fn">log</span>(<span class="str">"Hello, "</span> + name + <span class="str">"! 👋"</span>);
+}
+
+<span class="cm">// Call it as many times as you want!</span>
+<span class="fn">greet</span>(<span class="str">"Alex"</span>);
+<span class="fn">greet</span>(<span class="str">"Jordan"</span>);
+<span class="fn">greet</span>(<span class="str">"Sam"</span>);</pre>
+        </div>
+
+        <div class="quiz-block" data-lesson="4">
+          <h3>🧠 Quick Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">What keyword do you use to create a function?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">create</button>
+            <button class="quiz-option" data-correct="false">action</button>
+            <button class="quiz-option" data-correct="true">function</button>
+            <button class="quiz-option" data-correct="false">def</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON 5: SANDBOX -->
+    <div class="lesson-card" id="lesson5">
+      <div class="lesson-card-header">
+        <div class="lesson-num">5</div>
+        <h2>⚡ JavaScript Playground</h2>
+      </div>
+      <div class="lesson-card-body">
+        <p>Write any JavaScript code below and click <strong>Run</strong> to see the output. Use <code>console.log()</code> to print things. Try editing the examples!</p>
+
+        <div class="js-console">
+          <div class="console-header">
+            <span>⚡ JavaScript Console</span>
+          </div>
+          <div class="console-input-row">
+            <div class="console-prompt" style="flex-direction:column;align-items:flex-start;">
+              <textarea class="console-input" id="jsEditor" spellcheck="false">// Try your own JavaScript!
+let name = "Coder";
+let score = 100;
+
+console.log("Hey " + name + "!");
+console.log("Your score is: " + score);
+
+if (score >= 90) {
+  console.log("Amazing work! 🌟");
+} else {
+  console.log("Keep practicing!");
+}
+
+function add(a, b) {
+  return a + b;
+}
+
+console.log("5 + 7 = " + add(5, 7));</textarea>
+            </div>
+          </div>
+          <div class="run-row">
+            <div style="display:flex;gap:0.5rem;">
+              <button class="clear-btn" onclick="clearOutput()">clear output</button>
+            </div>
+            <button class="run-btn-js" onclick="runJS()">▶ Run Code</button>
+          </div>
+          <div class="console-output-area" id="jsOutput">
+            <div class="console-line" style="color:#6c7086;font-size:0.8rem;">// Output appears here after you click Run ▶</div>
+          </div>
+        </div>
+
+        <div class="mini-challenge">
+          <h3>🎯 Challenge: Can you...?</h3>
+          <p style="font-size:0.9rem;color:var(--muted);margin-top:0.3rem;">Try these in the playground above:</p>
+          <ul style="margin-top:0.5rem;padding-left:1.25rem;font-size:0.9rem;line-height:2;">
+            <li>Create a variable with <em>your</em> name and print a greeting</li>
+            <li>Write an if/else that checks if a number is even or odd</li>
+            <li>Make a function that multiplies two numbers</li>
+          </ul>
+        </div>
+
+        <div class="quiz-block" data-lesson="5">
+          <h3>🧠 Final Check</h3>
+          <p style="font-size:0.95rem; margin-bottom:0.75rem;">Which of these correctly prints "Hello" to the console?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-correct="false">print("Hello")</button>
+            <button class="quiz-option" data-correct="true">console.log("Hello")</button>
+            <button class="quiz-option" data-correct="false">log.console("Hello")</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLETION CARD -->
+    <div class="lesson-card" id="completionCard" style="display:none; border:3px solid var(--green); text-align:center;">
+      <div class="lesson-card-body" style="padding:2.5rem 1.75rem;">
+        <div style="font-size:3rem;margin-bottom:1rem;">⚡</div>
+        <h2 style="font-size:1.5rem;margin-bottom:0.5rem;">JavaScript Basics — Done!</h2>
+        <p style="color:var(--muted);margin-bottom:1.5rem;">You can now write variables, if statements, and functions. That's seriously impressive for a beginner!</p>
+        <a href="cpp.html" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--text);color:white;text-decoration:none;font-weight:800;padding:0.75rem 1.75rem;border-radius:999px;">Next: Learn C++ 🔧</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Made with ❤️ by CodeKids &nbsp;|&nbsp; <a href="index.html">← Back to Home</a></p>
+  </footer>
+
+  <script>
+    // ===== QUIZ LOGIC =====
+    let completedLessons = new Set();
+
+    document.querySelectorAll('.quiz-block').forEach(block => {
+      const lesson = block.dataset.lesson;
+      const options = block.querySelectorAll('.quiz-option');
+      const feedback = block.querySelector('.quiz-feedback');
+
+      options.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (block.dataset.answered) return;
+          block.dataset.answered = true;
+
+          const correct = btn.dataset.correct === 'true';
+          options.forEach(o => o.disabled = true);
+
+          if (correct) {
+            btn.classList.add('correct');
+            feedback.textContent = '✅ Correct! Great job!';
+            feedback.className = 'quiz-feedback show correct';
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = '❌ Not quite — try reviewing the lesson above!';
+            feedback.className = 'quiz-feedback show wrong';
+            options.forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
+          }
+          completedLessons.add(lesson);
+          updateProgress();
+        });
+      });
+    });
+
+    function updateProgress() {
+      const total = 5;
+      const done = completedLessons.size;
+      document.getElementById('mainProgress').style.width = (done / total * 100) + '%';
+      document.getElementById('progressLabel').textContent = `${done} of ${total} lessons complete`;
+      if (done === total) {
+        document.getElementById('completionCard').style.display = 'block';
+        document.getElementById('completionCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // ===== JS SANDBOX =====
+    function runJS() {
+      const code = document.getElementById('jsEditor').value;
+      const output = document.getElementById('jsOutput');
+      const lines = [];
+
+      const fakeConsole = {
+        log: (...args) => lines.push({ type: 'output', text: args.join(' ') }),
+        error: (...args) => lines.push({ type: 'error', text: args.join(' ') }),
+        warn: (...args) => lines.push({ type: 'output', text: '⚠️ ' + args.join(' ') }),
+      };
+
+      try {
+        const fn = new Function('console', code);
+        fn(fakeConsole);
+      } catch (e) {
+        lines.push({ type: 'error', text: '🚫 Error: ' + e.message });
+      }
+
+      if (lines.length === 0) {
+        lines.push({ type: 'input-echo', text: '(no output — try using console.log!)' });
+      }
+
+      output.innerHTML = lines.map(l =>
+        `<div class="console-line ${l.type}">${escapeHTML(l.text)}</div>`
+      ).join('');
+    }
+
+    function clearOutput() {
+      document.getElementById('jsOutput').innerHTML =
+        '<div class="console-line" style="color:#6c7086;font-size:0.8rem;">// Output cleared</div>';
+    }
+
+    function escapeHTML(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  </script>
+
+</body>
+</html>
