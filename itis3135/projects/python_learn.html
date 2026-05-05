@@ -84,9 +84,9 @@
     }
 
     .console-line { padding: 0.1rem 0; }
-    .console-line.output { color: #a6e3a1; }
-    .console-line.error { color: #f38ba8; }
-    .console-line.muted { color: #6c7086; font-size: 0.8rem; }
+    .console-line-output { color: #a6e3a1; }
+    .console-line-error { color: #f38ba8; }
+    .console-line-muted { color: #6c7086; font-size: 0.8rem; }
 
     .mini-challenge {
       background: #EEF5FB;
@@ -113,7 +113,7 @@
 
     /* override quiz block to python blue */
     .quiz-block { background: #EEF5FB; border-color: #BDD8EF; }
-    .quiz-block h3 { color: #3776AB; }
+    .quiz-title { color: #3776AB; }
     .quiz-option { border-color: #BDD8EF; }
     .quiz-option:hover { border-color: #3776AB; background: #D6EAF8; }
   </style>
@@ -179,7 +179,7 @@
         </div>
 
         <div class="quiz-block" data-lesson="1">
-          <h3>🧠 Quick Check</h3>
+          <h3 class="quiz-title">🧠 Quick Check</h3>
           <p style="font-size:0.95rem; margin-bottom:0.75rem;">Which of these is a real use of Python?</p>
           <div class="quiz-options">
             <button class="quiz-option" data-correct="false">Designing logos</button>
@@ -224,7 +224,7 @@ is_student = <span class="kw">True</span>
         </div>
 
         <div class="quiz-block" data-lesson="2">
-          <h3>🧠 Quick Check</h3>
+          <h3 class="quiz-title">🧠 Quick Check</h3>
           <p style="font-size:0.95rem; margin-bottom:0.75rem;">How do you print something in Python?</p>
           <div class="quiz-options">
             <button class="quiz-option" data-correct="false">console.log("hi")</button>
@@ -271,7 +271,7 @@ is_student = <span class="kw">True</span>
         </div>
 
         <div class="quiz-block" data-lesson="3">
-          <h3>🧠 Quick Check</h3>
+          <h3 class="quiz-title">🧠 Quick Check</h3>
           <p style="font-size:0.95rem; margin-bottom:0.75rem;">In Python, what comes at the end of an <code>if</code> line?</p>
           <div class="quiz-options">
             <button class="quiz-option" data-correct="false">A semicolon ;</button>
@@ -317,7 +317,7 @@ fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <
         </div>
 
         <div class="quiz-block" data-lesson="4">
-          <h3>🧠 Quick Check</h3>
+          <h3 class="quiz-title">🧠 Quick Check</h3>
           <p style="font-size:0.95rem; margin-bottom:0.75rem;">What does <code>range(1, 4)</code> produce?</p>
           <div class="quiz-options">
             <button class="quiz-option" data-correct="false">1, 2, 3, 4</button>
@@ -583,11 +583,6 @@ fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <
       outputEl.innerHTML = outputLines.map(l =>
         `<div class="console-line ${l.type}">${escHTML(String(l.text))}</div>`
       ).join('');
-    }
-
-    function clearPyOutput() {
-      document.getElementById('pyOutput').innerHTML =
-        '<div class="console-line muted">// Output cleared</div>';
     }
 
     function escHTML(s) {
