@@ -44,7 +44,7 @@
       color: var(--muted);
       transition: all 0.15s;
     }
-    .tab-btn.active { background: #1e1e2e; color: white; }
+    .tab-btn-active { background: #1e1e2e; color: white; }
 
     .html-preview {
       background: white;
@@ -322,7 +322,7 @@
         document.getElementById('completionCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
-    
+
     document.querySelectorAll('.quiz-block').forEach((block) => {
       const lesson = block.dataset.lesson;
       const options = block.querySelectorAll('.quiz-option');
