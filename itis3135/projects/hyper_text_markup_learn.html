@@ -334,7 +334,7 @@
           block.dataset.answered = true;
 
           const correct = btn.dataset.correct === 'true';
-          options.forEach((o) => { o.disabled = true });
+          options.forEach((o) => { o.disabled = true; });
 
           if (correct) {
             btn.classList.add('correct');
