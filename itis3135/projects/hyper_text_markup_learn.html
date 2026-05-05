@@ -308,41 +308,8 @@
 
   <script>
     // ===== QUIZ LOGIC =====
+    
     let completedLessons = new Set();
-
-    document.querySelectorAll('.quiz-block').forEach(block => {
-      const lesson = block.dataset.lesson;
-      const options = block.querySelectorAll('.quiz-option');
-      const feedback = block.querySelector('.quiz-feedback');
-
-      options.forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (block.dataset.answered) return;
-          block.dataset.answered = true;
-
-          const correct = btn.dataset.correct === 'true';
-          options.forEach(o => o.disabled = true);
-
-          if (correct) {
-            btn.classList.add('correct');
-            feedback.textContent = '✅ Correct! Great job!';
-            feedback.className = 'quiz-feedback show correct';
-            completedLessons.add(lesson);
-            updateProgress();
-          } else {
-            btn.classList.add('wrong');
-            feedback.textContent = '❌ Not quite — try reviewing the lesson above!';
-            feedback.className = 'quiz-feedback show wrong';
-            options.forEach(o => {
-              if (o.dataset.correct === 'true') o.classList.add('correct');
-            });
-            // Still mark as attempted (partial credit)
-            completedLessons.add(lesson);
-            updateProgress();
-          }
-        });
-      });
-    });
 
     function updateProgress() {
       const total = 5;
@@ -355,6 +322,41 @@
         document.getElementById('completionCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
+    
+    document.querySelectorAll('.quiz-block').forEach((block) => {
+      const lesson = block.dataset.lesson;
+      const options = block.querySelectorAll('.quiz-option');
+      const feedback = block.querySelector('.quiz-feedback');
+
+      options.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (block.dataset.answered) return;
+          block.dataset.answered = true;
+
+          const correct = btn.dataset.correct === 'true';
+          options.forEach((o) => { o.disabled = true });
+
+          if (correct) {
+            btn.classList.add('correct');
+            feedback.textContent = '✅ Correct! Great job!';
+            feedback.className = 'quiz-feedback show correct';
+            completedLessons.add(lesson);
+            updateProgress();
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = '❌ Not quite — try reviewing the lesson above!';
+            feedback.className = 'quiz-feedback show wrong';
+            options.forEach((o) => {
+              if (o.dataset.correct === 'true') o.classList.add('correct');
+            });
+            // Still mark as attempted (partial credit)
+            completedLessons.add(lesson);
+            updateProgress();
+          }
+        });
+      });
+    });
+
 
     // ===== HTML SANDBOX =====
     function runHTML() {
