@@ -15,7 +15,6 @@
     .page-hero .tag { background: #EEF5FB; color: #3776AB; }
     .page-hero h1 em { font-style: normal; color: #3776AB; }
     .lesson-num { background: #EEF5FB; color: #3776AB; }
-    .progress-bar { background: linear-gradient(90deg, #3776AB, #FFD43B); }
 
     .py-console {
       background: #0d0d1a;
@@ -156,11 +155,7 @@
   <div class="page-hero">
     <div class="tag">🐍 Course 2</div>
     <h1>Learning <em>Python</em></h1>
-    <p>Python is the most beginner-friendly programming language in the world — and it's also used by NASA, Netflix, and AI researchers. Let's dive in!</p>
-    <div class="progress-wrap" style="margin-top:1.5rem; max-width:400px;">
-      <div class="progress-bar" id="mainProgress" style="width:0%"></div>
-    </div>
-    <p class="progress-label" id="progressLabel">0 of 5 lessons complete</p>
+    <p>Python is very beginner-friendly, and it's also used by NASA, Netflix, and AI researchers. Let's dive in!</p>
   </div>
 
   <div class="lesson-container">
@@ -172,7 +167,7 @@
         <h2>Why Python?</h2>
       </div>
       <div class="lesson-card-body">
-        <p>Python is one of the most popular programming languages on Earth — and for good reason. It reads almost like plain English, which makes it perfect for beginners.</p>
+        <p>Python is one of the most used programming languages on Earth — and for good reason. It reads almost like plain English, which makes it perfect for beginners.</p>
 
         <div class="info-box fun">
           <span class="icon">🐍</span>
@@ -183,9 +178,6 @@
 
         <div class="code-block">
           <div class="code-block-header">
-            <div class="code-dot" style="background:#FF5F57"></div>
-            <div class="code-dot" style="background:#FFBD2E"></div>
-            <div class="code-dot" style="background:#28C840"></div>
             <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">comparison</span>
           </div>
           <pre><span class="cm"># Python (simple!)</span>
@@ -230,9 +222,6 @@
 
         <div class="code-block">
           <div class="code-block-header">
-            <div class="code-dot" style="background:#FF5F57"></div>
-            <div class="code-dot" style="background:#FFBD2E"></div>
-            <div class="code-dot" style="background:#28C840"></div>
             <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">variables.py</span>
           </div>
           <pre><span class="cm"># Create variables</span>
@@ -279,19 +268,16 @@ is_student = <span class="kw">True</span>
 
         <div class="code-block">
           <div class="code-block-header">
-            <div class="code-dot" style="background:#FF5F57"></div>
-            <div class="code-dot" style="background:#FFBD2E"></div>
-            <div class="code-dot" style="background:#28C840"></div>
             <span style="color:#6c7086;font-size:0.75rem;margin-left:0.5rem;font-family:'Fira Code',monospace">decisions.py</span>
           </div>
           <pre>temp = <span class="num">75</span>
 
 <span class="kw">if</span> temp > <span class="num">80</span>:
-    <span class="fn">print</span>(<span class="str">"It's really hot! 🥵"</span>)
+    <span class="fn">print</span>(<span class="str">"It's really hot!"</span>)
 <span class="kw">elif</span> temp > <span class="num">60</span>:
-    <span class="fn">print</span>(<span class="str">"Nice and warm! 🌤"</span>)
+    <span class="fn">print</span>(<span class="str">"Nice and warm!"</span>)
 <span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="str">"Grab a jacket! 🧥"</span>)</pre>
+    <span class="fn">print</span>(<span class="str">"Grab a jacket!"</span>)</pre>
         </div>
 
         <div class="info-box note">
@@ -357,71 +343,6 @@ fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <
             <button class="quiz-option" data-correct="false">1, 2, 3, 4</button>
             <button class="quiz-option" data-correct="true">1, 2, 3</button>
             <button class="quiz-option" data-correct="false">0, 1, 2, 3, 4</button>
-          </div>
-          <div class="quiz-feedback"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LESSON 5: SANDBOX -->
-    <div class="lesson-card" id="lesson5">
-      <div class="lesson-card-header">
-        <div class="lesson-num">5</div>
-        <h2>🐍 Python Playground</h2>
-      </div>
-      <div class="lesson-card-body">
-        <p>Write Python code below and click <strong>Run</strong> to see the output! This sandbox supports <code>print()</code>, variables, if/elif/else, for loops, lists, and f-strings.</p>
-
-        <div class="py-console">
-          <div class="console-header">
-            <span>🐍 Python Sandbox</span>
-          </div>
-          <textarea class="py-editor" id="pyEditor" spellcheck="false"># Try your own Python!
-name = "Coder"
-score = 95
-
-print(f"Hey {name}!")
-print(f"Your score is {score}")
-
-if score >= 90:
-    print("Amazing work! 🌟")
-elif score >= 70:
-    print("Pretty good! Keep going.")
-else:
-    print("Keep practicing!")
-
-languages = ["Python", "HTML", "C++"]
-for lang in languages:
-    print(f"I'm learning {lang}!")
-</textarea>
-          <div class="run-row">
-            <div>
-              <button class="clear-btn" onclick="clearPyOutput()">clear output</button>
-            </div>
-            <button class="run-btn-py" onclick="runPython()">▶ Run Code</button>
-          </div>
-          <div class="console-output-area" id="pyOutput">
-            <div class="console-line muted">// Output appears here after you click Run ▶</div>
-          </div>
-        </div>
-
-        <div class="mini-challenge">
-          <h3>🎯 Challenge: Can you...?</h3>
-          <p style="font-size:0.9rem;color:var(--muted);margin-top:0.3rem;">Try these in the playground above:</p>
-          <ul style="margin-top:0.5rem;padding-left:1.25rem;font-size:0.9rem;line-height:2;">
-            <li>Create a list of your 3 favorite foods and print each one</li>
-            <li>Use an f-string to print your name and age together</li>
-            <li>Write an if/elif/else that checks if a number is positive, negative, or zero</li>
-          </ul>
-        </div>
-
-        <div class="quiz-block" data-lesson="5">
-          <h3>🧠 Final Check</h3>
-          <p style="font-size:0.95rem; margin-bottom:0.75rem;">Which of these correctly creates a list in Python?</p>
-          <div class="quiz-options">
-            <button class="quiz-option" data-correct="false">items = (1, 2, 3)</button>
-            <button class="quiz-option" data-correct="true">items = [1, 2, 3]</button>
-            <button class="quiz-option" data-correct="false">items = {1, 2, 3}</button>
           </div>
           <div class="quiz-feedback"></div>
         </div>
