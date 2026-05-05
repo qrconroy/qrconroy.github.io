@@ -172,7 +172,7 @@
     }
 
     .course-card.html { border-color: var(--html-color); }
-    .course-card.py { border-color: #3776AB; }
+    .course-card.py { border-color: #d1e81c; }
     .course-card.cpp { border-color: var(--cpp-color); }
 
     .course-icon {
@@ -218,64 +218,59 @@
   </style>
 </head>
 <body>
+  <main>
+    <nav>
+      <a href="index.html" class="nav-logo">Hay<span>Mo!</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="hyper_text_markup_learn.html">HTML</a></li>
+        <li><a href="python_learn.html">Python</a></li>
+        <li><a href="cpp.html">C++</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="project_overview.html">Project</a></li>
+      </ul>
+    </nav>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Hay<span>Mo!</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="hyper_text_markup_learn.html">HTML</a></li>
-      <li><a href="python_learn.html">Python</a></li>
-      <li><a href="cpp.html">C++</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="project_overview.html">Project</a></li>
-    </ul>
-  </nav>
+    <section class="hero">
+      <div class="hero-badge">🚀 Free for everyone</div>
+      <h1>
+        Learning to code<br>
+        <span class="line2">should be fun.</span>
+      </h1>
+      <p>We make coding super simple and enjoyable for total beginners. No experience? Perfect — that's exactly who we built this for!</p>
+      <a href="hyper_text_markup_learn.html" class="hero-cta">Start Learning HTML ✨</a>
+    </section>
 
-  <section class="hero">
-    <div class="hero-badge">🚀 Free for everyone</div>
-    <h1>
-      Learning to code<br>
-      <span class="line2">should be fun.</span>
-    </h1>
-    <p>We make coding super simple and enjoyable for total beginners. No experience? Perfect — that's exactly who we built this for!</p>
-    <a href="hyper_text_markup_learn.html" class="hero-cta">Start Learning HTML ✨</a>
-    <div class="floating-icons">
-      <div class="float-chip">🌐 HTML</div>
-      <div class="float-chip">🐍 Python</div>
-      <div class="float-chip">🔧 C++</div>
-    </div>
-  </section>
+    <section class="courses-section">
+      <p class="section-label">📚 Pick a course</p>
+      <div class="course-grid">
 
-  <section class="courses-section">
-    <p class="section-label">📚 Pick a course</p>
-    <div class="course-grid">
+        <a href="hyper_text_markup_learn.html" class="course-card html">
+          <div class="course-icon">🌐</div>
+          <h2>HTML</h2>
+          <p>Build your very first webpage. HTML is the skeleton of every site on the internet, even this one!</p>
+          <span class="course-pill">🟢 Best place to start</span>
+        </a>
 
-      <a href="hyper_text_markup_learn.html" class="course-card html">
-        <div class="course-icon">🌐</div>
-        <h2>HTML</h2>
-        <p>Build your very first webpage! HTML is the skeleton of every site on the internet.</p>
-        <span class="course-pill">🟢 Best place to start</span>
-      </a>
+        <a href="python_learn.html" class="course-card py">
+          <div class="course-icon">🐍</div>
+          <h2>Python</h2>
+          <p>The most beginner-friendly language in the world, and one of the most widely used.</p>
+          <span class="course-pill">🤖 Used in AI</span>
+        </a>
 
-      <a href="python_learn.html" class="course-card py">
-        <div class="course-icon">🐍</div>
-        <h2>Python</h2>
-        <p>The most beginner-friendly language in the world, used for AI, data science, and automation.</p>
-        <span class="course-pill">🤖 Used in AI</span>
-      </a>
+        <a href="cpp.html" class="course-card cpp">
+          <div class="course-icon">🔧</div>
+          <h2>C++</h2>
+          <p>The language behind games, apps, and operating systems. Powerful and fast!</p>
+          <span class="course-pill">🧠 Level up</span>
+        </a>
 
-      <a href="cpp.html" class="course-card cpp">
-        <div class="course-icon">🔧</div>
-        <h2>C++</h2>
-        <p>The language behind games, apps, and operating systems. Powerful and fast!</p>
-        <span class="course-pill">🧠 Level up</span>
-      </a>
-
-    </div>
-  </section>
-
+      </div>
+    </section>
+  </main>
   <footer>
-    <p>Made with ❤️ by HayMo &nbsp;|&nbsp; <a href="about.html">About Us</a> &nbsp;|&nbsp; <a href="project_overview.html">Project Overview</a></p>
+    <p><a href="about.html">About Us</a></a></p>
   </footer>
 
 </body>
