@@ -118,7 +118,7 @@ button {
     opacity: 0;
     transform: translateY(-6px);
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    position: relative;
+    position: absolute;
     top: calc(100% + 6px);
     left: 0;
 }
