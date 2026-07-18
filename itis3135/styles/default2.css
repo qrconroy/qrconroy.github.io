@@ -81,6 +81,20 @@ button {
         0 0 18px rgba(245, 238, 181, 0.55),
         0 0 6px rgba(245, 238, 181, 0.3);
 }
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #C4BBFF;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+.nav-btn:hover {
+    background: rgba(139, 111, 255, 0.12);
+    color: #E8E4FF;
+}
 
 /*dropdown menu styling*/
 /* the container — this gets the solid background */
