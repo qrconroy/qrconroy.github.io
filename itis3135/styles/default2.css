@@ -103,18 +103,15 @@ button {
 }
 
 /*dropdown menu styling*/
-/* the container — this gets the solid background */
-.dropdown {
-    background: #10102E;
-    border-radius: 10px;
-    padding: 12px 0;
-    min-width: 200px;
-    display:none;
-}
 
 /* the individual items — no background so they don't look like boxes */
 .dropdown {
     display: block;
+    background: #10102E;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    min-width: 200px;
     visibility: hidden;
     opacity: 0;
     transform: translateY(-6px);
