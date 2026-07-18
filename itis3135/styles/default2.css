@@ -81,6 +81,11 @@ button {
         0 0 18px rgba(245, 238, 181, 0.55),
         0 0 6px rgba(245, 238, 181, 0.3);
 }
+.nav-links {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
 .nav-btn {
     background: transparent;
     border: none;
