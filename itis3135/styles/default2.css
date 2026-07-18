@@ -15,6 +15,7 @@ header {
     color: #C4BBFF;
     background-color: #0B0B1A;
     text-align: center;
+    border-bottom: 2px solid #F5EEB5;
 }
 main {
     max-width: 900px;
