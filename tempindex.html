@@ -12,19 +12,19 @@
         <nav class="primary-nav">
             <a href="/tempindex.html" class="name-nav">Quinn Conroy</a>
             <div class="nav-item" id="classes-menu">
-                <button class="nav-btn" onclick="toggle('classes-menu')">Classes ▾</button>
+                <button class="nav-btn" onclick="toggleMenu('classes-menu')">Classes ▾</button>
                 <div class="dropdown">
                     <a href="/itis3135/" class="drop-item">Front-end Development</a>
                 </div>
             </div>
             <div class="nav-item" id="projects-menu">
-                <button class="nav-btn" onclick="toggle('projects-menu')">Projects ▾</button>
+                <button class="nav-btn" onclick="toggleMenu('projects-menu')">Projects ▾</button>
                 <div class="dropdown">
                     <a href="/personal_projects/" class="drop-item">Personal Projects</a>
                 </div>
             </div>
             <div class="nav-item" id="about-menu">
-                <button class="nav-btn" onclick="toggle('about-menu')">About Me</button>
+                <button class="nav-btn" onclick="toggleMenu('about-menu')">About Me</button>
                 <div class="dropdown">
                     <a href="/introduction.html" class="drop-item">Introduction</a>
                 </div>
@@ -35,7 +35,7 @@
 
     <script>
         /*toggles the dropdown menu for the nav bar*/
-        function toggle(id) {
+        function toggleMenu(id) {
             const el = document.getElementById(id);
             const wasOpen = el.classList.contains('open');
             document.querySelectorAll('.nav-item.open').forEach((e) => e.classList.remove('open'));
