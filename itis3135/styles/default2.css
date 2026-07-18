@@ -112,16 +112,24 @@ button {
 }
 
 /* the individual items — no background so they don't look like boxes */
-.drop-item {
-    background: none;  /* ← this is what I meant */
-    padding: 11px 24px;
-    color: #9B91C1;
+.dropdown {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+}
+
+.nav-item.open .dropdown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .drop-item:hover {
     background: none;  /* no box appears on hover, just the text changes color */
     color: #E8E4FF;
-}
-.nav-item.open .dropdown {
-    display: block;
 }
