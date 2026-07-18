@@ -103,3 +103,6 @@ button {
     background: none;  /* no box appears on hover, just the text changes color */
     color: #E8E4FF;
 }
+.nav-item.open .dropdown {
+    display: block;
+}
