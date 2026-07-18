@@ -41,6 +41,9 @@ a:hover {
     margin: 10px 0 0 0;
     font-size: 24px;
     flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .secondary-nav {
@@ -68,4 +71,34 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+}
+.name-nav {
+    color: #F5EEB5;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 550;
+    text-shadow:
+        0 0 18px rgba(245, 238, 181, 0.55),
+        0 0 6px rgba(245, 238, 181, 0.3);
+}
+
+/*dropdown menu styling*/
+/* the container — this gets the solid background */
+.dropdown {
+    background: #10102E;
+    border-radius: 10px;
+    padding: 12px 0;
+    min-width: 200px;
+}
+
+/* the individual items — no background so they don't look like boxes */
+.drop-item {
+    background: none;  /* ← this is what I meant */
+    padding: 11px 24px;
+    color: #9B91C1;
+}
+
+.drop-item:hover {
+    background: none;  /* no box appears on hover, just the text changes color */
+    color: #E8E4FF;
 }
