@@ -121,7 +121,7 @@ button {
     left: 0;
 }
 
-.nav-item.open .dropdown {
+.nav-item[class~="open"] .dropdown {
     visibility: visible;
     opacity: 1;
     transform: translateY(0);
