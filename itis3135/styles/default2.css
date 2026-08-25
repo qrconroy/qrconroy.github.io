@@ -126,6 +126,7 @@ button {
     color: #C4BBFF;
     text-decoration: none;
     font-size: 14px;
+    margin-left: -10px;
 }
 
 .nav-item {
