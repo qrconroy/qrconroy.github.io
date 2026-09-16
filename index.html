@@ -9,10 +9,34 @@
 </head>
 <body>
     <header>
-        <h1>Quinn Conroy</h1>
+        <nav class="primary-nav">
+            <a href="/tempindex.html" class="name-nav">Quinn Conroy</a>
+            <div class="nav-links">
+                <div class="nav-item" id="classes-menu">
+                    <button class="nav-btn" onclick="toggleMenu('classes-menu')">Classes ▾</button>
+                    <div class="dropdown">
+                        <a href="/itis3135/" class="drop-item">Front-end Development</a>
+                    </div>
+                </div>
+                <div class="nav-item" id="projects-menu">
+                    <button class="nav-btn" onclick="toggleMenu('projects-menu')">Projects ▾</button>
+                    <div class="dropdown">
+                        <a href="/personal_projects/" class="drop-item">Personal Projects</a>
+                        <a href="/personal_projects/" class="drop-item">Personal Projects</a>
+                    </div>
+                </div>
+                <div class="nav-item" id="about-menu">
+                    <button class="nav-btn" onclick="toggleMenu('about-menu')">About Me ▾</button>
+                    <div class="dropdown">
+                        <a href="/introduction.html" class="drop-item">Introduction</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
+    
     <main>
-        <h2>Landing</h2>
+        <h1>Welcome to my little pocket of the universe.</h1>
         <p>I am Quinn Conroy. I am a Junior attending UNC Charlotte. I am majoring in Computer Science
             with a concentration in Software Development. This is my personal gitpage where I will be hosting
             various projects and pages for my ITIS classes.</p>
@@ -20,16 +44,20 @@
             <button onclick="window.location.href='itis3135/index.html';">ITIS 3135 Course Projects</button>
             <button onclick="window.location.href='personal_projects/index.html';">Personal Projects</button>
     </main>
-    
-    <footer>
-    <p>
-        <a href="https://github.com/qrconroy/qrconroy.github.io">Github</a> | 
-        <a href="index.html">Landing</a> | 
-        <a href="https://webpages.charlotte.edu/qconroy/">CLTWeb</a> | 
-        <a href="itis3135/index.html">ITIS 3135</a> | 
-        <a href="https://www.freecodecamp.org/qconroy">FreeCodeCamp</a> | 
-        <a href="https://www.linkedin.com/in/quinnrconroy/">LinkedIn</a>
-    </p>
-</footer>
+    <script>
+        /*toggles the dropdown menu for the nav bar*/
+        function toggleMenu(id) {
+            const el = document.getElementById(id);
+            const wasOpen = el.classList.contains('open');
+            document.querySelectorAll('.nav-item.open').forEach((e) => e.classList.remove('open'));
+            if (!wasOpen) el.classList.add('open');
+            }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-item.open').forEach((el) => el.classList.remove('open'));
+            }
+        });
+    </script>
 </body>
 </html>
